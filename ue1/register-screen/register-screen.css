@@ -1,4 +1,22 @@
 
-h1 { font-size:300%;
+h1 { 
      color:#f29400;
      }
+
+h2 {
+     color:#f29400;
+     padding-top: 0.2ex;
+     padding-bottom: 0.2ex;
+}
+
+label {
+    position: relative;
+    padding-left: 10px;
+    min-width: 500px;
+    max-width: 600px;
+    }
+
+.clickbutton {
+    margin-top: 0.4ex;
+    color:#3a3737;
+}

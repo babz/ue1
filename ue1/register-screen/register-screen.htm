@@ -4,69 +4,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
   <head>
     <link rel="stylesheet" type="text/css" href="register-screen.css">
-    <title>A XHTML 1.1 Document</title>
-  </head>
-  <body>
-    <form action="http://www.example.org/cgi-bin/feedback.pl" method="get">
-<h1>Registrieren</h1>
-<p>
-  Bitte f&uuml;llen Sie das untenstehende Formular aus!
-</p>
-<h2>Pers&ouml;nliche Daten</h2>
-      <p>
-	<label for="vorname">
-	  Vorname
-	</label>
-	<input type="text" name="vorname" />
-      </p>
-      
-      <p>
-	<label for="nachname">
-	  Nachname
-	</label>
-	<input type="text" name="nachname" />
-      </p>
-      
-      <p>
-	<label for="geburtsdatum">
-	  Geburtsdatum
-	</label>
-	<input type="text" name="geburtsdatum" />
-      </p>
+      <title>A XHTML 1.1 Document</title>
+    </head>
+    <body>
+      <form action="http://www.example.org/cgi-bin/feedback.pl" method="get">
+	<h1>Registrieren</h1>
+	<p>
+	  Bitte f&uuml;llen Sie das untenstehende Formular aus!
+	</p>
+	<h2>Pers&ouml;nliche Daten</h2>
+	<p>
+	  <label for="vorname">
+	    Vorname
+	  </label>
+	  <input type="text" name="vorname" />
+	</p>
+	
+	<p>
+	  <label for="nachname">
+	    Nachname
+	  </label>
+	  <input type="text" name="nachname" />
+	</p>
 
-      <p>
-	<label for="geschlecht">
-	  Geschlecht
-	</label>
-	<select name="geschlecht">
-  	  <option>Weiblich</option>
-	  <option>M&auml;nnlich</option>
-	</select>
-      </p>
-<h2>Login Daten und Gr&ouml;&szlig;e des Stack</h2>
-      <p>
-	<label for="username">
-	  Username
-	</label>
-	<input type="text" name="username" />
-      </p>
+	<p>
+	  <label for="geburtsdatum">
+	    Geburtsdatum
+	  </label>
+	  <input type="text" name="geburtsdatum" />
+	</p>
 
-      <p>
-	<label for="passwort">
-	  Passwort
-	</label>
-	<input type="text" name="passwort" />
-      </p>
+	<p>
+	  <label for="geschlecht">
+	    Geschlecht
+	  </label>
+	  <select name="geschlecht">
+  	    <option selected="selected">weiblich</option>
+	    <option>mauml;nnlich</option>
+	  </select>
+	</p>
+
+	
+	<h2>Login Daten und Gr&ouml;&szlig;e des Stack</h2>
+	<p>
+	  <label for="username">
+	    Username
+	  </label>
+	  <input type="text" name="username" />
+	</p>
+
+	<p>
+	  <label for="passwort">
+	    Passwort
+	  </label>
+	  <input type="text" name="passwort" />
+	</p>
 
 
-      <p>
-	<label for="stackgroesse">
-	  Gr&ouml;&szlig;e des Stack
-	</label>
-	<input type="text" name="stackgroesse" />
-      </p>
+	<p>
+	  <label for="stackgroesse">
+	    Gr&ouml;&szlig;e des Stack
+	  </label>
+	  <input type="text" name="stackgroesse" />
+	</p>
 
-      
-    </form>
-  </body>
-</html>
+	<p>
+	  <input class="clickbutton" type="button" name="registrieren" value="Registrieren"
+		 onclick=""/>
+	</p>
+      </form>
+    </body>
+  </html>
