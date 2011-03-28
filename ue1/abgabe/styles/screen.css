@@ -99,21 +99,67 @@ label {
 .karte {
     margin: 1ex;
   position: relative;
-z-index:2;
+  z-index:1;
 }
 
 .flagge
 {
 position: absolute;
+z-index:2;
 }
-#flagge1
-top:24.4px;
-left:14.5px;
-z-index:1;
+
+#flagge1 {
+top:35px;
+left:140px;
 }
+
 #flagge2
 {
-top:84.4px;
-left:9.5px;
-z-index:1;
+top:35px;
+left:18px;
+}
+
+.memoryReihe {
+  position: relative;
+}
+
+#memorybrett {
+  margin: 50px;
+  float: left;
+}
+
+#Spielinformationen
+{
+margin: 0;
+margin-left: -8px;
+padding: 8px;
+float: left;
+width: 22ex;
+color: white;
+background-color: #003366;
+}
+
+
+#Spielinformationen ul {
+  font-size: 0.8em;
+}
+
+#Spielinformationen p, #Spielinformationen th, #Spielinformationen td {
+  font-size: 0.8em;
+}
+
+
+#Spielinformationen th, .orangeBold {
+  color:#f29400;
+  font-weight: bold;
+  text-align: left;
+}
+
+#Spielinformationen td {
+  text-align: center;
+}
+
+#Spielinformationen td, #Spielinformationen th {
+  padding-left: 3px;
+  padding-right: 3px;
 }
