@@ -1,5 +1,6 @@
 #banner {
-	margin: 0;
+	margin: -8px;
+	margin-bottom: 0;
 	padding: 0;
 	position: relative;
 	background: url(../img/dots.png);
@@ -22,21 +23,25 @@
 }
 
 #menu {
+	margin: 0;
+	margin-left: -8px;
+	margin-right: -8px;
 	position: relative;
 	font-size: 0.9em;
 	color: white;
 	background-color: #003366;
-	height: 25px;
+	height: 3.1ex;
 }
 
 #menu span {
 	position: absolute;
 	right: 1ex;
-	top: 0.4ex;
+	top: 3px;
 }
 
 #menu a {
 	color: white;
+	font-size: 0.8em;
 	text-decoration: none;
 	padding-left: 1ex;
 	border-left-width: 1px;
@@ -45,6 +50,5 @@
 }
 
 body {
-	padding: 0;
-	margin: 0;
+	margin: 8px;
 }
