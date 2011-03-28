@@ -30,13 +30,13 @@
 	font-size: 0.9em;
 	color: white;
 	background-color: #003366;
-	height: 25px;
+	height: 3.1ex;
 }
 
 #menu span {
 	position: absolute;
 	right: 1ex;
-	top: 0.4ex;
+	top: 3px;
 }
 
 #menu a {
