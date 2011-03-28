@@ -1,3 +1,6 @@
+/* common formatting */
+
+
 #banner {
 	margin: -8px;
 	margin-bottom: 0;
@@ -51,4 +54,66 @@
 
 body {
 	margin: 8px;
+}
+
+
+h1 { 
+     color:#f29400;
+	 font-size: 120%;
+}
+
+h2 {
+     color:#f29400;
+	 font-size: 100%;
+     padding-top: 0.2ex;
+     padding-bottom: 0.2ex;
+	 margin-bottom: 2.2ex;
+}
+
+
+
+/* register formatting */
+
+p {
+	font-size: 0.8em;
+}
+
+label {
+	display: block;
+	float: left;
+    position: relative;
+    padding-left: 10px;
+	width: 18ex;
+    }
+
+.clickbutton {
+    margin-top: 0.4ex;
+    color:#3a3737;
+}
+
+
+
+/* memory table formatting */
+
+
+.karte {
+    margin: 1ex;
+  position: relative;
+z-index:2;
+}
+
+.flagge
+{
+position: absolute;
+}
+#flagge1
+top:24.4px;
+left:14.5px;
+z-index:1;
+}
+#flagge2
+{
+top:84.4px;
+left:9.5px;
+z-index:1;
 }
