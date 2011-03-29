@@ -2,70 +2,70 @@
 
 
 #banner {
-	margin: 0px;
-	padding: 0;
-	position: relative;
-	background: url(../img/dots.png);
-	height: 80px;
+    margin: 0px;
+    padding: 0;
+    position: relative;
+    background: url(../img/dots.png);
+    height: 80px;
 }
 
 #banner-right {
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	right: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
 }
 
 #banner-left {
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	left: 25px;
-	top: 5px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 25px;
+    top: 5px;
 }
 
 #menu {
-	margin: 0;
-	position: relative;
-	font-size: 0.9em;
-	color: white;
-	background-color: #003366;
-	height: 3.1ex;
+    margin: 0;
+    position: relative;
+    font-size: 0.9em;
+    color: white;
+    background-color: #003366;
+    height: 3.1ex;
 }
 
 #menu span {
-	position: absolute;
-	right: 1ex;
-	top: 3px;
+    position: absolute;
+    right: 1ex;
+    top: 3px;
 }
 
 #menu a {
-	color: white;
-	font-size: 0.8em;
-	text-decoration: none;
-	padding-left: 1ex;
-	border-left-width: 1px;
-	border-left-color: #666666;
-	border-left-style: solid;
+    color: white;
+    font-size: 0.8em;
+    text-decoration: none;
+    padding-left: 1ex;
+    border-left-width: 1px;
+    border-left-color: #666666;
+    border-left-style: solid;
 }
 
 body {
-	margin: 0px;
-	min-width: 550px;
+    margin: 0px;
+    min-width: 550px;
 }
 
 
 h1 { 
-     color:#f29400;
-	 font-size: 120%;
+    color:#f29400;
+    font-size: 120%;
 }
 
 h2 {
-     color:#f29400;
-     font-size: 100%;
-     padding-top: 0.2ex;
-     padding-bottom: 0.2ex;
-	margin-bottom: 2.2ex;
+    color:#f29400;
+    font-size: 100%;
+    padding-top: 0.2ex;
+    padding-bottom: 0.2ex;
+    margin-bottom: 2.2ex;
 }
 
 
@@ -73,16 +73,16 @@ h2 {
 /* register formatting */
 
 p {
-	font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 label {
-	display: block;
-	float: left;
+    display: block;
+    float: left;
     position: relative;
     padding-left: 10px;
-	width: 18ex;
-    }
+    width: 18ex;
+}
 
 .clickbutton {
     margin-top: 0.4ex;
@@ -101,9 +101,9 @@ label {
 
 
 .karte {
-  margin: 1ex;
-  position: relative;
-  z-index:1;
+    margin: 1ex;
+    position: relative;
+    z-index:1;
 }
 
 .flagge
@@ -124,72 +124,62 @@ label {
 }
 
 #container {
-  padding-left: 22ex;
+    padding-left: 22ex;
 }
 
 #container .column {
-  float: left;
-  position: relative;
+    float: left;
+    position: relative;
 }
 
 .memoryReihe {
-  position: relative;
-  width: 700px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+    position: relative;
+    width: 700px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #memorybrett {
-/*  margin: 50px;*/
-/*  float: left;*/
-
-  width: 100%;
+    width: 100%;
 }
 
 #Spielinformationen
 {
-  /* width: 21ex; */
-/*  padding: 0 3ex;*/
-  right: 22ex;
-  margin-left: -100%;
-  padding-left: 1ex;
-  padding-right: 1ex;
-
-/* margin-left: -100%; */
-/* right: 22ex; */
-/* padding: 8px; */
-float: left;
-/* width: 22ex; */
-color: white;
-background-color: #003366;
+    right: 22ex;
+    margin-left: -100%;
+    padding-left: 1ex;
+    padding-right: 1ex;
+    float: left;
+    color: white;
+    background-color: #003366;
 }
 
 #footer {
-  clear: both;
+    clear: both;
 }
 
 
 #Spielinformationen ul {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 #Spielinformationen p, #Spielinformationen th, #Spielinformationen td {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 
 #Spielinformationen th, .orangeBold {
-  color:#f29400;
-  font-weight: bold;
-  text-align: left;
+    color:#f29400;
+    font-weight: bold;
+    text-align: left;
 }
 
 #Spielinformationen td {
-  text-align: center;
+    text-align: center;
 }
 
 #Spielinformationen td, #Spielinformationen th {
-  padding-left: 3px;
-  padding-right: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
