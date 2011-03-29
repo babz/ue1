@@ -103,22 +103,22 @@ label {
   z-index:1;
 }
 
-.flagge
-{
-position: absolute;
-z-index:2;
-}
+/* .flagge */
+/* { */
+/* position: absolute; */
+/* z-index:2; */
+/* } */
 
-#flagge1 {
-top:35px;
-left:140px;
-}
+/* #flagge1 { */
+/* top:35px; */
+/* left:140px; */
+/* } */
 
-#flagge2
-{
-top:35px;
-left:18px;
-}
+/* #flagge2 */
+/* { */
+/* top:35px; */
+/* left:18px; */
+/* } */
 
 #container {
   padding-left: 22ex;
