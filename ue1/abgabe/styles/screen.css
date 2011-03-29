@@ -2,8 +2,7 @@
 
 
 #banner {
-	margin: -8px;
-	margin-bottom: 0;
+	margin: 0px;
 	padding: 0;
 	position: relative;
 	background: url(../img/dots.png);
@@ -27,8 +26,6 @@
 
 #menu {
 	margin: 0;
-	margin-left: -8px;
-	margin-right: -8px;
 	position: relative;
 	font-size: 0.9em;
 	color: white;
@@ -90,6 +87,12 @@ label {
 .clickbutton {
     margin-top: 0.4ex;
     color:#3a3737;
+}
+
+#formframe {
+    margin: 0px;
+    padding-left: 8px;
+
 }
 
 
