@@ -54,13 +54,16 @@ body {
     min-width: 550px;
 }
 
+h1 {
+    display: none;
+}
 
-h1 { 
+h2 { 
     color:#f29400;
     font-size: 120%;
 }
 
-h2 {
+h3 {
     color:#f29400;
     font-size: 100%;
     padding-top: 0.2ex;
