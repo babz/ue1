@@ -52,6 +52,7 @@
 body {
     margin: 0px;
     min-width: 550px;
+    font-family: "Verdana", Verdana, sans-serif;
 }
 
 h1 {
@@ -60,11 +61,13 @@ h1 {
 
 h2 { 
     color:#f29400;
+    font-family: "Verdana", Verdana, sans-serif;
     font-size: 120%;
 }
 
 h3 {
     color:#f29400;
+    font-family: "Verdana", Verdana, sans-serif;
     font-size: 100%;
     padding-top: 0.2ex;
     padding-bottom: 0.2ex;
