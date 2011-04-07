@@ -56,7 +56,7 @@
 							</tr>
 							<tr>
 								<th class="label">Paare</th>
-								<td>1</td>
+								<td><%= memory.getPoints()%></td>
 								<td>0</td>
 							</tr>
 							<tr>

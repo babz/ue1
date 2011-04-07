@@ -1,8 +1,12 @@
 package ewaMemory.memoryTable.beans;
 
 public class MemoryCard {
-
+	private final String imagePath;
 	
+	public MemoryCard(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
 	private boolean visible = false;
 
 	public boolean isVisible() {
@@ -14,7 +18,7 @@ public class MemoryCard {
 	}
 	
 	public String getImagePath() {
-		return "img/cards/at.jpg";
+		return imagePath;
 	}
 	
 	public String getAltText() {

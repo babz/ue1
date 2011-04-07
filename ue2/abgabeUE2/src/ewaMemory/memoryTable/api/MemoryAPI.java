@@ -21,13 +21,13 @@ public class MemoryAPI {
 		List<MemoryCard> row1cards = new LinkedList<MemoryCard>();
 		List<MemoryCard> row2cards = new LinkedList<MemoryCard>();
 		
-		row1cards.add(new MemoryCard());
-		row1cards.add(new MemoryCard());
-		row1cards.add(new MemoryCard());
+		row1cards.add(new MemoryCard("img/cards/at.jpg"));
+		row1cards.add(new MemoryCard("img/cards/cz.jpg"));
+		row1cards.add(new MemoryCard("img/cards/de.jpg"));
 		
-		row2cards.add(new MemoryCard());
-		row2cards.add(new MemoryCard());
-		row2cards.add(new MemoryCard());
+		row2cards.add(new MemoryCard("img/cards/at.jpg"));
+		row2cards.add(new MemoryCard("img/cards/de.jpg"));
+		row2cards.add(new MemoryCard("img/cards/cz.jpg"));
 		
 		
 		List<List<MemoryCard>> cards = new LinkedList<List<MemoryCard>>();
@@ -42,9 +42,31 @@ public class MemoryAPI {
 
 	public void clickOnCard(MemoryTable memory, int click_x, int click_y) {
 		log.info("clickOnCard at (x, y): (" + click_x + ", " + click_y + ")");
+		MemoryCard card = memory.getRows().get(click_x).get(click_y);
 		
-		// TODO Auto-generated method stub
+		memory.unrevealCardsToUnreveal();
 		
-	}
+		if(card.isVisible()) {
+			return;
+		}
+		
+		log.info("Card is not visible!");
+		card.setVisible(true);
+		MemoryCard predecessor = memory.getLastRevealedCard();
+		
+		if(predecessor == null) {
+			card.setVisible(true);
+			memory.setLastRevealedCard(card);
+			return;
+		} 
 
+		memory.setLastRevealedCard(null);
+
+		if(predecessor.getImagePath().equals(card.getImagePath())) {
+			memory.incrementPoints();
+		} else {
+			memory.addToCardsToUnreveal(predecessor);
+			memory.addToCardsToUnreveal(card);
+		}
+	}
 }
