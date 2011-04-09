@@ -52,11 +52,7 @@ public class MemoryTable {
 	public int getRemainingPairs() {
 		//number of all pairs; set only once
 		if(getPoints() == 0) {
-			int numberOfCardsInRow = 0;
-			for(List<MemoryCard> row: getRows()) {
-				numberOfCardsInRow = row.size();
-			}
-			remainingPairs = cards.size() * numberOfCardsInRow / 2;
+			remainingPairs = cards.size() * cards.get(0).size() / 2;
 		}
 		return remainingPairs;
 	}
