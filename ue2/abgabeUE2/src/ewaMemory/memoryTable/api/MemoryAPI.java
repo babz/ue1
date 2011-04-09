@@ -1,5 +1,6 @@
 package ewaMemory.memoryTable.api;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,7 +32,9 @@ public class MemoryAPI {
 		
 		
 		List<List<MemoryCard>> cards = new LinkedList<List<MemoryCard>>();
+		Collections.shuffle(row1cards);
 		cards.add(row1cards);
+		Collections.shuffle(row2cards);
 		cards.add(row2cards);
 		
 		memory.setCards(cards);
@@ -43,6 +46,9 @@ public class MemoryAPI {
 	public void clickOnCard(MemoryTable memory, int click_x, int click_y) {
 		log.info("clickOnCard at (x, y): (" + click_x + ", " + click_y + ")");
 		MemoryCard card = memory.getRows().get(click_x).get(click_y);
+		
+		log.info("time starts");
+		
 		
 		memory.unrevealCardsToUnreveal();
 		
@@ -64,9 +70,12 @@ public class MemoryAPI {
 
 		if(predecessor.getImagePath().equals(card.getImagePath())) {
 			memory.incrementPoints();
+			memory.incrementAttempts();
+			memory.decrementRemainingPairs();
 		} else {
 			memory.addToCardsToUnreveal(predecessor);
 			memory.addToCardsToUnreveal(card);
+			memory.incrementAttempts();
 		}
 	}
 }

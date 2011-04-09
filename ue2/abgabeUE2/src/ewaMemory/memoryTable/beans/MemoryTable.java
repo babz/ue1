@@ -9,13 +9,14 @@ public class MemoryTable {
 	private MemoryCard lastRevealedCard;
 	
 	private int points;
+	private int attempts;
+	private int remainingPairs;
 	private List<MemoryCard> cardsToUnreveal = new LinkedList<MemoryCard>();
-	
 
 	public List<List<MemoryCard>> getRows() {
 		return cards;
 	}
-
+	
 	public void setCards(List<List<MemoryCard>> memoryCards) {
 		cards = memoryCards;
 	}
@@ -34,6 +35,30 @@ public class MemoryTable {
 	
 	public int getPoints() {
 		return points;
+	}
+	
+	public void incrementAttempts() {
+		attempts++;
+	}
+	
+	public int getAttempts() {
+		return attempts;
+	}
+	
+	public void decrementRemainingPairs() {
+		remainingPairs--;
+	}
+	
+	public int getRemainingPairs() {
+		//number of all pairs; set only once
+		if(getPoints() == 0) {
+			int numberOfCardsInRow = 0;
+			for(List<MemoryCard> row: getRows()) {
+				numberOfCardsInRow = row.size();
+			}
+			remainingPairs = cards.size() * numberOfCardsInRow / 2;
+		}
+		return remainingPairs;
 	}
 
 	public void addToCardsToUnreveal(MemoryCard card) {

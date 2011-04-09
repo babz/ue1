@@ -22,7 +22,17 @@ public class MemoryCard {
 	}
 	
 	public String getAltText() {
-		return "&Ouml;sterreich";
+		String country = imagePath.substring(10, 12);
+		if(country.equals("at")){
+			return "&Ouml;sterreich";
+		}
+		if(country.equals("cz")){
+			return "Tschechien";
+		}
+		if(country.equals("de")){
+			return "Deutschland";
+		}
+		return "unbekanntes Land";
 	}
 
 }

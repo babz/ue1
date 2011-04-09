@@ -61,7 +61,7 @@
 							</tr>
 							<tr>
 								<th class="label">Versuche</th>
-								<td>3</td>
+								<td><%= memory.getAttempts()%></td>
 								<td>2</td>
 							</tr>
 							<tr>
@@ -80,7 +80,7 @@
 							</tr>
 							<tr>
 								<th>Restliche Paare</th>
-								<td>14</td>
+								<td><%= memory.getRemainingPairs()%></td>
 							</tr>
 						</tbody>
 					</table>
