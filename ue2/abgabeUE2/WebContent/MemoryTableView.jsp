@@ -66,7 +66,7 @@
 							</tr>
 							<tr>
 								<th class="label">Zeit</th>
-								<td>0:34</td>
+								<td><%= memory.getPlayTime()%></td>
 								<td>0:50</td>
 							</tr>
 						</tbody>

@@ -1,6 +1,7 @@
 package ewaMemory.memoryTable.api;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -10,11 +11,14 @@ import ewaMemory.memoryTable.beans.MemoryTable;
 
 public class MemoryAPI {
 	private static Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-	
+	//private Date time;
 	
 	public MemoryTable createMemoryTable(int memoryWidth, int memoryHeight) {
 		log.info("creating new MemoryTable");
 		MemoryTable memory = new MemoryTable();
+		
+		log.info("time starts");
+		memory.setStartTime(new Date().getTime());
 		
 		//TODO fill memory according to width & height
 		
@@ -46,9 +50,7 @@ public class MemoryAPI {
 	public void clickOnCard(MemoryTable memory, int click_x, int click_y) {
 		log.info("clickOnCard at (x, y): (" + click_x + ", " + click_y + ")");
 		MemoryCard card = memory.getRows().get(click_x).get(click_y);
-		
-		log.info("time starts");
-		
+		memory.setEndTime(new Date().getTime());
 		
 		memory.unrevealCardsToUnreveal();
 		
