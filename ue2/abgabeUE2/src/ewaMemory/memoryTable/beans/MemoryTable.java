@@ -85,6 +85,9 @@ public class MemoryTable {
 		long playTimeInSeconds = (timeEnd - timeStart) / 1000;
 		long minutes = (long) ((int)playTimeInSeconds / 60);
 		long seconds = playTimeInSeconds % 60;
+		if(seconds < 10) {
+			return minutes + ":0" + seconds;
+		}
 		return minutes + ":" + seconds;
 	}
 }
