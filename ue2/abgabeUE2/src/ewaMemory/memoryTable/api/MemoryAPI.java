@@ -1,7 +1,10 @@
 package ewaMemory.memoryTable.api;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -11,38 +14,49 @@ import ewaMemory.memoryTable.beans.MemoryTable;
 
 public class MemoryAPI {
 	private static Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-	//private Date time;
+	private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
+	private List<String> allFlags;
+	
+	public MemoryAPI(List<String> cardDecks) {
+		allFlags = cardDecks;
+	}
 	
 	public MemoryTable createMemoryTable(int memoryWidth, int memoryHeight) {
+		if(memoryHeight % 2 != 0 && memoryWidth % 2 != 0){
+			throw new IllegalArgumentException("both params odd!");
+		}
 		log.info("creating new MemoryTable");
 		MemoryTable memory = new MemoryTable();
 		
 		log.info("time starts");
 		memory.setStartTime(new Date().getTime());
 		
-		//TODO fill memory according to width & height
+		List<String> flags = new ArrayList<String>();
+
+		Collections.shuffle(allFlags);
 		
+		int neededFlags = memoryHeight * memoryWidth / 2;
+		for(int i = 0; i < neededFlags; i++) {
+			flags.add(allFlags.get(i % allFlags.size())); // get flags and reuse, if not enough unique flags exist
+			flags.add(allFlags.get(i % allFlags.size()));
+		}
 		
-		List<MemoryCard> row1cards = new LinkedList<MemoryCard>();
-		List<MemoryCard> row2cards = new LinkedList<MemoryCard>();
-		
-		row1cards.add(new MemoryCard("img/cards/at.jpg"));
-		row1cards.add(new MemoryCard("img/cards/cz.jpg"));
-		row1cards.add(new MemoryCard("img/cards/de.jpg"));
-		
-		row2cards.add(new MemoryCard("img/cards/at.jpg"));
-		row2cards.add(new MemoryCard("img/cards/de.jpg"));
-		row2cards.add(new MemoryCard("img/cards/cz.jpg"));
-		
+		Collections.shuffle(flags);
+		Iterator<String> flagsIterator = flags.iterator();
 		
 		List<List<MemoryCard>> cards = new LinkedList<List<MemoryCard>>();
-		Collections.shuffle(row1cards);
-		cards.add(row1cards);
-		Collections.shuffle(row2cards);
-		cards.add(row2cards);
+		
+		for(int i = 0; i < memoryHeight; i++) {
+		
+			List<MemoryCard> cardRow = new LinkedList<MemoryCard>();
+			
+			for(int j = 0; j < memoryWidth; j++) {
+				cardRow.add(new MemoryCard(CARD_DIR_REL_TO_WEB_CONTENT + File.separatorChar + flagsIterator.next()));
+			}
+			cards.add(cardRow);
+		}
 		
 		memory.setCards(cards);
-		
 		
 		return memory;
 	}
@@ -50,6 +64,8 @@ public class MemoryAPI {
 	public void clickOnCard(MemoryTable memory, int click_x, int click_y) {
 		log.info("clickOnCard at (x, y): (" + click_x + ", " + click_y + ")");
 		MemoryCard card = memory.getRows().get(click_x).get(click_y);
+		
+		log.info("timer refresh");
 		memory.setEndTime(new Date().getTime());
 		
 		memory.unrevealCardsToUnreveal();

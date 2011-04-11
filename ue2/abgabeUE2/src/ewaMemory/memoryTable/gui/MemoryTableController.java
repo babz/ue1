@@ -1,6 +1,8 @@
 package ewaMemory.memoryTable.gui;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -28,13 +30,15 @@ public class MemoryTableController extends HttpServlet {
 
 	private static final String MEMORY_TABLE_VIEW = "/MemoryTableView.jsp";
 
-	private MemoryAPI memoryApi = new MemoryAPI();
+	private MemoryAPI memoryApi;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public MemoryTableController() {
 		super();
+		List<String> flags = Arrays.asList(new String[] {"at.jpg", "cz.jpg", "de.jpg", "fr.jpg", "it.jpg", "skorea.jpg", "tr.jpg", "usa.jpg"});
+		memoryApi = new MemoryAPI(flags);
 	}
 
 	/**
