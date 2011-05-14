@@ -51,7 +51,7 @@ public class MemoryAPI {
 			List<MemoryCard> cardRow = new LinkedList<MemoryCard>();
 			
 			for(int j = 0; j < memoryWidth; j++) {
-				cardRow.add(new MemoryCard(CARD_DIR_REL_TO_WEB_CONTENT + File.separatorChar + flagsIterator.next()));
+				cardRow.add(new MemoryCard(CARD_DIR_REL_TO_WEB_CONTENT + "/" + flagsIterator.next()));
 			}
 			cards.add(cardRow);
 		}
