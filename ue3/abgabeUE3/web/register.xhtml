@@ -6,7 +6,15 @@
         <title>Registration</title>
     </head>
     <body>
-        Hello from Facelets
+        <h1><h:outputText value="Registrierung"/></h1>
+        <h:outputText value="Bitte f&uuml;llen Sie das untenstehende Formular aus!"/>
+        <h:outputText value="Pers&ouml;nliche Daten"/>
+        <h:panelGrid id="persData" columns="2">
+            <h:outputText value="First Name:"/>
+            <!-- <h:outputText value="#{customer.firstName}"/> -->
+            <h:outputText value="Last Name:"/>
+            <!-- <h:outputText value="#{customer.lastName}"/> -->
+        </h:panelGrid>
     </body>
 </html>
 
