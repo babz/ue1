@@ -11,15 +11,46 @@ import java.util.logging.Logger;
 
 import ewaMemory.memoryTable.beans.MemoryCard;
 import ewaMemory.memoryTable.beans.MemoryTable;
+import ewaMemory.memoryTable.beans.User;
+import java.util.Map;
 
 public class MemoryAPI {
 	private static Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
 	private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
 	private List<String> allFlags;
+        private Map<String, User> registeredUsers;
+        private Map<String, User> onlineUsers;
 	
 	public MemoryAPI(List<String> cardDecks) {
 		allFlags = cardDecks;
 	}
+
+        public void registerUser(User user) {
+            //TODO check if user is present
+            registeredUsers.put(user.getName(), user);
+        }
+
+        /**
+         * Logs
+         * @param login
+         * @return
+         * @throws UserNotRegisteredException
+         * @throws UserAlreadyLoggedInException
+         */
+        public User getUserByName(String name) throws UserNotRegisteredException {
+            User user;
+            
+            if((user = registeredUsers.get(name)) == null)
+                throw new UserNotRegisteredException(name);
+
+            /* TODO do we need this, comment in if we are able to log user out as well
+            if(user.isOnline())
+                throw new UserAlreadyLoggedInException(login.getName());
+
+            user.setOnline(true); */
+            
+            return user;
+        }
 	
 	public MemoryTable createMemoryTable(int memoryWidth, int memoryHeight) {
 		if(memoryHeight % 2 != 0 && memoryWidth % 2 != 0){
