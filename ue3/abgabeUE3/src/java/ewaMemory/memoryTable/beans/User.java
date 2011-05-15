@@ -15,6 +15,10 @@ public class User {
     private String password;
 
 
+    public String getFullName() {
+        return firstname + " " + lastname;
+    }
+
     public String getFirstName() {
         return firstname;
     }
