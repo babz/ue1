@@ -3,25 +3,47 @@ package ewaMemory.memoryTable.beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-/**
- *
- * @author forste
- */
+
 @ManagedBean(name="customer")
 @SessionScoped
 public class User {
-    private String name;
+    private String firstname;
+    private String lastname;
+    private String birthdate;
+    private UserSex sex;
     private String password;
 
-    public User() {
+
+    public String getFirstName() {
+        return firstname;
     }
 
-    public String getName() {
-        return name;
+    public void setFirstName(String name) {
+        firstname = name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getLastName() {
+        return firstname;
+    }
+
+    public void setLastName(String name) {
+        lastname = name;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String bdate) {
+        birthdate = bdate;
+    }
+
+    public UserSex getUserSex() {
+        return sex;
+    }
+
+    public void setUserSex(UserSex sex){
+        this.sex = sex;
     }
 
     public String getPassword() {
@@ -31,8 +53,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-
 }
