@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(eager=true, name="api")
@@ -48,7 +47,6 @@ public class MemoryAPI {
             FacesContext.getCurrentInstance().renderResponse();
         }
 
-        @ManagedProperty(value="trigger")
         private boolean trigger = true;
 
           /**
