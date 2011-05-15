@@ -3,32 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
-    
+
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="./resources/css/screen.css" rel="stylesheet" type="text/css" />
         <!--<link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />-->
-        <title>EWA Memory</title>
+        <title><ui:insert name="title" /></title>
     </h:head>
-    
+
     <h:body>
 
         <div id="wrapper">
             <div id="header">
-                    <div id="teaser"></div>
-                    <div id="logo"></div>
-                    <h1>EWA Memory</h1>
+                <div id="teaser"></div>
+                <div id="logo"></div>
+                <h1><ui:insert name="title" /></h1>
             </div>
 
             <div id="content">
-                <ui:insert name="content">Content</ui:insert>
+                <div id="body">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
             </div>
         </div>
         <div class="clearer"></div>
-       <div id="footer">
+        <div id="footer">
             <p>&copy; 2011 EWA Memory.</p>
         </div>
-        
+
     </h:body>
-    
+
 </html>
