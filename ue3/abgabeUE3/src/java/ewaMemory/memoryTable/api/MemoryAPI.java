@@ -27,7 +27,7 @@ public class MemoryAPI {
 
         public void registerUser(User user) {
             //TODO check if user is present
-            registeredUsers.put(user.getName(), user);
+            registeredUsers.put(user.getFullName(), user);
         }
 
         /**
