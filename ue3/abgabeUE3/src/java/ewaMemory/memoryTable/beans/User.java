@@ -2,6 +2,7 @@ package ewaMemory.memoryTable.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 
 @ManagedBean(name="user")
@@ -11,35 +12,26 @@ public class User {
     private String firstname;
     private String lastname;
     private String birthdate;
-//    private UserSex sex;
     private String password;
 
 
-    public String getFullName() {
+    public String getFullname() {
         return firstname + " " + lastname;
     }
 
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String username) {
-        this.username = username;
-    }
-
-    public String getFirstName() {
+    public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstName(String name) {
+    public void setFirstname(String name) {
         firstname = name;
     }
 
-    public String getLastName() {
+    public String getLastname() {
         return firstname;
     }
 
-    public void setLastName(String name) {
+    public void setLastname(String name) {
         lastname = name;
     }
 
@@ -51,13 +43,13 @@ public class User {
         birthdate = bdate;
     }
 
-//    public UserSex getUserSex() {
-//        return sex;
-//    }
-//
-//    public void setUserSex(UserSex sex){
-//        this.sex = sex;
-//    }
+    public SelectItem getFemaleItem() {
+        return new SelectItem("w", "Weiblich");
+    }
+
+    public SelectItem getMaleItem() {
+       return new SelectItem("m", "Männlich");
+    }
 
     public String getPassword() {
         return password;

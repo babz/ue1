@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
        xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
@@ -12,14 +13,17 @@
                     <h3><h:outputText value="Pers&ouml;nliche Daten"/></h3>
                     <h:form id="persDataForm">
                         <h:panelGrid id="persData" columns="2">
-                            <h:outputText value="Vorname"/>
-                            <h:outputLabel value="#{user.firstName}"/>
-                            <h:outputText value="Nachname"/>
-                            <h:outputLabel value="#{user.lastName}"/>
-                            <h:outputText value="Geburtsdatum"/>
-                            <h:outputLabel value="#{user.birthdate}"/>
-                            <h:outputText value="Geschlecht"/>
-                            <h:outputLabel value="#{user.sex}"/>
+                            <h:outputLabel value="Vorname"/>
+                            <h:inputText value="#{user.firstname}"/>
+                            <h:outputLabel value="Nachname"/>
+                            <h:inputText value="#{user.lastname}"/>
+                            <h:outputLabel value="Geburtsdatum"/>
+                            <h:inputText value="#{user.birthdate}"/>
+                            <h:outputLabel value="Geschlecht"/>
+                            <h:selectOneMenu id="gender">
+                                <f:selectItem value="#{user.femaleItem}"></f:selectItem>
+                                <f:selectItem value="#{user.maleItem}"></f:selectItem>
+                            </h:selectOneMenu>
                         </h:panelGrid>
                     </h:form>
                 </div>
