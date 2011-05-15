@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- INTERFACE -->
+  <composite:interface>
+      <composite:attribute name="username" required="false"/>
+       <composite:attribute name="stacksize" required="false"/>
+  </composite:interface>
+
+  <!-- IMPLEMENTATION -->
+  <composite:implementation>
+    <h:outputLabel value="Username: "> <!-- TODO use I18n-->
+    </h:outputLabel>
+    <h:inputText value="#{cc.attrs.username}">
+    </h:inputText>
+      <h:outputLabel value="Password: "> <!-- TODO use I18n-->
+    </h:outputLabel>
+    <h:inputSecret>
+    </h:inputSecret>
+      <h:outputLabel value="Größe des Stacks: "> <!-- TODO use I18n-->
+      </h:outputLabel>
+      <h:inputText value="#{cc.attrs.stacksize}">
+    </h:inputText>
+  </composite:implementation>
+
+
+  <!-- USAGE
+
+  <html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
++      xmlns:mc="http://java.sun.com/jsf/composite/components">
+
++   <mc:logincomp username="Franz" stacksize="2x2"/>
+  -->
+
+</html>
