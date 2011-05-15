@@ -83,6 +83,13 @@ public class MemoryAPI {
             registeredUsers.put(user.getUsername(), user);
         }
 
+        public boolean userExists(String name) {
+            if(registeredUsers.get(name) == null) {
+                return false;
+            }
+            return true;
+        }
+
         /**
          * Logs
          * @param login
