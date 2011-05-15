@@ -44,11 +44,11 @@ public class User {
     }
 
     public SelectItem getFemaleItem() {
-        return new SelectItem("w", "Weiblich");
+        return new SelectItem("w", "weiblich");
     }
 
     public SelectItem getMaleItem() {
-       return new SelectItem("m", "Männlich");
+       return new SelectItem("m", "männlich");
     }
 
     public String getPassword() {
