@@ -26,8 +26,6 @@ public class LoginCtrl {
     
     @ManagedProperty(value="#{user}")
     private User user;
-    @ManagedProperty(value = "true")
-    private boolean displayonline;
     @ManagedProperty(value="#{api}")
     private MemoryAPI api;
 
@@ -36,15 +34,16 @@ public class LoginCtrl {
     boolean loginfailed = false;
 
     public LoginCtrl() {
+         log.info("LoginCtrl created!");
     }
 
     //Getter and Setter
     public User getCustomer() {
-        return user;
+        return getUser();
     }
 
     public void setCustomer(User customer) {
-        this.user = customer;
+        this.setUser(customer);
     }
 
     public Date getDatetime() {
@@ -59,14 +58,6 @@ public class LoginCtrl {
         this.loginfailed = loginfailed;
     }
 
-    public boolean isDisplayonline() {
-        return displayonline;
-    }
-
-    public void setDisplayonline(boolean displayonline) {
-        this.displayonline = displayonline;
-    }
-
     public MemoryAPI getApi() {
         return api;
     }
@@ -75,18 +66,33 @@ public class LoginCtrl {
         this.api = api;
     }
 
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     //Login - check password
     public String login()
     {
-        log.info("login; customer: "+user.toString());
+        log.info("login; customer: "+getUser().toString());
         User registeredUser = null;
         try {
-            registeredUser = getApi().getUserByName(user.getUsername());
+            registeredUser = getApi().getUserByName(getUser().getUsername());
         } catch (UserNotRegisteredException ex) {
             log.info(ex.getMessage());
         }
         
-        if(user.getPassword().equals(registeredUser.getPassword()))
+        if(getUser().getPassword().equals(registeredUser.getPassword()))
         {
             loginfailed = false;
             return "/memoryTable.xhtml";
@@ -97,15 +103,6 @@ public class LoginCtrl {
             loginfailed = true;
             return "/login.xhtml";
         }
-    }
-
-    //Checks if the display checkbox changed
-    public void displayChanged(ValueChangeEvent e){
-        Boolean show = (Boolean) e.getNewValue();
-        if(show != null)
-            displayonline = show;
-
-        FacesContext.getCurrentInstance().renderResponse();
     }
 
     //Validation of the username
