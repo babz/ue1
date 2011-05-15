@@ -15,8 +15,10 @@ and open the template in the editor.
                 <mc:logincomp username="Franz" stacksize="2x2"/>
                 <h:commandButton id="login" value="#{msg.login}" action="#{loginCtrl.login}"/>
                 <h:commandButton id="printSthing" value="printSthing" action="#{api.printSthing}"/>
+                <!-- TEST CODE START TODO REMOVE -->
                 <p><h:outputText value="#{api.trigger}" style="color: blue" /></p>
                 <p><h:outputText value="TRIGGER IS TRUE"   rendered="#{api.trigger}" style="color: red" /></p>
+                <!-- TEST CODE END TODO REMOVE -->
             </ui:define>
         </ui:composition>
         

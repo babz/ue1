@@ -1,10 +1,11 @@
 package ewaMemory.memoryTable.beans;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 
-@ManagedBean(name="user")
+@ManagedBean
 @SessionScoped
 public class User {
     private String username;
