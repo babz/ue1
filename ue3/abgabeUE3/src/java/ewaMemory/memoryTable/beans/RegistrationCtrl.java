@@ -53,14 +53,6 @@ public class RegistrationCtrl {
         return new Date();
     }
 
-    public boolean isLoginfailed() {
-        return loginfailed;
-    }
-
-    public void setLoginfailed(boolean loginfailed) {
-        this.loginfailed = loginfailed;
-    }
-
     public MemoryAPI getApi() {
         return api;
     }
