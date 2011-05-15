@@ -1,20 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <head>
-        <title>Registration</title>
-    </head>
-    <body>
-        <h:outputText value="Registrierung"/>
-        <h:outputText value="Bitte f&uuml;llen Sie das untenstehende Formular aus!"/>
-        <h:outputText value="Pers&ouml;nliche Daten"/>
-        <h:panelGrid id="persData" columns="2">
-            <h:outputText value="First Name:"/>
-            <!-- <h:outputText value="#{customer.firstName}"/> -->
-            <h:outputText value="Last Name:"/>
-            <!-- <h:outputText value="#{customer.lastName}"/> -->
-        </h:panelGrid>
-    </body>
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="./layoutTemplate.xhtml">
+            <ui:define name="content" id="main">
+                <div>
+                    <h2><h:outputText value="Registrieren"/></h2>
+                    <p><h:outputText value="Bitte f&uuml;llen Sie das untenstehende Formular aus!"/></p>
+                    <h3><h:outputText value="Pers&ouml;nliche Daten"/></h3>
+                    <h:form id="persDataForm">
+                        <h:panelGrid id="persData" columns="2">
+                            <h:outputText value="Vorname"/>
+                            <h:outputLabel value="#{user.firstName}"/>
+                            <h:outputText value="Nachname"/>
+                            <h:outputLabel value="#{user.lastName}"/>
+                            <h:outputText value="Geburtsdatum"/>
+                            <h:outputLabel value="#{user.birthdate}"/>
+                            <h:outputText value="Geschlecht"/>
+                            <h:outputLabel value="#{user.sex}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+         </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
 

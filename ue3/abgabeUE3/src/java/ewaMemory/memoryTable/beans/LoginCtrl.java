@@ -81,7 +81,7 @@ public class LoginCtrl {
         log.info("login; customer: "+user.toString());
         User registeredUser = null;
         try {
-            registeredUser = getApi().getUserByName(user.getName());
+            registeredUser = getApi().getUserByName(user.getUsername());
         } catch (UserNotRegisteredException ex) {
             log.info(ex.getMessage());
         }

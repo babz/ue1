@@ -38,20 +38,20 @@ public class MemoryAPI {
 
         private void createAndAddUser(String name, String password) {
             User user = createUser(name, password);
-            registeredUsers.put(user.getName(), user);
+            registeredUsers.put(user.getUsername(), user);
         }
 
         private User createUser(String name, String password) {
             User user;
             user = new User();
-            user.setName(name);
+            user.setUsername(name);
             user.setPassword(password);
             return user;
         }
 
         public void registerUser(User user) {
             //TODO check if user is present
-            registeredUsers.put(user.getName(), user);
+            registeredUsers.put(user.getUsername(), user);
         }
 
         /**
