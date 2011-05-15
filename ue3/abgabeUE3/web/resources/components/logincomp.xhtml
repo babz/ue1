@@ -14,15 +14,15 @@
   <composite:implementation>
     <h:outputLabel value="Username: "> <!-- TODO use I18n-->
     </h:outputLabel>
-    <h:inputText value="#{cc.attrs.username}">
+      <h:inputText id="username" required="true" value="#{loginCtrl.user.username}">
     </h:inputText>
       <h:outputLabel value="Password: "> <!-- TODO use I18n-->
     </h:outputLabel>
-    <h:inputSecret>
+    <h:inputSecret id="password" required="true" value="#{loginCtrl.user.password}">
     </h:inputSecret>
       <h:outputLabel value="Größe des Stacks: "> <!-- TODO use I18n-->
       </h:outputLabel>
-      <h:inputText value="#{cc.attrs.stacksize}">
+      <h:inputText id="stacksize" value="#{cc.attrs.stacksize}">
     </h:inputText>
   </composite:implementation>
 

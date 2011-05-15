@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(eager=true, name="api")
 @ApplicationScoped
@@ -34,7 +36,36 @@ public class MemoryAPI {
             createAndAddUser("Helga", "12345");
             createAndAddUser("Hubsi", "12345");
             createAndAddUser("Ylgal", "12345");
+           log.info("MemoryAPI created!");
         }
+
+        // START TESTCODE TODO REMOVE
+
+        public void printSthing() {
+            System.out.println("PRINTING SOMETHING!!");
+            setTrigger(true);
+
+            FacesContext.getCurrentInstance().renderResponse();
+        }
+
+        @ManagedProperty(value="trigger")
+        private boolean trigger = true;
+
+          /**
+         * @return the trigger
+         */
+        public boolean isTrigger() {
+            return trigger;
+        }
+
+        /**
+         * @param trigger the trigger to set
+         */
+        public void setTrigger(boolean trigger) {
+            this.trigger = trigger;
+        }
+
+        // END TESTCODE TODO REMOVE
 
         private void createAndAddUser(String name, String password) {
             User user = createUser(name, password);
@@ -151,4 +182,6 @@ public class MemoryAPI {
 			memory.incrementAttempts();
 		}
 	}
+
+
 }
