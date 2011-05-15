@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="customer")
 @SessionScoped
 public class User {
+    private String username;
     private String firstname;
     private String lastname;
     private String birthdate;
@@ -16,6 +17,14 @@ public class User {
 
     public String getFullName() {
         return firstname + " " + lastname;
+    }
+
+    public String getUserName() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
