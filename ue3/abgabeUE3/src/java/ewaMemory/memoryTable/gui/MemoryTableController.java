@@ -38,7 +38,7 @@ public class MemoryTableController extends HttpServlet {
 	public MemoryTableController() {
 		super();
 		List<String> flags = Arrays.asList(new String[] {"at.jpg", "cz.jpg", "de.jpg", "fr.jpg", "it.jpg", "skorea.jpg", "tr.jpg", "usa.jpg"});
-		memoryApi = new MemoryAPI(flags);
+//		memoryApi = new MemoryAPI(flags);
 	}
 
 	/**

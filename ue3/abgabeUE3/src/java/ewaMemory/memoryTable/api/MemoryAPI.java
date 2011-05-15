@@ -12,18 +12,42 @@ import java.util.logging.Logger;
 import ewaMemory.memoryTable.beans.MemoryCard;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.User;
+import java.util.HashMap;
 import java.util.Map;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
+@ManagedBean(eager=true, name="api")
+@ApplicationScoped
 public class MemoryAPI {
 	private static Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-	private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
+        private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
 	private List<String> allFlags;
-        private Map<String, User> registeredUsers;
-        private Map<String, User> onlineUsers;
-	
-	public MemoryAPI(List<String> cardDecks) {
-		allFlags = cardDecks;
-	}
+        private Map<String, User> registeredUsers = new HashMap<String, User>() {};
+
+//
+//	public MemoryAPI(List<String> cardDecks) {
+//		allFlags = cardDecks;
+//	}
+        public MemoryAPI() {
+            createAndAddUser("Franz", "12345");
+            createAndAddUser("Helga", "12345");
+            createAndAddUser("Hubsi", "12345");
+            createAndAddUser("Ylgal", "12345");
+        }
+
+        private void createAndAddUser(String name, String password) {
+            User user = createUser(name, password);
+            registeredUsers.put(user.getName(), user);
+        }
+
+        private User createUser(String name, String password) {
+            User user;
+            user = new User();
+            user.setName(name);
+            user.setPassword(password);
+            return user;
+        }
 
         public void registerUser(User user) {
             //TODO check if user is present

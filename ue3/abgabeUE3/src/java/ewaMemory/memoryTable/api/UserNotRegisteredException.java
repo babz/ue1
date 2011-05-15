@@ -9,7 +9,7 @@ package ewaMemory.memoryTable.api;
  *
  * @author stephan
  */
-class UserNotRegisteredException extends Exception {
+public class UserNotRegisteredException extends Exception {
 
     public UserNotRegisteredException(String name) {
         super(name);

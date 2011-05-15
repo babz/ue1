@@ -1,5 +1,8 @@
 package ewaMemory.memoryTable.beans;
 
+import ewaMemory.memoryTable.api.MemoryAPI;
+import ewaMemory.memoryTable.api.UserNotRegisteredException;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.util.Date;
@@ -21,10 +24,12 @@ import javax.faces.event.ValueChangeEvent;
 public class LoginCtrl {
     private static final Logger log = Logger.getLogger(LoginCtrl.class.getSimpleName());
     
-    @ManagedProperty(value="#{customer}")
-    private User customer;
+    @ManagedProperty(value="#{user}")
+    private User user;
     @ManagedProperty(value = "true")
     private boolean displayonline;
+    @ManagedProperty(value="#{api}")
+    private MemoryAPI api;
 
     //TODO save list of customers in class with application scope
 
@@ -35,11 +40,11 @@ public class LoginCtrl {
 
     //Getter and Setter
     public User getCustomer() {
-        return customer;
+        return user;
     }
 
     public void setCustomer(User customer) {
-        this.customer = customer;
+        this.user = customer;
     }
 
     public Date getDatetime() {
@@ -62,20 +67,29 @@ public class LoginCtrl {
         this.displayonline = displayonline;
     }
 
+    public MemoryAPI getApi() {
+        return api;
+    }
 
-    public int getOnlineCustomers()
-    {
-        return new Random().nextInt(10) + 1;
+    public void setApi(MemoryAPI api) {
+        this.api = api;
     }
 
     //Login - check password
     public String login()
     {
-        log.info("login; customer: "+customer.toString());
-        if(customer.getPassword().equals("secret"))
+        log.info("login; customer: "+user.toString());
+        User registeredUser = null;
+        try {
+            registeredUser = getApi().getUserByName(user.getName());
+        } catch (UserNotRegisteredException ex) {
+            log.info(ex.getMessage());
+        }
+        
+        if(user.getPassword().equals(registeredUser.getPassword()))
         {
             loginfailed = false;
-            return "/store_main.xhtml";
+            return "/memoryTable.xhtml";
         }
 
         else
@@ -106,6 +120,8 @@ public class LoginCtrl {
             throw new ValidatorException(msg);
         }
     }
+
+
 
 
 }

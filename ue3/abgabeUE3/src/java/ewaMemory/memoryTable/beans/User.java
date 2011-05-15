@@ -7,7 +7,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author forste
  */
-@ManagedBean(name="customer")
+@ManagedBean(name="user")
 @SessionScoped
 public class User {
     private String name;
