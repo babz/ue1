@@ -22,7 +22,7 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class MemoryAPI {
 	private static final Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-        private static String CARD_DIR_REL_TO_WEB_CONTENT = "resources/img/cards";
+        private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
 	private List<String> allFlags;
         private Map<String, User> registeredUsers = new HashMap<String, User>() {};
 

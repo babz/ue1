@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
     <h:body>
@@ -100,15 +101,21 @@
                     <hr class="accessibility" />
                     <div id="board">
                         <h2 class="accessibility">Spielbrett</h2>
-
+                        <h:form>
                         <ui:repeat value="#{memory.rows}" var="row" varStatus="rowIdx">
                             <ol>
                                 <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
                                     <!-- TODO card.isVisible() + link -->
-                                    <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card visible"><img src="#{card.imagePath}" alt="#{card.altText}" /></li>
+                                    <c:if test="#{card.visible}">
+                                        <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card visible"><h:graphicImage name="#{card.imagePath}" alt="#{card.altText}"/></li>
+                                    </c:if>
+                                    <c:otherwise>
+                                        <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card"><h:commandLink action="#{memoryCtrl.cardClicked}"><f:param name="x" value="#{columnIdx.index}" /><f:param name="y" value="#{rowIdx.index}" /><h:graphicImage name="img/card_background.png" alt="zugedeckte karte"/></h:commandLink></li>
+                                    </c:otherwise>
                                 </ui:repeat>
                             </ol>
                         </ui:repeat>
+                        </h:form>
 
                         <!--<%
 						int rowCount = 0;
