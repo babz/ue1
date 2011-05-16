@@ -74,5 +74,14 @@ public class User {
         this.username = username;
     }
 
+    @Override
+    public String toString() {
+        return "username: "+getUsername()+", full name: "+getFullname();
+    }
+
+
+
+
+
     
 }
