@@ -21,15 +21,15 @@ public class MemoryCtrl {
     @ManagedProperty("#{memory}")
     private MemoryTable memoryTable;
 
-    public String cardClicked(int x, int y) {
+    public void cardClicked(int x, int y) {
 //        Map<String, String> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 //        int x = Integer.parseInt(requestMap.get(MemoryTableParams.X));
 //        int y = Integer.parseInt(requestMap.get(MemoryTableParams.Y));
 
-        log.info("cardClicked at (x,y): (" + x + "," + y + ")");
+        log.info("(MemoryCtrl) cardClicked at (x,y): (" + x + "," + y + ")");
         memoryApi.clickOnCard(memoryTable, x, y);
 
-        return "memoryTable.xhtml";
+        //return "memoryTable.xhtml";
     }
 
 

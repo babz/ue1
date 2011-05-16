@@ -100,7 +100,7 @@ table tbody {
 	padding:25px;	
 }
 
-#board ol {
+/*#board ol {
 	margin:0;
 	padding:0;
 	list-style:none;
@@ -119,6 +119,35 @@ table tbody {
 #board li.visible {
 	background-image: url(../img/card_background.png);
 	background-repeat: no-repeat;	
+}
+
+#board li.visible img {
+	border: 1px solid #333333;
+	margin-left:8px;
+	margin-top:25px;
+	width: 80px;
+}*/
+
+#board ol {
+	float: left;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#board img {
+	border:0;
+}
+
+#board li.card {
+	float:left;
+	margin:10px;
+	width:100px;
+	height:100px;
+}
+
+#board li.visible {
+	background-image: url(../img/card_background.png);
+	background-repeat: no-repeat;
 }
 
 #board li.visible img {
