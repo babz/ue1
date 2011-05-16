@@ -9,14 +9,18 @@
         <ui:composition template="./layoutTemplate.xhtml">
             <ui:define name="content" id="main">
                 <div>
-                    <h2><h:outputText value="#{msg.register}"/></h2>
-                    <p><h:outputText value="#{msg.fillOutFormBelow}"/></p>
+                    <h2>
+                        <h:outputText value="#{msg.register}"/>
+                    </h2>
+                    <p>
+                        <h:outputText value="#{msg.fillOutFormBelow}"/>
+                    </p>
                     <h:form>
-                         <h:commandButton id="login" value="#{msg.displayPersData}" action="#{loginCtrl.toggleDisplayPersData}"/>
-                    </h:form>
-                    <h:form id="persDataForm" rendered="#{loginCtrl.displayPersData}">
-                        <h3><h:outputText value="#{msg.personalData}"/></h3>
-                        <h:panelGrid id="persData" columns="2">
+                        <h:commandButton id="displayPersData" value="#{msg.displayPersData}" action="#{loginCtrl.toggleDisplayPersData}"/>
+                        <h3>
+                            <h:outputText value="#{msg.personalData}" rendered="#{loginCtrl.displayPersData}"/>
+                        </h3>
+                        <h:panelGrid id="persData" columns="2" rendered="#{loginCtrl.displayPersData}">
                             <h:outputLabel value="#{msg.firstname}"/>
                             <h:inputText value="#{loginCtrl.user.firstname}"/>
                             <h:outputLabel value="#{msg.lastname}"/>
@@ -29,12 +33,9 @@
                                 <f:selectItem value="#{loginCtrl.user.maleItem}"></f:selectItem>
                             </h:selectOneMenu>
                         </h:panelGrid>
+                        <mc:logincomp stacksize="2x2"/>
+                        <h:commandButton id="login" value="#{msg.register}" action="#{loginCtrl.register}"/>
                     </h:form>
-                    <mc:logincomp stacksize="2x2"/>
-                    <h:form>
-                    <h:commandButton id="login" value="#{msg.register}" action="#{loginCtrl.login}"/>
-                    </h:form>
-
                 </div>
          </ui:define>
         </ui:composition>

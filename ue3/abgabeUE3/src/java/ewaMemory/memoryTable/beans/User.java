@@ -76,7 +76,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "username: "+getUsername()+", full name: "+getFullname();
+        return "username: "+getUsername()+", full name: "+getFullname() +", birthdate: "+birthdate;
     }
 
 

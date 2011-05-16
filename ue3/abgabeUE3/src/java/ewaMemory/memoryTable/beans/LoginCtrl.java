@@ -67,6 +67,13 @@ public class LoginCtrl {
         }
     }
 
+    public String register() {
+        log.info(user.toString());
+        api.registerUser(user);
+
+        return "/login.xhtml";
+    }
+
     //Validation of the username
     public void validateUsername(FacesContext ctx, UIComponent component, Object value) throws ValidatorException
     {
@@ -144,4 +151,6 @@ public class LoginCtrl {
         else
             displayPersData = true;
     }
+
+    
 }
