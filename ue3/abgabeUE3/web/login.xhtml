@@ -14,8 +14,11 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:form>
                     <mc:logincomp stacksize="2x2"/>
-                    <h:commandButton id="login" value="#{msg.login}" action="#{loginCtrl.login}"/>
+                    <h:commandButton id="login" value="#{msg.login}" action="#{userCtrl.login}"/>
                  </h:form>
+                <h:form>
+                    <h:commandButton id="registration" value="#{msg.register}" action="/register.xhtml" immediate="true"/>
+                </h:form>
             </ui:define>
         </ui:composition>
 

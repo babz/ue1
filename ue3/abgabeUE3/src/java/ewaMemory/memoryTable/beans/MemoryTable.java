@@ -58,7 +58,10 @@ public class MemoryTable {
 	public int getRemainingPairs() {
 		//number of all pairs; set only once
 		if(getPoints() == 0) {
-			remainingPairs = cards.size() * cards.get(0).size() / 2;
+                    if(cards.isEmpty())
+                        remainingPairs = 0;
+                    else
+                        remainingPairs = cards.size() * cards.get(0).size() / 2;
 		}
 		return remainingPairs;
 	}

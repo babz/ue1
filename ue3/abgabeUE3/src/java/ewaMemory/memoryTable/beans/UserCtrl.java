@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @SessionScoped
-public class LoginCtrl {
-    private static final Logger log = Logger.getLogger(LoginCtrl.class.getSimpleName());
+public class UserCtrl {
+    private static final Logger log = Logger.getLogger(UserCtrl.class.getSimpleName());
     
     @ManagedProperty(value="#{user}")
     private User user;
@@ -36,43 +36,32 @@ public class LoginCtrl {
 
     boolean loginfailed = false;
 
-    public LoginCtrl() {
+    public UserCtrl() {
          log.info("LoginCtrl created!");
     }
 
         //Login - check password
     public String login()
     {
-        log.info("login; customer: "+getUser().toString());
-        log.info("login: username: " + getUser().getUsername());
-        User registeredUser = null;
-        /*try {
-            registeredUser = getApi().getUserByName(getUser().getUsername());
-        } catch (UserNotRegisteredException ex) {
-            log.info("User not registered! " + ex.getMessage());
+        loginfailed = true;
+        
+        if(getUser() == null)
             return "/login.xhtml";
-        }*/
-
-        /*if(getUser() == null)
-            return "/login.xhtml";*/
-
-        if(/*getUser().getPassword().equals(registeredUser.getPassword())*/ true)
-        {
-            loginfailed = false;
-
-            MemoryTable table = getApi().createMemoryTable(4, 4); // TODO take values from login/user
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            session.setAttribute("memory", table);
-
-//            return "/register.xhtml";
-            return "/memoryTable.xhtml";
-        }
-
-        else
-        {
-            loginfailed = true;
+        
+        log.info("login; user: "+getUser().toString());
+        
+        User registeredUser = getApi().loginUser(getUser().getUsername(), getUser().getPassword());
+        if (registeredUser == null) {
             return "/login.xhtml";
         }
+        
+        loginfailed = false;
+
+        MemoryTable table = getApi().createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight()); // TODO take values from login/user
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.setAttribute("memory", table);
+
+        return "/memoryTable.xhtml";
     }
 
     public String register() {
@@ -80,19 +69,6 @@ public class LoginCtrl {
         api.registerUser(user);
 
         return "/login.xhtml";
-    }
-
-    //Validation of the username
-    public void validateUsername(FacesContext ctx, UIComponent component, Object value) throws ValidatorException
-    {
-        String username = (String)value;
-
-        if(!username.equals("Markus") && !username.equals("Heidi"))
-        {
-            FacesMessage msg = new FacesMessage(
-            FacesMessage.SEVERITY_WARN,"Wrong username!", null);
-            throw new ValidatorException(msg);
-        }
     }
 
     //Getter and Setter

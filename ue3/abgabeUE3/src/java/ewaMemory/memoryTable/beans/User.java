@@ -14,7 +14,8 @@ public class User {
     private String lastname;
     private String birthdate;
     private String password;
-
+    private int memoryWidth = 4;
+    private int memoryHeight = 4;
 
     public String getFullname() {
         return firstname + " " + lastname;
@@ -79,6 +80,43 @@ public class User {
         return "username: "+getUsername()+", full name: "+getFullname() +", birthdate: "+birthdate;
     }
 
+    /**
+     * @return the memoryWidth
+     */
+    public int getMemoryWidth() {
+        return memoryWidth;
+    }
+
+    /**
+     * @param memoryWidth the memoryWidth to set
+     */
+    public void setMemoryWidth(int memoryWidth) {
+        this.memoryWidth = memoryWidth;
+    }
+
+    /**
+     * @return the memoryHeight
+     */
+    public int getMemoryHeight() {
+        return memoryHeight;
+    }
+
+    /**
+     * @param memoryHeight the memoryHeight to set
+     */
+    public void setMemoryHeight(int memoryHeight) {
+        this.memoryHeight = memoryHeight;
+    }
+
+    public String getStacksize() {
+        return memoryWidth+"x"+memoryHeight;
+    }
+
+    public void setStacksize(String stacksize) {
+        String[] parts = stacksize.split("x");
+        memoryWidth = Integer.parseInt(parts[0]);
+        memoryHeight = Integer.parseInt(parts[1]);
+    }
 
 
 

@@ -16,25 +16,25 @@
                         <h:outputText value="#{msg.fillOutFormBelow}"/>
                     </p>
                     <h:form>
-                        <h:commandButton id="displayPersData" value="#{msg.displayPersData}" action="#{loginCtrl.toggleDisplayPersData}"/>
+                        <h:commandButton id="displayPersData" value="#{msg.displayPersData}" action="#{userCtrl.toggleDisplayPersData}"/>
                         <h3>
-                            <h:outputText value="#{msg.personalData}" rendered="#{loginCtrl.displayPersData}"/>
+                            <h:outputText value="#{msg.personalData}" rendered="#{userCtrl.displayPersData}"/>
                         </h3>
-                        <h:panelGrid id="persData" columns="2" rendered="#{loginCtrl.displayPersData}">
+                        <h:panelGrid id="persData" columns="2" rendered="#{userCtrl.displayPersData}">
                             <h:outputLabel value="#{msg.firstname}"/>
-                            <h:inputText value="#{loginCtrl.user.firstname}"/>
+                            <h:inputText value="#{userCtrl.user.firstname}"/>
                             <h:outputLabel value="#{msg.lastname}"/>
-                            <h:inputText value="#{loginCtrl.user.lastname}"/>
+                            <h:inputText value="#{userCtrl.user.lastname}"/>
                             <h:outputLabel value="#{msg.birthdate}"/>
-                            <h:inputText value="#{loginCtrl.user.birthdate}"/>
+                            <h:inputText value="#{userCtrl.user.birthdate}"/>
                             <h:outputLabel value="#{msg.gender}"/>
                             <h:selectOneMenu id="gender">
-                                <f:selectItem value="#{loginCtrl.user.femaleItem}"></f:selectItem>
-                                <f:selectItem value="#{loginCtrl.user.maleItem}"></f:selectItem>
+                                <f:selectItem value="#{userCtrl.user.femaleItem}"></f:selectItem>
+                                <f:selectItem value="#{userCtrl.user.maleItem}"></f:selectItem>
                             </h:selectOneMenu>
                         </h:panelGrid>
                         <mc:logincomp stacksize="2x2"/>
-                        <h:commandButton id="login" value="#{msg.register}" action="#{loginCtrl.register}"/>
+                        <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
                     </h:form>
                 </div>
          </ui:define>

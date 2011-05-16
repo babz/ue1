@@ -33,10 +33,10 @@ public class MemoryAPI {
         public MemoryAPI() {
             // TODO clean this method!
             allFlags = Arrays.asList(new String[] {"at.jpg", "cz.jpg", "de.jpg", "dk.jpg", "es.jpg", "fi.jpg", "fr.jpg", "gr.jpg", "it.jpg", "jp.jpg", "kr.jpg", "no.jpg", "pt.jpg", "ro.jpg", "se.jpg", "tr.jpg", "uk.jpg", "us.jpg"});
-            createAndAddUser("Franz", "12345");
-            createAndAddUser("Helga", "12345");
-            createAndAddUser("Hubsi", "12345");
-            createAndAddUser("Ylgal", "12345");
+            createAndAddUser("Franz", "12345abc");
+            createAndAddUser("Helga", "12345abc");
+            createAndAddUser("Hubsi", "12345abc");
+            createAndAddUser("Ylgal", "12345abc");
            log.info("MemoryAPI created!");
         }
 
@@ -74,6 +74,7 @@ public class MemoryAPI {
         // END TESTCODE TODO REMOVE
 
         private void createAndAddUser(String name, String password) {
+            log.info("Adding user "+name + ", password:"+ password);
             User user = createUser(name, password);
             registeredUsers.put(user.getUsername(), user);
         }
@@ -98,28 +99,15 @@ public class MemoryAPI {
             return true;
         }
 
-        /**
-         * Logs
-         * @param login
-         * @return
-         * @throws UserNotRegisteredException
-         * @throws UserAlreadyLoggedInException
-         */
-        public User getUserByName(String name) throws UserNotRegisteredException {
+        public User loginUser(String name, String password) {
             User user;
-            
             if((user = registeredUsers.get(name)) == null)
-                throw new UserNotRegisteredException(name);
+                return null;
 
-            /* TODO do we need this, comment in if we are able to log user out as well
-            if(user.isOnline())
-                throw new UserAlreadyLoggedInException(login.getName());
+            if(!user.getPassword().equals(password))
+                return null;
 
-            user.setOnline(true); */
-            User tmpUser = new User(); // TODO remove this, just testing
-            tmpUser.setUsername("a");
-            tmpUser.setPassword("a");
-            return tmpUser;
+            return user;
         }
 	
 	public MemoryTable createMemoryTable(int memoryWidth, int memoryHeight) {
