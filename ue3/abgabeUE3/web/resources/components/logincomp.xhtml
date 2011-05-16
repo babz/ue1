@@ -12,18 +12,18 @@
 
   <!-- IMPLEMENTATION -->
   <composite:implementation>
-    <h:outputLabel value="Username: "> <!-- TODO use I18n-->
-    </h:outputLabel>
+      <h:outputLabel value="#{msg.username} ">
+      </h:outputLabel>
       <h:inputText id="username" required="true" value="#{loginCtrl.user.username}">
-    </h:inputText>
-      <h:outputLabel value="Password: "> <!-- TODO use I18n-->
-    </h:outputLabel>
-    <h:inputSecret id="password" required="true" value="#{loginCtrl.user.password}">
-    </h:inputSecret>
-      <h:outputLabel value="Größe des Stacks: "> <!-- TODO use I18n-->
+      </h:inputText>
+      <h:outputLabel value="#{msg.password} ">
+      </h:outputLabel>
+      <h:inputSecret id="password" required="true" value="#{loginCtrl.user.password}">
+      </h:inputSecret>
+      <h:outputLabel value="#{msg.stacksize} ">
       </h:outputLabel>
       <h:inputText id="stacksize" value="#{cc.attrs.stacksize}">
-    </h:inputText>
+      </h:inputText>
   </composite:implementation>
 
 

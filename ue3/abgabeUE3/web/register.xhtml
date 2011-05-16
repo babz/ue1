@@ -9,24 +9,32 @@
         <ui:composition template="./layoutTemplate.xhtml">
             <ui:define name="content" id="main">
                 <div>
-                    <h2><h:outputText value="Registrieren"/></h2>
-                    <p><h:outputText value="Bitte f&uuml;llen Sie das untenstehende Formular aus!"/></p>
-                    <h3><h:outputText value="Pers&ouml;nliche Daten"/></h3>
-                    <h:form id="persDataForm">
+                    <h2><h:outputText value="#{msg.register}"/></h2>
+                    <p><h:outputText value="#{msg.fillOutFormBelow}"/></p>
+                    <h:form>
+                         <h:commandButton id="login" value="#{msg.displayPersData}" action="#{loginCtrl.toggleDisplayPersData}"/>
+                    </h:form>
+                    <h:form id="persDataForm" rendered="#{loginCtrl.displayPersData}">
+                        <h3><h:outputText value="#{msg.personalData}"/></h3>
                         <h:panelGrid id="persData" columns="2">
-                            <h:outputLabel value="Vorname"/>
-                            <h:inputText value="#{user.firstname}"/>
-                            <h:outputLabel value="Nachname"/>
-                            <h:inputText value="#{user.lastname}"/>
-                            <h:outputLabel value="Geburtsdatum"/>
-                            <h:inputText value="#{user.birthdate}"/>
-                            <h:outputLabel value="Geschlecht"/>
+                            <h:outputLabel value="#{msg.firstname}"/>
+                            <h:inputText value="#{loginCtrl.user.firstname}"/>
+                            <h:outputLabel value="#{msg.lastname}"/>
+                            <h:inputText value="#{loginCtrl.user.lastname}"/>
+                            <h:outputLabel value="#{msg.birthdate}"/>
+                            <h:inputText value="#{loginCtrl.user.birthdate}"/>
+                            <h:outputLabel value="#{msg.gender}"/>
                             <h:selectOneMenu id="gender">
-                                <f:selectItem value="#{user.femaleItem}"></f:selectItem>
-                                <f:selectItem value="#{user.maleItem}"></f:selectItem>
+                                <f:selectItem value="#{loginCtrl.user.femaleItem}"></f:selectItem>
+                                <f:selectItem value="#{loginCtrl.user.maleItem}"></f:selectItem>
                             </h:selectOneMenu>
                         </h:panelGrid>
                     </h:form>
+                    <mc:logincomp stacksize="2x2"/>
+                    <h:form>
+                    <h:commandButton id="login" value="#{msg.register}" action="#{loginCtrl.login}"/>
+                    </h:form>
+
                 </div>
          </ui:define>
         </ui:composition>

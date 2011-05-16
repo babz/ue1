@@ -45,11 +45,11 @@ public class User {
     }
 
     public SelectItem getFemaleItem() {
-        return new SelectItem("w", "weiblich");
+        return new SelectItem("w", "weiblich"); //TODO this needs internalization
     }
 
     public SelectItem getMaleItem() {
-       return new SelectItem("m", "männlich");
+       return new SelectItem("m", "männlich"); //TODO this needs internalization
     }
 
     public String getPassword() {

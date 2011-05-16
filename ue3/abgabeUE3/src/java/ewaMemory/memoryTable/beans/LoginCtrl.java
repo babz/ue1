@@ -29,12 +29,55 @@ public class LoginCtrl {
     @ManagedProperty(value="#{api}")
     private MemoryAPI api;
 
+    private boolean displayPersData = false;
+
     //TODO save list of customers in class with application scope
 
     boolean loginfailed = false;
 
     public LoginCtrl() {
          log.info("LoginCtrl created!");
+    }
+
+        //Login - check password
+    public String login()
+    {
+        log.info("login; customer: "+getUser().toString());
+        User registeredUser = null;
+        try {
+            registeredUser = getApi().getUserByName(getUser().getUsername());
+        } catch (UserNotRegisteredException ex) {
+            log.info(ex.getMessage());
+        }
+
+        if(getUser() == null)
+            return "/login.xhtml";
+
+        if(getUser().getPassword().equals(registeredUser.getPassword()))
+        {
+            loginfailed = false;
+            return "/register.xhtml";
+//            return "/memoryTable.xhtml"; TODO comment in
+        }
+
+        else
+        {
+            loginfailed = true;
+            return "/login.xhtml";
+        }
+    }
+
+    //Validation of the username
+    public void validateUsername(FacesContext ctx, UIComponent component, Object value) throws ValidatorException
+    {
+        String username = (String)value;
+
+        if(!username.equals("Markus") && !username.equals("Heidi"))
+        {
+            FacesMessage msg = new FacesMessage(
+            FacesMessage.SEVERITY_WARN,"Wrong username!", null);
+            throw new ValidatorException(msg);
+        }
     }
 
     //Getter and Setter
@@ -81,45 +124,24 @@ public class LoginCtrl {
     }
 
 
-    //Login - check password
-    public String login()
-    {
-        log.info("login; customer: "+getUser().toString());
-        User registeredUser = null;
-        try {
-            registeredUser = getApi().getUserByName(getUser().getUsername());
-        } catch (UserNotRegisteredException ex) {
-            log.info(ex.getMessage());
-        }
-        
-        if(getUser().getPassword().equals(registeredUser.getPassword()))
-        {
-            loginfailed = false;
-            return "/login.xhtml";
-//            return "/memoryTable.xhtml"; TODO comment in
-        }
+        /**
+     * @return the displayPersData
+     */
+    public boolean isDisplayPersData() {
+        return displayPersData;
+    }
 
+    /**
+     * @param displayPersData the displayPersData to set
+     */
+    public void setDisplayPersData(boolean displayPersData) {
+        this.displayPersData = displayPersData;
+    }
+
+    public void toggleDisplayPersData() {
+        if(displayPersData)
+            displayPersData = false;
         else
-        {
-            loginfailed = true;
-            return "/login.xhtml";
-        }
+            displayPersData = true;
     }
-
-    //Validation of the username
-    public void validateUsername(FacesContext ctx, UIComponent component, Object value) throws ValidatorException
-    {
-        String username = (String)value;
-
-        if(!username.equals("Markus") && !username.equals("Heidi"))
-        {
-            FacesMessage msg = new FacesMessage(
-            FacesMessage.SEVERITY_WARN,"Wrong username!", null);
-            throw new ValidatorException(msg);
-        }
-    }
-
-
-
-
 }
