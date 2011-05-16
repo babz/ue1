@@ -24,34 +24,6 @@
                 <hr class="accessibility" />
                 <div id="info_area">
                     <h2>Spielstand</h2>
-<!--
-                    <h:panelGrid id="score" columns="3" summary="Diese Tabelle zeigt den aktuellen Spielstand">
-                        
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText styleClass="accessibility" value="Label" />
-                            </f:facet>
-                            <h:outputText styleClass="label, thead" value="Paare" />
-
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Du" />
-                            </f:facet>
-                            <h:outputText value="{memory.points}" />
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText styleClass="thead" value="Gegner" />
-                            </f:facet>
-                            <h:outputText value="0" />
-                        </h:column>
-
-                    </h:panelGrid>
--->
-
                     <table id="score" summary="Diese Tabelle zeigt den aktuellen Spielstand">
                         <tbody>
                             <tr>
@@ -61,17 +33,17 @@
                             </tr>
                             <tr>
                                 <th class="label">Paare</th>
-                                <td>#{memory.points}</td>
+                                <td><h:outputText id="points" value="#{memory.points}" /></td>
                                 <td>0</td>
                             </tr>
                             <tr>
                                 <th class="label">Versuche</th>
-                                <td>#{memory.attempts}</td>
+                                <td><h:outputText id="tries" value="#{memory.attempts}" /></td>
                                 <td>2</td>
                             </tr>
                             <tr>
                                 <th class="label">Zeit</th>
-                                <td>#{memory.playTime}</td>
+                                <td><h:outputText id="timer" value="#{memory.playTime}" /></td>
                                 <td>0:50</td>
                             </tr>
                         </tbody>
@@ -85,12 +57,12 @@
                             </tr>
                             <tr>
                                 <th>Restliche Paare</th>
-                                <td>#{memory.remainingPairs}</td>
+                                <td><h:outputText id="remainingPairs" value="#{memory.remainingPairs}" /></td>
                             </tr>
                         </tbody>
                     </table>
                     <h2>Highscore</h2>
-                    <ul id="unknown">
+                    <ul id="highscore">
                         <li>Petra: 165 Punkte</li>
                         <li>Manuel: 128 Punkte</li>
                         <li>Lena: 115 Punkte</li>
@@ -102,45 +74,21 @@
                     <div id="board">
                         <h2 class="accessibility">Spielbrett</h2>
                         <h:form>
-                        <ui:repeat value="#{memory.rows}" var="row" varStatus="rowIdx">
-                            <ol>
-                                <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
-                                    <!-- TODO card.isVisible() + link -->
-                                    <c:if test="#{card.visible}">
-                                        <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card visible"><h:graphicImage name="#{card.imagePath}" alt="#{card.altText}"/></li>
-                                    </c:if>
-                                    <c:otherwise>
-                                        <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card"><h:commandLink action="#{memoryCtrl.cardClicked}"><f:param name="x" value="#{columnIdx.index}" /><f:param name="y" value="#{rowIdx.index}" /><h:graphicImage name="img/card_background.png" alt="zugedeckte karte"/></h:commandLink></li>
-                                    </c:otherwise>
-                                </ui:repeat>
-                            </ol>
-                        </ui:repeat>
+                            <ui:repeat value="#{memory.rows}" var="row" varStatus="rowIdx">
+                                <ol>
+                                    <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
+                                        <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card #{card.visible ? 'visible' : ''}" >
+                                            <h:commandLink id="turnCard-#{rowIdx.index}-#{columnIdx.index}" rendered="#{!card.visible}" >
+                                                <f:ajax event="click" listener="#{memoryCtrl.cardClicked(rowIdx.index, columnIdx.index)}" render="@form :tries :points :timer :remainingPairs" />
+                                                <h:graphicImage name="img/card_background.png" alt="zugedeckte karte" />
+                                            </h:commandLink>
+                                            <h:graphicImage name="#{card.imagePath}" alt="#{card.altText}" rendered="#{card.visible}" />
+                                        </li>
+                                        <!--<li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card"><h:commandLink action="{memoryCtrl.cardClicked}"><f:param name="x" value="#{columnIdx.index}" /><f:param name="y" value="#{rowIdx.index}" /><h:graphicImage name="img/card_background.png" alt="zugedeckte karte"/></h:commandLink></li>-->
+                                    </ui:repeat>
+                                </ol>
+                            </ui:repeat>
                         </h:form>
-
-                        <!--<%
-						int rowCount = 0;
-						for(List<MemoryCard> row : memory.getRows()) {
-							int column = 0;
-						%>
-						<ol>
-							<%
-							for(MemoryCard card : row) {
-								if(card.isVisible()) {
-							%><li title="Zeile <%= rowCount %>, Spalte <%= column %>" class="card visible"><img src="<%= card.getImagePath() %>" alt="<%= card.getAltText() %>"/></li>
-							<%
-								}
-								else {
-							%><li title="Zeile <%= rowCount %>, Spalte <%= column %>" class="card"><a href="<%= UrlFactory.generateMemoryCardClickUrl(rowCount, column) %>"><img src="img/card_background.png" alt="zugedeckte Karte"/></a></li>
-							<%
-								}
-								column++;
-							}
-							rowCount++;
-						%></ol>
-						<%
-						}
-						%>-->
-
                         <div class="clearer"></div>
                     </div>
                 </div>
