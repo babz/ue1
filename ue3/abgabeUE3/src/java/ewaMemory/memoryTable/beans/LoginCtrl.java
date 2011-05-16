@@ -95,13 +95,13 @@ public class LoginCtrl {
         if(getUser().getPassword().equals(registeredUser.getPassword()))
         {
             loginfailed = false;
-            return "/memoryTable.xhtml";
+            return "memoryTable.xhtml";
         }
 
         else
         {
             loginfailed = true;
-            return "/login.xhtml";
+            return "login.xhtml";
         }
     }
 

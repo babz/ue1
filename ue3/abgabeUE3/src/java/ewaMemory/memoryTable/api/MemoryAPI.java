@@ -40,11 +40,17 @@ public class MemoryAPI {
 
         // START TESTCODE TODO REMOVE
 
-        public void printSthing() {
+        public void al() {
+            System.out.println("al called");
+            log.info("al called!");
+        }
+
+        public String printSthing() {
             System.out.println("PRINTING SOMETHING!!");
             setTrigger(true);
 
-            FacesContext.getCurrentInstance().renderResponse();
+            //FacesContext.getCurrentInstance().renderResponse();
+            return "memoryTable";
         }
 
         private boolean trigger = true;

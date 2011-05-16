@@ -12,15 +12,17 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="./layoutTemplate.xhtml">
             <ui:define name="content">
-                <mc:logincomp username="Franz" stacksize="2x2"/>
-                <h:commandButton id="login" value="#{msg.login}" action="#{loginCtrl.login}"/>
-                <!-- TEST CODE START TODO REMOVE -->
-                <h:commandButton id="printSthing" value="printSthing" action="#{api.printSthing}"/>
-                <p><h:outputText value="#{api.trigger}" style="color: blue" /></p>
-                <p><h:outputText value="TRIGGER IS TRUE"   rendered="#{api.trigger}" style="color: red" /></p>
-                <!-- TEST CODE END TODO REMOVE -->
+                <h:form>
+                    <mc:logincomp username="Franz" stacksize="2x2"/>
+                    <h:commandButton id="login" value="#{msg.login}" action="#{loginCtrl.login}"/>
+                    <!-- TEST CODE START TODO REMOVE -->
+                    <h:commandButton id="printSthing" value="printSthing" action="memoryTable" actionListener="#{api.al}" />
+                    <p><h:outputText value="#{api.trigger}" style="color: blue" /></p>
+                    <p><h:outputText value="TRIGGER IS TRUE"   rendered="#{api.trigger}" style="color: red" /></p>
+                    <!-- TEST CODE END TODO REMOVE -->
+                </h:form>
             </ui:define>
         </ui:composition>
-        
+
     </h:body>
 </html>
