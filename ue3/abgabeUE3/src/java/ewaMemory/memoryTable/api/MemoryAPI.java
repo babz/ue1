@@ -2,6 +2,7 @@ package ewaMemory.memoryTable.api;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -16,13 +17,12 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 @ManagedBean(eager=true, name="api")
 @ApplicationScoped
 public class MemoryAPI {
-	private static Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-        private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
+	private static final Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
+        private static String CARD_DIR_REL_TO_WEB_CONTENT = "resources/img/cards";
 	private List<String> allFlags;
         private Map<String, User> registeredUsers = new HashMap<String, User>() {};
 
@@ -31,6 +31,8 @@ public class MemoryAPI {
 //		allFlags = cardDecks;
 //	}
         public MemoryAPI() {
+            // TODO clean this method!
+            allFlags = Arrays.asList(new String[] {"at.jpg", "cz.jpg", "de.jpg", "dk.jpg", "es.jpg", "fi.jpg", "fr.jpg", "gr.jpg", "it.jpg", "jp.jpg", "kr.jpg", "no.jpg", "pt.jpg", "ro.jpg", "se.jpg", "tr.jpg", "uk.jpg", "us.jpg"});
             createAndAddUser("Franz", "12345");
             createAndAddUser("Helga", "12345");
             createAndAddUser("Hubsi", "12345");
@@ -114,8 +116,10 @@ public class MemoryAPI {
                 throw new UserAlreadyLoggedInException(login.getName());
 
             user.setOnline(true); */
-            
-            return user;
+            User tmpUser = new User(); // TODO remove this, just testing
+            tmpUser.setUsername("a");
+            tmpUser.setPassword("a");
+            return tmpUser;
         }
 	
 	public MemoryTable createMemoryTable(int memoryWidth, int memoryHeight) {

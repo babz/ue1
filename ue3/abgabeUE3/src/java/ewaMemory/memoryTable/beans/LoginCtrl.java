@@ -14,6 +14,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,21 +44,28 @@ public class LoginCtrl {
     public String login()
     {
         log.info("login; customer: "+getUser().toString());
+        log.info("login: username: " + getUser().getUsername());
         User registeredUser = null;
-        try {
+        /*try {
             registeredUser = getApi().getUserByName(getUser().getUsername());
         } catch (UserNotRegisteredException ex) {
-            log.info(ex.getMessage());
-        }
-
-        if(getUser() == null)
+            log.info("User not registered! " + ex.getMessage());
             return "/login.xhtml";
+        }*/
 
-        if(getUser().getPassword().equals(registeredUser.getPassword()))
+        /*if(getUser() == null)
+            return "/login.xhtml";*/
+
+        if(/*getUser().getPassword().equals(registeredUser.getPassword())*/ true)
         {
             loginfailed = false;
-            return "/register.xhtml";
-//            return "/memoryTable.xhtml"; TODO comment in
+
+            MemoryTable table = getApi().createMemoryTable(4, 4); // TODO take values from login/user
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            session.setAttribute("memory", table);
+
+//            return "/register.xhtml";
+            return "/memoryTable.xhtml";
         }
 
         else

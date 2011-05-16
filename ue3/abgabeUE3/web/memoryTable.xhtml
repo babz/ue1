@@ -38,7 +38,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Du" />
                             </f:facet>
-                            <h:outputText value="#{memory.points}" />
+                            <h:outputText value="{memory.points}" />
                         </h:column>
 
                         <h:column>
@@ -101,9 +101,9 @@
                     <div id="board">
                         <h2 class="accessibility">Spielbrett</h2>
 
-                        <ui:repeat value="memory.rows" var="row" varStatus="rowIdx">
+                        <ui:repeat value="#{memory.rows}" var="row" varStatus="rowIdx">
                             <ol>
-                                <ui:repeat value="row" var="card" varStatus="columnIdx">
+                                <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
                                     <!-- TODO card.isVisible() + link -->
                                     <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card visible"><img src="#{card.imagePath}" alt="#{card.altText}" /></li>
                                 </ui:repeat>
