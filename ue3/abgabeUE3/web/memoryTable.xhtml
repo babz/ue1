@@ -13,65 +13,65 @@
 
             <ui:define name="content">
                 <div id="navigation">
-                    <h2 class="accessibility">Navigation</h2>
+                    <h2 class="accessibility">#{msg.navigation}</h2>
                     <ul>
-                        <li><a href="#">Userdaten &auml;ndern</a></li>
-                        <li><a href="#">Zur&uuml;ck zur Lounge</a></li>
-                        <li><a href="#">Ausloggen</a></li>
+                        <li><a href="#">#{msg.editPersData}</a></li>
+                        <li><a href="#">#{msg.backToLounge}</a></li>
+                        <li><a href="#">#{msg.logout}</a></li>
                     </ul>
                 </div>
                 <hr class="accessibility" />
                 <div id="info_area">
-                    <h2>Spielstand</h2>
-                    <table id="score" summary="Diese Tabelle zeigt den aktuellen Spielstand">
+                    <h2>#{msg.score}</h2>
+                    <table id="score" summary="#{msg.scoreSummary}">
                         <tbody>
                             <tr>
                                 <th class="accessibility">Label</th>
-                                <th>Du</th>
-                                <th>Gegner</th>
+                                <th>#{msg.you}</th>
+                                <th>#{msg.enemy}</th>
                             </tr>
                             <tr>
-                                <th class="label">Paare</th>
+                                <th class="label">#{msg.pairs}</th>
                                 <td><h:outputText id="points" value="#{memory.points}" /></td>
                                 <td>0</td>
                             </tr>
                             <tr>
-                                <th class="label">Versuche</th>
+                                <th class="label">#{msg.tries}</th>
                                 <td><h:outputText id="tries" value="#{memory.attempts}" /></td>
                                 <td>2</td>
                             </tr>
                             <tr>
-                                <th class="label">Zeit</th>
+                                <th class="label">#{msg.time}</th>
                                 <td><h:outputText id="timer" value="#{memory.playTime}" /></td>
                                 <td>0:50</td>
                             </tr>
                         </tbody>
                     </table>
-                    <h2>Spielinformationen</h2>
-                    <table id="game_info" summary="Diese Tabelle zeigt weitere Informationen zum aktuellen Spiel">
+                    <h2>#{msg.gameInfo}</h2>
+                    <table id="game_info" summary="#{msg.gameInfoSummary}">
                         <tbody>
                             <tr class="accessibility">
-                                <th>Information</th>
-                                <th>Wert</th>
+                                <th>#{msg.information}</th>
+                                <th>#{msg.value}</th>
                             </tr>
                             <tr>
-                                <th>Restliche Paare</th>
+                                <th>#{msg.remainingPairs}</th>
                                 <td><h:outputText id="remainingPairs" value="#{memory.remainingPairs}" /></td>
                             </tr>
                         </tbody>
                     </table>
-                    <h2>Highscore</h2>
+                    <h2>#{msg.highscore}</h2>
                     <ul id="highscore">
-                        <li>Petra: 165 Punkte</li>
-                        <li>Manuel: 128 Punkte</li>
-                        <li>Lena: 115 Punkte</li>
-                        <li>Andi: 99 Punkte</li>
+                        <li>Petra: 165 #{msg.points}</li>
+                        <li>Manuel: 128 #{msg.points}</li>
+                        <li>Lena: 115 #{msg.points}</li>
+                        <li>Andi: 99 #{msg.points}</li>
                     </ul>
                     <h:form id="gameFinished" >
                         <h:panelGroup layout="block"  rendered="#{memory.remainingPairs == 0}">
                             <p>
-                                <h:outputText value="You won the game!" /><br />
-                                <h:commandButton value="Restart Game" action="#{memoryCtrl.newGame}" />
+                                <h2><h:outputText value="#{msg.gameWonMsg}" /></h2>
+                                <h:commandButton value="#{msg.newGame}" action="#{memoryCtrl.newGame}" />
                             </p>
                         </h:panelGroup>
                     </h:form>
@@ -79,7 +79,7 @@
                 <div id="play_area">
                     <hr class="accessibility" />
                     <div id="board">
-                        <h2 class="accessibility">Spielbrett</h2>
+                        <h2 class="accessibility">#{msg.board}</h2>
                         <h:form>
                             <ui:repeat value="#{memory.rows}" var="row" varStatus="rowIdx">
                                 <ol>
