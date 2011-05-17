@@ -67,9 +67,13 @@
                         <li>Lena: 115 Punkte</li>
                         <li>Andi: 99 Punkte</li>
                     </ul>
-                    <h:form id="gameFinished" rendered="#{memory.remainingPairs == 0}">
-                        <h:outputText value="You won the game!" />
-                        <h:commandButton value="Restart Game" action="#{memoryCtrl.newGame}" />
+                    <h:form id="gameFinished" >
+                        <h:panelGroup layout="block"  rendered="#{memory.remainingPairs == 0}">
+                            <p>
+                                <h:outputText value="You won the game!" /><br />
+                                <h:commandButton value="Restart Game" action="#{memoryCtrl.newGame}" />
+                            </p>
+                        </h:panelGroup>
                     </h:form>
                 </div>
                 <div id="play_area">
