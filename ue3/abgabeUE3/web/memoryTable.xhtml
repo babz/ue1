@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://java.sun.com/jsf/core">
 
 
     <h:body>
@@ -68,6 +67,10 @@
                         <li>Lena: 115 Punkte</li>
                         <li>Andi: 99 Punkte</li>
                     </ul>
+                    <h:form id="gameFinished" rendered="#{memory.remainingPairs == 0}">
+                        <h:outputText value="You won the game!" />
+                        <h:commandButton value="Restart Game" action="#{memoryCtrl.newGame}" />
+                    </h:form>
                 </div>
                 <div id="play_area">
                     <hr class="accessibility" />
@@ -79,7 +82,7 @@
                                     <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
                                         <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card #{card.visible ? 'visible' : ''}" >
                                             <h:commandLink rendered="#{!card.visible}" >
-                                                <f:ajax event="click" listener="#{memoryCtrl.cardClicked(rowIdx.index, columnIdx.index)}" render="@form :tries :points :timer :remainingPairs" />
+                                                <f:ajax event="click" listener="#{memoryCtrl.cardClicked((rowIdx.index), (columnIdx.index))}" render="@form :tries :points :timer :remainingPairs :gameFinished" />
                                                 <h:graphicImage name="img/card_background.png" alt="zugedeckte karte" />
                                             </h:commandLink>
                                             <h:graphicImage name="#{card.imagePath}" alt="#{card.altText}" rendered="#{card.visible}" />

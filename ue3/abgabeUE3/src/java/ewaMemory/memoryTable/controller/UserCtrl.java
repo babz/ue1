@@ -29,6 +29,9 @@ public class UserCtrl {
     private User user;
     @ManagedProperty(value = "#{api}")
     private MemoryAPI api;
+    @ManagedProperty("#{memoryCtrl}")
+    private MemoryCtrl memoryCtrl;
+
     private boolean displayPersData = false;
     //TODO save list of customers in class with application scope
     private boolean loginfailed = false;
@@ -58,11 +61,7 @@ public class UserCtrl {
 
         loginfailed = false;
 
-        MemoryTable table = getApi().createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight()); // TODO take values from login/user
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        session.setAttribute("memory", table);
-
-        return "/memoryTable.xhtml";
+        return memoryCtrl.newGame();
     }
 
     public String register() {
@@ -127,6 +126,15 @@ public class UserCtrl {
      */
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public MemoryCtrl getMemoryCtrl() {
+        return memoryCtrl;
+    }
+
+    public void setMemoryCtrl(MemoryCtrl memoryCtrl) {
+        this.memoryCtrl = memoryCtrl;
     }
 
     /**

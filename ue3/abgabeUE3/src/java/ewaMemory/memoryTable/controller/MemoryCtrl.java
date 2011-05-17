@@ -2,6 +2,7 @@ package ewaMemory.memoryTable.controller;
 
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
+import ewaMemory.memoryTable.beans.User;
 import ewaMemory.memoryTable.gui.MemoryTableParams;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -10,17 +11,24 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 import sun.util.logging.resources.logging;
 
 @ManagedBean
 @SessionScoped
 public class MemoryCtrl {
-    private static final Logger log = Logger.getLogger(MemoryCtrl.class.getSimpleName());
 
+    private static final Logger log = Logger.getLogger(MemoryCtrl.class.getSimpleName());
     @ManagedProperty("#{api}")
     private MemoryAPI memoryApi;
     @ManagedProperty("#{memory}")
     private MemoryTable memoryTable;
+    @ManagedProperty("#{user}")
+    private User user;
+
+    public MemoryCtrl() {
+        log.info("MemoryCtrl created!");
+    }
 
     public void cardClicked(int x, int y) {
 //        Map<String, String> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -33,7 +41,16 @@ public class MemoryCtrl {
         //return "memoryTable.xhtml";
     }
 
+    public String newGame() {
+        log.info("starting new game");
 
+        MemoryTable table = memoryApi.createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight());
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.setAttribute("memory", table);
+        memoryTable = table;
+
+        return "memoryTable.xhtml";
+    }
 
     public MemoryAPI getMemoryApi() {
         return memoryApi;
@@ -49,5 +66,13 @@ public class MemoryCtrl {
 
     public void setMemoryTable(MemoryTable memoryTable) {
         this.memoryTable = memoryTable;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
