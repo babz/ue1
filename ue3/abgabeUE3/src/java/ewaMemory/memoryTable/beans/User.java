@@ -112,7 +112,7 @@ public class User {
         return memoryWidth+"x"+memoryHeight;
     }
 
-    public void setStacksize(String stacksize) {
+    public void setStacksize(String stacksize) { //TODO needs to be solved differently, only 2x2-4x4-6x6 should be supported
         String[] parts = stacksize.split("x");
         memoryWidth = Integer.parseInt(parts[0]);
         memoryHeight = Integer.parseInt(parts[1]);

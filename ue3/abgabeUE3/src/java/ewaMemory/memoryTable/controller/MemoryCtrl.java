@@ -1,6 +1,7 @@
-package ewaMemory.memoryTable.beans;
+package ewaMemory.memoryTable.controller;
 
 import ewaMemory.memoryTable.api.MemoryAPI;
+import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.gui.MemoryTableParams;
 import java.util.Map;
 import java.util.logging.Logger;

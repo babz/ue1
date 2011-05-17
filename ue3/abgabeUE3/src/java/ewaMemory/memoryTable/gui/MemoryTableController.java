@@ -18,6 +18,7 @@ import ewaMemory.memoryTable.beans.MemoryTable;
 /**
  * Servlet implementation class MemoryTableController
  */
+@Deprecated
 @WebServlet("/MemoryTableController")
 public class MemoryTableController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

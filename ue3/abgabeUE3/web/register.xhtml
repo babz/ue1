@@ -17,16 +17,18 @@
                     </p>
                     <h:form>
                         <h:commandButton id="displayPersData" value="#{msg.displayPersData}" action="#{userCtrl.toggleDisplayPersData}"/>
-                        <h3>
-                            <h:outputText value="#{msg.personalData}" rendered="#{userCtrl.displayPersData}"/>
-                        </h3>
+                    </h:form>
+                    <h3>
+                        <h:outputText value="#{msg.personalData}" rendered="#{userCtrl.displayPersData}"/>
+                    </h3>
+                    <h:form>
                         <h:panelGrid id="persData" columns="2" rendered="#{userCtrl.displayPersData}">
                             <h:outputLabel value="#{msg.firstname}"/>
                             <h:inputText value="#{userCtrl.user.firstname}"/>
                             <h:outputLabel value="#{msg.lastname}"/>
                             <h:inputText value="#{userCtrl.user.lastname}"/>
                             <h:outputLabel value="#{msg.birthdate}"/>
-                            <h:inputText value="#{userCtrl.user.birthdate}"/>
+                            <h:inputText value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
                             <h:outputLabel value="#{msg.gender}"/>
                             <h:selectOneMenu id="gender">
                                 <f:selectItem value="#{userCtrl.user.femaleItem}"></f:selectItem>

@@ -1,19 +1,19 @@
-package ewaMemory.memoryTable.beans;
+package ewaMemory.memoryTable.controller;
 
 import ewaMemory.memoryTable.api.MemoryAPI;
-import ewaMemory.memoryTable.api.UserNotRegisteredException;
-import java.util.logging.Level;
+import ewaMemory.memoryTable.beans.MemoryTable;
+import ewaMemory.memoryTable.beans.User;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.util.Date;
-import java.util.Random;
 import java.util.logging.Logger;
-import javax.faces.validator.ValidatorException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
-import javax.faces.application.FacesMessage;
+import javax.faces.validator.ValidatorException;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -23,38 +23,39 @@ import javax.servlet.http.HttpSession;
 @ManagedBean
 @SessionScoped
 public class UserCtrl {
+
     private static final Logger log = Logger.getLogger(UserCtrl.class.getSimpleName());
-    
-    @ManagedProperty(value="#{user}")
+    @ManagedProperty(value = "#{user}")
     private User user;
-    @ManagedProperty(value="#{api}")
+    @ManagedProperty(value = "#{api}")
     private MemoryAPI api;
-
     private boolean displayPersData = false;
-
     //TODO save list of customers in class with application scope
+    private boolean loginfailed = false;
+    private UserDataValidator validator = new UserDataValidator();
 
-    boolean loginfailed = false;
+    
 
     public UserCtrl() {
-         log.info("LoginCtrl created!");
+
+        log.info("LoginCtrl created!");
     }
 
-        //Login - check password
-    public String login()
-    {
+    //Login - check password
+    public String login() {
         loginfailed = true;
-        
-        if(getUser() == null)
+
+        if (getUser() == null) {
             return "/login.xhtml";
-        
-        log.info("login; user: "+getUser().toString());
-        
+        }
+
+        log.info("login; user: " + getUser().toString());
+
         User registeredUser = getApi().loginUser(getUser().getUsername(), getUser().getPassword());
         if (registeredUser == null) {
             return "/login.xhtml";
         }
-        
+
         loginfailed = false;
 
         MemoryTable table = getApi().createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight()); // TODO take values from login/user
@@ -71,7 +72,21 @@ public class UserCtrl {
         return "/login.xhtml";
     }
 
-    //Getter and Setter
+    public void validateDate(FacesContext context,
+            UIComponent componentToValidate,
+            Object value)
+            throws ValidatorException {
+        validator.validateDate(context, componentToValidate, value);
+    }
+
+     public void validateStacksize(FacesContext context,
+            UIComponent componentToValidate,
+            Object value)
+            throws ValidatorException {
+         validator.validateStacksize(context, componentToValidate, value);
+     }
+
+     //Getter and Setter
     public User getCustomer() {
         return getUser();
     }
@@ -114,8 +129,7 @@ public class UserCtrl {
         this.user = user;
     }
 
-
-        /**
+    /**
      * @return the displayPersData
      */
     public boolean isDisplayPersData() {
@@ -130,11 +144,11 @@ public class UserCtrl {
     }
 
     public void toggleDisplayPersData() {
-        if(displayPersData)
+        if (displayPersData) {
             displayPersData = false;
-        else
+        } else {
             displayPersData = true;
+        }
     }
 
-    
 }
