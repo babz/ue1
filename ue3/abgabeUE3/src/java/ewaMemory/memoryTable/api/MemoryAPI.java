@@ -114,7 +114,7 @@ public class MemoryAPI {
 		if(memoryHeight % 2 != 0 && memoryWidth % 2 != 0){
 			throw new IllegalArgumentException("both params odd!");
 		}
-		log.info("creating new MemoryTable");
+		log.info("creating new MemoryTable, width: "+memoryWidth+", height: "+memoryHeight);
 		MemoryTable memory = new MemoryTable();
 		
 		log.info("time starts");
@@ -126,8 +126,9 @@ public class MemoryAPI {
 		
 		int neededFlags = memoryHeight * memoryWidth / 2;
 		for(int i = 0; i < neededFlags; i++) {
-			flags.add(allFlags.get(i % allFlags.size())); // get flags and reuse, if not enough unique flags exist
-			flags.add(allFlags.get(i % allFlags.size()));
+                        String newFlag = allFlags.get(i % allFlags.size());  // get flags and reuse, if not enough unique flags exist
+			flags.add(newFlag);
+			flags.add(newFlag);
 		}
 		
 		Collections.shuffle(flags);

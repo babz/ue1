@@ -3,16 +3,12 @@ package ewaMemory.memoryTable.controller;
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.User;
-import ewaMemory.memoryTable.gui.MemoryTableParams;
-import java.util.Map;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
-import sun.util.logging.resources.logging;
 
 @ManagedBean
 @SessionScoped
@@ -42,7 +38,7 @@ public class MemoryCtrl {
     }
 
     public String newGame() {
-        log.info("starting new game");
+        log.info("starting new game. width:"+user.getMemoryWidth()+", height: "+user.getMemoryHeight());
 
         MemoryTable table = memoryApi.createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight());
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
