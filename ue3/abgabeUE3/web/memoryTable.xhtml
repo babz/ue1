@@ -81,18 +81,17 @@
                                 <ol>
                                     <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
                                         <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card #{card.visible ? 'visible' : ''}" >
-                                            <h:commandLink rendered="#{!card.visible}" >
+                                            <h:commandLink >
+                                                <h:graphicImage name="#{card.imagePath}" alt="#{card.altText}" />
                                                 <f:ajax event="click" listener="#{memoryCtrl.cardClicked((rowIdx.index), (columnIdx.index))}" render="@form :tries :points :timer :remainingPairs :gameFinished" />
-                                                <h:graphicImage name="img/card_background.png" alt="zugedeckte karte" />
                                             </h:commandLink>
-                                            <h:graphicImage name="#{card.imagePath}" alt="#{card.altText}" rendered="#{card.visible}" />
                                         </li>
                                     </ui:repeat>
                                 </ol>
                             </ui:repeat>
                         </h:form>
-                        <div class="clearer"></div>
                     </div>
+                    <div class="clearer"></div>
                 </div>
             </ui:define>
         </ui:composition>
