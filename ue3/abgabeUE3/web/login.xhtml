@@ -15,8 +15,8 @@ and open the template in the editor.
 
             <ui:define name="navigation">
                 <ul>
-                    <li><a href="#">#{msg.backToLounge}</a></li>
-                    <li><h:link outcome="login">#{msg.login}</h:link></li>
+                    <li><a href="#"><h:outputText value="#{msg.backToLounge}" /></a></li>
+                    <li><h:link outcome="login" value="#{msg.login}" /></li>
                 </ul>
             </ui:define>
 
@@ -24,6 +24,8 @@ and open the template in the editor.
                 <div id="main">
                     <h:form>
                         <mc:logincomp stacksize="2x2"/>
+                        <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}" rendered="#{userCtrl.loginfailed}" styleClass="errormessage" />
+
                         <div id="buttons">
                             <h:commandButton id="login" value="#{msg.login}" action="#{userCtrl.login}"/>
                         </div>
@@ -31,7 +33,6 @@ and open the template in the editor.
                     <p>
                         <h:link id="registration" value="#{msg.register}" outcome="register" />
                     </p>
-                    <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}"   rendered="#{userCtrl.loginfailed}" style="color: red" />
                 </div>
             </ui:define>
         </ui:composition>

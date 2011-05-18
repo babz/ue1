@@ -129,6 +129,7 @@ table tbody {
 }*/
 
 #board ol {
+        display:block;
 	float: left;
 	margin:0;
 	padding:0;
@@ -201,25 +202,6 @@ table tbody {
 	padding-right: 0.5em;
 }
 
-ul#top_artists {
-	list-style: none;
-	margin-left: 0px;
-	padding-left: 0px;
-	margin-bottom: 0px;
-}
-
-ul#top_artists li a {
-
-	color: #dddddd;
-	font-size: 120%;
-}
-
-ul#top_artists li a img {
-	border: 1px solid #dddddd;
-	vertical-align:middle;
-	margin-bottom: 0.5em;
-	text-decoration: none;
-}
 
 #footer {
 	text-align: right;
@@ -262,6 +244,13 @@ fieldset {
   display:block;
   width: 9em;
   margin: 0.5em 0 0.5em 0;
+  clear:both;
+}
+
+.errormessage {
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  color: red;
   clear:both;
 }
 

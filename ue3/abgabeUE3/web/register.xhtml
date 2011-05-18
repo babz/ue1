@@ -11,8 +11,8 @@
 
             <ui:define name="navigation">
                 <ul>
-                    <li><a href="#">#{msg.backToLounge}</a></li>
-                    <li><h:link outcome="login">#{msg.login}</h:link></li>
+                    <li><a href="#"><h:outputText value="#{msg.backToLounge}" /></a></li>
+                    <li><h:link outcome="login" value="#{msg.login}" /></li>
                 </ul>
             </ui:define>
 
@@ -49,13 +49,13 @@
                                 <h:inputText id="birthdate" value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
                                 <h:outputLabel for="gender" value="#{msg.gender}"/>
                                 <h:selectOneMenu id="gender" value="#{userCtrl.user.gender}">
-                                    <f:selectItem itemValue="f" itemLabel="#{msg.female}"></f:selectItem>
-                                    <f:selectItem itemValue="m" itemLabel="#{msg.male}"></f:selectItem>
+                                    <f:selectItem itemValue="f" itemLabel="#{msg.female}"/>
+                                    <f:selectItem itemValue="m" itemLabel="#{msg.male}"/>
                                 </h:selectOneMenu>
                             </fieldset>
                         </h:panelGroup>
-                        <h:outputText value="#{msg.usernameAlreadyRegistered}"   rendered="#{userCtrl.usernameAlreadyRegistered}" style="color: red" />
                         <mc:logincomp stacksize="2x2"/>
+                        <h:outputText value="#{msg.usernameAlreadyRegistered}" rendered="#{userCtrl.usernameAlreadyRegistered}" styleClass="errormessage" />
                         <div id="buttons">
                             <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
                         </div>

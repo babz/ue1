@@ -63,7 +63,7 @@ public class UserCtrl {
             return "/login.xhtml";
         }
 
-        user = registeredUser;
+        //user = registeredUser;
         loginfailed = false;
 
         return memoryCtrl.newGame();
