@@ -20,17 +20,18 @@
                 <h1><ui:insert name="title" /></h1>
             </div>
 
-            <div id="content">
-                <div id="body">
-                    <ui:insert name="content">Content</ui:insert>
+            <div id="body">
+                <div id="navigation">
+                    <h2 class="accessibility">#{msg.navigation}</h2>
+                    <ui:insert name="navigation">Navigation</ui:insert>
                 </div>
+                <hr class="accessibility" />
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+            <div id="footer">
+                <p>&copy; 2011 EWA Memory.</p>
             </div>
         </div>
-        <div class="clearer"></div>
-        <div id="footer">
-            <p>&copy; 2011 EWA Memory.</p>
-        </div>
-
     </h:body>
 
 </html>
