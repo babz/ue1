@@ -38,8 +38,10 @@
                             <h:inputText value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
                             <h:outputLabel value="#{msg.gender}"/>
                             <h:selectOneMenu id="gender">
-                                <f:selectItem value="#{userCtrl.user.femaleItem}"></f:selectItem>
-                                <f:selectItem value="#{userCtrl.user.maleItem}"></f:selectItem>
+                               <!-- <f:selectItem value="#{userCtrl.user.femaleItem}"></f:selectItem>
+                                <f:selectItem value="#{userCtrl.user.maleItem}"></f:selectItem> -->
+                                <f:selectItems value="#{userCtrl.user.genderTypes}" var="gender"
+                                               itemValue="#{userCtrl.user.gender}" itemLabel="#{msg[userCtrl.user.gender]}" />
                             </h:selectOneMenu>
                         </h:panelGrid>
                         <mc:logincomp stacksize="2x2"/>

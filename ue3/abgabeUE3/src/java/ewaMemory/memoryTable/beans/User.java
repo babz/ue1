@@ -16,6 +16,8 @@ public class User {
     private String password;
     private int memoryWidth = 4;
     private int memoryHeight = 4;
+    private Gender gender;
+    private Gender[] genderTypes = Gender.values();
 
     public String getFullname() {
         return firstname + " " + lastname;
@@ -51,6 +53,14 @@ public class User {
 
     public SelectItem getMaleItem() {
        return new SelectItem("m", "männlich"); //TODO this needs internalization
+    }
+
+    public Gender getGender(){
+        return gender;
+    }
+
+    public Gender[] getGenderTypes() {
+        return genderTypes;
     }
 
     public String getPassword() {
