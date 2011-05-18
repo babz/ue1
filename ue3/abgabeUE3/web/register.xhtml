@@ -16,8 +16,8 @@
                 </ul>
             </ui:define>
 
-            <ui:define name="content" id="main">
-                <div>
+            <ui:define name="content">
+                <div id="main">
                     <h2>
                         <h:outputText value="#{msg.register}"/>
                     </h2>
@@ -37,24 +37,27 @@
                     <h3>
                         <h:outputText value="#{msg.personalData}" rendered="#{userCtrl.displayPersData}"/>
                     </h3>
+
                     <h:form>
-                        <h:panelGrid id="persData" columns="2" rendered="#{userCtrl.displayPersData}">
-                            <h:outputLabel value="#{msg.firstname}"/>
-                            <h:inputText value="#{userCtrl.user.firstname}"/>
-                            <h:outputLabel value="#{msg.lastname}"/>
-                            <h:inputText value="#{userCtrl.user.lastname}"/>
-                            <h:outputLabel value="#{msg.birthdate}"/>
-                            <h:inputText value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
-                            <h:outputLabel value="#{msg.gender}"/>
-                            <h:selectOneMenu id="gender">
-                               <!-- <f:selectItem value="#{userCtrl.user.femaleItem}"></f:selectItem>
-                                <f:selectItem value="#{userCtrl.user.maleItem}"></f:selectItem> -->
-                                <f:selectItems value="#{userCtrl.user.genderTypes}" var="gender"
-                                               itemValue="#{userCtrl.user.gender}" itemLabel="#{msg[userCtrl.user.gender]}" />
-                            </h:selectOneMenu>
-                        </h:panelGrid>
+                        <h:panelGroup id="persData" layout="block" styleClass="formblock" rendered="#{userCtrl.displayPersData}">
+                            <fieldset>
+                                <h:outputLabel value="#{msg.firstname}"/>
+                                <h:inputText value="#{userCtrl.user.firstname}"/>
+                                <h:outputLabel value="#{msg.lastname}"/>
+                                <h:inputText value="#{userCtrl.user.lastname}"/>
+                                <h:outputLabel value="#{msg.birthdate}"/>
+                                <h:inputText value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
+                                <h:outputLabel value="#{msg.gender}"/>
+                                <h:selectOneMenu id="gender" value="#{userCtrl.user.gender}">
+                                    <f:selectItem itemValue="f" itemLabel="#{msg.female}"></f:selectItem>
+                                    <f:selectItem itemValue="m" itemLabel="#{msg.male}"></f:selectItem>
+                                </h:selectOneMenu>
+                            </fieldset>
+                        </h:panelGroup>
                         <mc:logincomp stacksize="2x2"/>
-                        <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
+                        <div id="buttons">
+                            <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
+                        </div>
                     </h:form>
                     <h:outputText value="#{msg.usernameAlreadyRegistered}"   rendered="#{userCtrl.usernameAlreadyRegistered}" style="color: red" />
                 </div>

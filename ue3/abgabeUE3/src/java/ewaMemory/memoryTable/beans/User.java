@@ -16,8 +16,7 @@ public class User {
     private String password;
     private int memoryWidth = 4;
     private int memoryHeight = 4;
-    private Gender gender;
-    private Gender[] genderTypes = Gender.values();
+    private String gender; //f od m
 
     public User(User user) {
         username = user.getUsername();
@@ -59,20 +58,12 @@ public class User {
         birthdate = bdate;
     }
 
-    public SelectItem getFemaleItem() {
-        return new SelectItem("w", "weiblich"); //TODO this needs internalization
-    }
-
-    public SelectItem getMaleItem() {
-       return new SelectItem("m", "männlich"); //TODO this needs internalization
-    }
-
-    public Gender getGender(){
+    public String getGender(){
         return gender;
     }
 
-    public Gender[] getGenderTypes() {
-        return genderTypes;
+    public void setGender(String g) {
+        gender = g;
     }
 
     public String getPassword() {
@@ -140,8 +131,4 @@ public class User {
         memoryHeight = Integer.parseInt(parts[1]);
     }
 
-
-
-
-    
 }

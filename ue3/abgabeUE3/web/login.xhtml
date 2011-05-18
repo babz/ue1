@@ -20,16 +20,19 @@ and open the template in the editor.
                 </ul>
             </ui:define>
 
-
             <ui:define name="content">
-                <h:form>
-                    <mc:logincomp stacksize="2x2"/>
-                    <h:commandButton id="login" value="#{msg.login}" action="#{userCtrl.login}"/>
-                </h:form>
-                <p>
-                    <h:link id="registration" value="#{msg.register}" outcome="register" />
-                </p>
-                <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}"   rendered="#{userCtrl.loginfailed}" style="color: red" />
+                <div id="main">
+                    <h:form>
+                        <mc:logincomp stacksize="2x2"/>
+                        <div id="buttons">
+                            <h:commandButton id="login" value="#{msg.login}" action="#{userCtrl.login}"/>
+                        </div>
+                    </h:form>
+                    <p>
+                        <h:link id="registration" value="#{msg.register}" outcome="register" />
+                    </p>
+                    <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}"   rendered="#{userCtrl.loginfailed}" style="color: red" />
+                </div>
             </ui:define>
         </ui:composition>
 
