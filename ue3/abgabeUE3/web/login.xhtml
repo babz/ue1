@@ -19,6 +19,7 @@ and open the template in the editor.
                 <h:form>
                     <h:commandButton id="registration" value="#{msg.register}" action="/register.xhtml" immediate="true"/>
                 </h:form>
+                <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}"   rendered="#{userCtrl.loginfailed}" style="color: red" />
             </ui:define>
         </ui:composition>
 

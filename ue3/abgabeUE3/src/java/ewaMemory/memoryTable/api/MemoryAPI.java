@@ -24,7 +24,7 @@ public class MemoryAPI {
     private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
     private List<FlagInfo> allFlags = new LinkedList<FlagInfo>();
     private Map<String, User> registeredUsers = new HashMap<String, User>();
-    
+
     public MemoryAPI() {
         // build flags
         allFlags.add(new FlagInfo("at.jpg", "i18nAT"));
@@ -53,22 +53,13 @@ public class MemoryAPI {
         log.info("MemoryAPI created!");
     }
 
-    private void createAndAddUser(String name, String password) {
-        log.info("Adding user " + name + ", password:" + password);
-        User user = createUser(name, password);
-        registeredUsers.put(user.getUsername(), user);
-    }
+    public void registerUser(User user) throws UsernameAlreadyRegisteredException {
+        if (registeredUsers.containsKey(user.getUsername())) {
+            throw new UsernameAlreadyRegisteredException();
+        }
 
-    private User createUser(String name, String password) {
-        User user;
-        user = new User();
-        user.setUsername(name);
-        user.setPassword(password);
-        return user;
-    }
+        user = new User(user);
 
-    public void registerUser(User user) {
-        //TODO check if user is present
         registeredUsers.put(user.getUsername(), user);
     }
 
@@ -84,6 +75,9 @@ public class MemoryAPI {
         if ((user = registeredUsers.get(name)) == null) {
             return null;
         }
+
+        log.info("registered user password: " + user.getPassword());
+        log.info("new user password: " + password);
 
         if (!user.getPassword().equals(password)) {
             return null;
@@ -168,5 +162,24 @@ public class MemoryAPI {
             memory.addToCardsToUnreveal(card);
             memory.incrementAttempts();
         }
+    }
+    /*
+     *
+     * Private Methods
+     *
+     */
+
+    private void createAndAddUser(String name, String password) {
+        log.info("Adding user " + name + ", password:" + password);
+        User user = createUser(name, password);
+        registeredUsers.put(user.getUsername(), user);
+    }
+
+    private User createUser(String name, String password) {
+        User user;
+        user = new User();
+        user.setUsername(name);
+        user.setPassword(password);
+        return user;
     }
 }

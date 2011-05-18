@@ -16,7 +16,14 @@
                         <h:outputText value="#{msg.fillOutFormBelow}"/>
                     </p>
                     <h:form>
-                        <h:commandButton id="displayPersData" value="#{msg.displayPersData}" action="#{userCtrl.toggleDisplayPersData}"/>
+                        <h:selectBooleanCheckbox
+                            id="displayPersData" value="#{userCtrl.displayPersData}"
+                            immediate="false"
+                            valueChangeListener="#{userCtrl.displayPersDataChanged}"
+                            onclick="this.form.submit()"/>
+                        <h:outputLabel for="displayPersData">
+                        #{msg.displayPersData}
+                        </h:outputLabel>
                     </h:form>
                     <h3>
                         <h:outputText value="#{msg.personalData}" rendered="#{userCtrl.displayPersData}"/>
@@ -38,6 +45,7 @@
                         <mc:logincomp stacksize="2x2"/>
                         <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
                     </h:form>
+                    <h:outputText value="#{msg.usernameAlreadyRegistered}"   rendered="#{userCtrl.usernameAlreadyRegistered}" style="color: red" />
                 </div>
          </ui:define>
         </ui:composition>
