@@ -1,8 +1,10 @@
 package ewaMemory.memoryTable.controller;
 
 import ewaMemory.memoryTable.api.MemoryAPI;
+import ewaMemory.memoryTable.api.UsernameAlreadyRegisteredException;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.User;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.util.Date;
@@ -37,6 +39,7 @@ public class UserCtrl {
     //TODO save list of customers in class with application scope
     private boolean loginfailed = false;
     private UserDataValidator validator = new UserDataValidator();
+    private boolean usernameAlreadyRegistered;
 
     
 
@@ -53,21 +56,35 @@ public class UserCtrl {
             return "/login.xhtml";
         }
 
-        log.info("login; user: " + getUser().toString());
+        log.info("login; user: " + getUser().toString() +", password: "+getUser().getPassword());
 
         User registeredUser = getApi().loginUser(getUser().getUsername(), getUser().getPassword());
         if (registeredUser == null) {
             return "/login.xhtml";
         }
 
+        user = registeredUser;
         loginfailed = false;
 
         return memoryCtrl.newGame();
     }
 
     public String register() {
-        log.info(user.toString());
-        api.registerUser(user);
+          if (getUser() == null) {
+            return "/register.xhtml";
+        }
+
+          log.info("register: user: "+getUser().toString()+", password: "+getUser().getPassword());
+
+        usernameAlreadyRegistered = true;
+        try {
+            api.registerUser(getUser());
+        } catch (UsernameAlreadyRegisteredException ex) {
+            Logger.getLogger(UserCtrl.class.getName()).log(Level.SEVERE, null, ex);
+            return "/register.xhtml";
+        }
+          
+        usernameAlreadyRegistered = false;
 
         return "/login.xhtml";
     }
@@ -173,4 +190,10 @@ public class UserCtrl {
         }
     }
 
+    /**
+     * @return the usernameAlreadyRegistered
+     */
+    public boolean isUsernameAlreadyRegistered() {
+        return usernameAlreadyRegistered;
+    }
 }

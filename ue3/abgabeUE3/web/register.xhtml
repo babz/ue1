@@ -45,6 +45,7 @@
                         <mc:logincomp stacksize="2x2"/>
                         <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
                     </h:form>
+                    <h:outputText value="#{msg.usernameAlreadyRegistered}"   rendered="#{userCtrl.usernameAlreadyRegistered}" style="color: red" />
                 </div>
          </ui:define>
         </ui:composition>

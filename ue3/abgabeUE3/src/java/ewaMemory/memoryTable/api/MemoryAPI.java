@@ -40,55 +40,12 @@ public class MemoryAPI {
            log.info("MemoryAPI created!");
         }
 
-        // START TESTCODE TODO REMOVE
+        public void registerUser(User user) throws UsernameAlreadyRegisteredException {
+           if(registeredUsers.containsKey(user.getUsername()))
+               throw new UsernameAlreadyRegisteredException();
 
-        public void al() {
-            System.out.println("al called");
-            log.info("al called!");
-        }
+           user = new User(user);
 
-        public String printSthing() {
-            System.out.println("PRINTING SOMETHING!!");
-            setTrigger(true);
-
-            //FacesContext.getCurrentInstance().renderResponse();
-            return "memoryTable";
-        }
-
-        private boolean trigger = true;
-
-          /**
-         * @return the trigger
-         */
-        public boolean isTrigger() {
-            return trigger;
-        }
-
-        /**
-         * @param trigger the trigger to set
-         */
-        public void setTrigger(boolean trigger) {
-            this.trigger = trigger;
-        }
-
-        // END TESTCODE TODO REMOVE
-
-        private void createAndAddUser(String name, String password) {
-            log.info("Adding user "+name + ", password:"+ password);
-            User user = createUser(name, password);
-            registeredUsers.put(user.getUsername(), user);
-        }
-
-        private User createUser(String name, String password) {
-            User user;
-            user = new User();
-            user.setUsername(name);
-            user.setPassword(password);
-            return user;
-        }
-
-        public void registerUser(User user) {
-            //TODO check if user is present
             registeredUsers.put(user.getUsername(), user);
         }
 
@@ -103,6 +60,9 @@ public class MemoryAPI {
             User user;
             if((user = registeredUsers.get(name)) == null)
                 return null;
+
+            log.info("registered user password: "+user.getPassword());
+            log.info("new user password: "+password);
 
             if(!user.getPassword().equals(password))
                 return null;
@@ -186,6 +146,28 @@ public class MemoryAPI {
 			memory.incrementAttempts();
 		}
 	}
+
+
+        /*
+         *
+         * Private Methods
+         *
+         */
+
+
+        private void createAndAddUser(String name, String password) {
+            log.info("Adding user "+name + ", password:"+ password);
+            User user = createUser(name, password);
+            registeredUsers.put(user.getUsername(), user);
+        }
+
+        private User createUser(String name, String password) {
+            User user;
+            user = new User();
+            user.setUsername(name);
+            user.setPassword(password);
+            return user;
+        }
 
 
 }
