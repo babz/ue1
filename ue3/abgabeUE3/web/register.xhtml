@@ -41,25 +41,25 @@
                     <h:form>
                         <h:panelGroup id="persData" layout="block" styleClass="formblock" rendered="#{userCtrl.displayPersData}">
                             <fieldset>
-                                <h:outputLabel value="#{msg.firstname}"/>
-                                <h:inputText value="#{userCtrl.user.firstname}"/>
-                                <h:outputLabel value="#{msg.lastname}"/>
-                                <h:inputText value="#{userCtrl.user.lastname}"/>
-                                <h:outputLabel value="#{msg.birthdate}"/>
-                                <h:inputText value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
-                                <h:outputLabel value="#{msg.gender}"/>
+                                <h:outputLabel for="firstname" value="#{msg.firstname}"/>
+                                <h:inputText id="firstname" value="#{userCtrl.user.firstname}"/>
+                                <h:outputLabel for="lastname" value="#{msg.lastname}"/>
+                                <h:inputText id="lastname" value="#{userCtrl.user.lastname}"/>
+                                <h:outputLabel for="birthdate" value="#{msg.birthdate}"/>
+                                <h:inputText id="birthdate" value="#{userCtrl.user.birthdate}" validator="#{userCtrl.validateDate}"/>
+                                <h:outputLabel for="gender" value="#{msg.gender}"/>
                                 <h:selectOneMenu id="gender" value="#{userCtrl.user.gender}">
                                     <f:selectItem itemValue="f" itemLabel="#{msg.female}"></f:selectItem>
                                     <f:selectItem itemValue="m" itemLabel="#{msg.male}"></f:selectItem>
                                 </h:selectOneMenu>
                             </fieldset>
                         </h:panelGroup>
+                        <h:outputText value="#{msg.usernameAlreadyRegistered}"   rendered="#{userCtrl.usernameAlreadyRegistered}" style="color: red" />
                         <mc:logincomp stacksize="2x2"/>
                         <div id="buttons">
                             <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
                         </div>
                     </h:form>
-                    <h:outputText value="#{msg.usernameAlreadyRegistered}"   rendered="#{userCtrl.usernameAlreadyRegistered}" style="color: red" />
                 </div>
             </ui:define>
         </ui:composition>
