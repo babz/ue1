@@ -16,7 +16,14 @@
                         <h:outputText value="#{msg.fillOutFormBelow}"/>
                     </p>
                     <h:form>
-                        <h:commandButton id="displayPersData" value="#{msg.displayPersData}" action="#{userCtrl.toggleDisplayPersData}"/>
+                        <h:selectBooleanCheckbox
+                            id="displayPersData" value="#{userCtrl.displayPersData}"
+                            immediate="false"
+                            valueChangeListener="#{userCtrl.displayPersDataChanged}"
+                            onclick="this.form.submit()"/>
+                        <h:outputLabel for="displayPersData">
+                        #{msg.displayPersData}
+                        </h:outputLabel>
                     </h:form>
                     <h3>
                         <h:outputText value="#{msg.personalData}" rendered="#{userCtrl.displayPersData}"/>

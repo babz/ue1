@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.validator.ValidatorException;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -32,7 +33,7 @@ public class UserCtrl {
     @ManagedProperty("#{memoryCtrl}")
     private MemoryCtrl memoryCtrl;
 
-    private boolean displayPersData = false;
+    public boolean displayPersData = false;
     //TODO save list of customers in class with application scope
     private boolean loginfailed = false;
     private UserDataValidator validator = new UserDataValidator();
@@ -141,15 +142,28 @@ public class UserCtrl {
      * @return the displayPersData
      */
     public boolean isDisplayPersData() {
+        log.info("isDisplayPersData: return "+displayPersData);
         return displayPersData;
     }
 
     /**
      * @param displayPersData the displayPersData to set
      */
-    public void setDisplayPersData(boolean displayPersData) {
+    public boolean setDisplayPersData(boolean displayPersData) {
+        log.info("setDisplayPersData: set to "+displayPersData);
         this.displayPersData = displayPersData;
+        return displayPersData;
     }
+
+    	//Checks if the displayPersData checkbox changed
+	public void displayPersDataChanged(ValueChangeEvent e) {
+		Boolean show = (Boolean) e.getNewValue();
+		if (show != null) {
+			displayPersData = show;
+		}
+
+		FacesContext.getCurrentInstance().renderResponse();
+	}
 
     public void toggleDisplayPersData() {
         if (displayPersData) {
