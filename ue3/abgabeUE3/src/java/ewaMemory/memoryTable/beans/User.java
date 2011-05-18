@@ -19,6 +19,18 @@ public class User {
     private Gender gender;
     private Gender[] genderTypes = Gender.values();
 
+    public User(User user) {
+        username = user.getUsername();
+        firstname = user.getFirstname();
+        lastname = user.getLastname();
+        birthdate = user.getBirthdate();
+        password = user.getPassword();
+        memoryWidth = user.getMemoryWidth();
+        memoryHeight = user.getMemoryHeight();
+    }
+
+    public User() {}
+
     public String getFullname() {
         return firstname + " " + lastname;
     }
