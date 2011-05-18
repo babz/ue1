@@ -9,18 +9,17 @@
     <h:body>
 
         <ui:composition template="./layoutTemplate.xhtml">
-            <ui:define name="title">EWA Memory</ui:define>
+            <ui:define name="title">EWA Memory :: #{msg.memoryTablePageTitle}</ui:define>
+
+            <ui:define name="navigation">
+                <ul>
+                    <li><a href="#">#{msg.editPersData}</a></li>
+                    <li><a href="#">#{msg.backToLounge}</a></li>
+                    <li><a href="#">#{msg.logout}</a></li>
+                </ul>
+            </ui:define>
 
             <ui:define name="content">
-                <div id="navigation">
-                    <h2 class="accessibility">#{msg.navigation}</h2>
-                    <ul>
-                        <li><a href="#">#{msg.editPersData}</a></li>
-                        <li><a href="#">#{msg.backToLounge}</a></li>
-                        <li><a href="#">#{msg.logout}</a></li>
-                    </ul>
-                </div>
-                <hr class="accessibility" />
                 <div id="info_area">
                     <h2>#{msg.score}</h2>
                     <table id="score" summary="#{msg.scoreSummary}">
@@ -86,7 +85,7 @@
                                     <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
                                         <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card #{card.visible ? 'visible' : ''}" >
                                             <h:commandLink >
-                                                <h:graphicImage name="#{card.imagePath}" alt="#{card.altText}" />
+                                                <h:graphicImage name="#{card.imagePath}" alt="#{msg[card.altTextI18nKey]}" />
                                                 <f:ajax event="click" listener="#{memoryCtrl.cardClicked((rowIdx.index), (columnIdx.index))}" render="@form :tries :points :timer :remainingPairs :gameFinished" />
                                             </h:commandLink>
                                         </li>
@@ -94,8 +93,8 @@
                                 </ol>
                             </ui:repeat>
                         </h:form>
+                        <div class="clearer"></div>
                     </div>
-                    <div class="clearer"></div>
                 </div>
             </ui:define>
         </ui:composition>

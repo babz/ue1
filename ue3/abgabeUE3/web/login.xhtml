@@ -11,14 +11,24 @@ and open the template in the editor.
       xmlns:mc="http://java.sun.com/jsf/composite/components">
     <h:body>
         <ui:composition template="./layoutTemplate.xhtml">
+            <ui:define name="title">EWA Memory :: #{msg.loginPageTitle}</ui:define>
+
+            <ui:define name="navigation">
+                <ul>
+                    <li><a href="#">#{msg.backToLounge}</a></li>
+                    <li><h:link outcome="login">#{msg.login}</h:link></li>
+                </ul>
+            </ui:define>
+
+
             <ui:define name="content">
                 <h:form>
                     <mc:logincomp stacksize="2x2"/>
                     <h:commandButton id="login" value="#{msg.login}" action="#{userCtrl.login}"/>
-                 </h:form>
-                <h:form>
-                    <h:commandButton id="registration" value="#{msg.register}" action="/register.xhtml" immediate="true"/>
                 </h:form>
+                <p>
+                    <h:link id="registration" value="#{msg.register}" outcome="register" />
+                </p>
                 <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}"   rendered="#{userCtrl.loginfailed}" style="color: red" />
             </ui:define>
         </ui:composition>

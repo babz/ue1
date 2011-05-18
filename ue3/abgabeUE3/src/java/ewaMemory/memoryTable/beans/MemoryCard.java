@@ -27,10 +27,10 @@ public class MemoryCard {
         return CARD_BACKGROUND_PATH;
     }
 
-    public String getAltText() {
+    public String getAltTextI18nKey() {
         if (visible) {
             return countryName;
         }
-        return "unbekannte karte"; //TODO i18n!!
+        return "i18nUNKNOWN_COUNTRY";
     }
 }
