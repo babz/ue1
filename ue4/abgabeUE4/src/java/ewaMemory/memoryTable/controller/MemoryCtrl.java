@@ -71,6 +71,16 @@ public class MemoryCtrl {
         return getMemoryTable().getAttempts(getOpponentUsername());
     }
 
+    public String getOwnPlayTime() {
+        log.info("getOwnPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        return getMemoryTable().getPlayTime(getUser().getUsername());
+    }
+
+    public String getOpponentPlayTime() {
+        log.info("getOpponentPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        return getMemoryTable().getPlayTime(getOpponentUsername());
+    }
+
     public MemoryAPI getMemoryApi() {
         return memoryApi;
     }

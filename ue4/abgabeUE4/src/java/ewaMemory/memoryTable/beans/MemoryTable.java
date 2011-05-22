@@ -2,6 +2,7 @@ package ewaMemory.memoryTable.beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,33 +10,35 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class MemoryTable {
-
-     private static final Logger log = Logger.getLogger(MemoryTable.class.getSimpleName());
+    private static final Logger log = Logger.getLogger(MemoryTable.class.getSimpleName());
+    private final static int MAXUSERS = 2;
 
     private List<List<MemoryCard>> cards;
     private MemoryCard lastRevealedCard;
-    private final static int MAXUSERS = 2;
-//	private int[]  = new int[MAXUSERS];
-//        private int[]  = new int[MAXUSERS];
     private int remainingPairs;
     private List<MemoryCard> cardsToUnreveal = new LinkedList<MemoryCard>();
-    private long timeStart = (long) 0;
-    private long timeEnd = (long) 0;
+
+    private String[] users = new String[MAXUSERS];
     private Map<String, Integer> points = new HashMap<String, Integer>();
     private Map<String, Integer> attempts = new HashMap<String, Integer>();
-//        private Map<Integer, String> idToUsername = new HashMap<Integer, String>();
+    private long timeStart = (long) 0;
+    private Map<String, Long> usersPlayTimeInSeconds = new HashMap<String, Long>();;
+
     private int turnId = 0;
-    private String[] users = new String[MAXUSERS];
+    
     private boolean gameHasStarted = false;
     private boolean gameOver;
     private String winner;
     private List<String> loosers = new ArrayList<String>();
+
+    
 
     public MemoryTable(List<String> usernames) {
         int id = 0;
         for (String username : usernames) {
             points.put(username, 0);
             attempts.put(username, 0);
+            usersPlayTimeInSeconds.put(username, 0L);
             users[id++] = username;
         }
     }
@@ -50,6 +53,18 @@ public class MemoryTable {
 
     public MemoryCard getLastRevealedCard() {
         return lastRevealedCard;
+    }
+
+    public void setEndTime(long endTime) {
+        log.fine("nextTurn");
+        long playTime = (endTime - timeStart) / 1000;
+        log.fine("playTime: " + playTime);
+        long oldPlayTime = usersPlayTimeInSeconds.get(users[turnId]);
+        log.fine("oldPlayTime: " + oldPlayTime);
+        long newPlayTime = oldPlayTime + playTime;
+        log.fine("newPlayTime: " + newPlayTime);
+        usersPlayTimeInSeconds.put(users[turnId], newPlayTime);
+        timeStart = endTime;
     }
 
     public void setLastRevealedCard(MemoryCard card) {
@@ -114,19 +129,12 @@ public class MemoryTable {
         cardsToUnreveal.clear();
     }
 
-    public void setStartTime(long startTime) {
-        timeStart = startTime;
-    }
-
-    public void setEndTime(long endTime) {
-        timeEnd = endTime;
-    }
-
-    public String getPlayTime() {
-        if (timeEnd == (long) 0) {
+    public String getPlayTime(String username) {
+        long playTimeInSeconds = usersPlayTimeInSeconds.get(username);
+        if (playTimeInSeconds == 0L) {
             return "0:00";
         }
-        long playTimeInSeconds = (timeEnd - timeStart) / 1000;
+    
         long minutes = (long) ((int) playTimeInSeconds / 60);
         long seconds = playTimeInSeconds % 60;
         if (seconds < 10) {
@@ -161,6 +169,7 @@ public class MemoryTable {
 
     public void startGame() {
         gameHasStarted = true;
+        timeStart = new Date().getTime();
     }
 
     /**

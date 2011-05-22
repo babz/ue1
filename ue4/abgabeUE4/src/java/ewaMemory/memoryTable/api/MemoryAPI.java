@@ -101,9 +101,6 @@ public class MemoryAPI {
         users.add(opponentName);
         MemoryTable memory = new MemoryTable(users);
 
-        log.info("time starts");
-        memory.setStartTime(new Date().getTime());
-
         List<FlagInfo> flags = new ArrayList<FlagInfo>();
 
         Collections.shuffle(allFlags);
@@ -140,24 +137,26 @@ public class MemoryAPI {
         log.info("clickOnCard at (x, y): (" + click_x + ", " + click_y + ")");
         MemoryCard card = memory.getRows().get(click_x).get(click_y);
 
-        log.info("timer refresh");
-        memory.setEndTime(new Date().getTime());
-
         memory.unrevealCardsToUnreveal();
 
         if (card.isVisible()) {
             return;
         }
 
-        log.info("Card is not visible!");
         card.setVisible(true);
         MemoryCard predecessor = memory.getLastRevealedCard();
+
+        //1st click
 
         if (predecessor == null) {
             card.setVisible(true);     
             memory.setLastRevealedCard(card);
             return;
         }
+
+        //2nd click
+
+        memory.setEndTime(new Date().getTime());
 
         memory.setLastRevealedCard(null);
 
