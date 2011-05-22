@@ -34,7 +34,7 @@ public class MemoryCtrl {
 
     public void cardClicked(int x, int y) {
         log.info("(MemoryCtrl) cardClicked at (x,y): (" + x + "," + y + ")");
-        if(getMemoryTable().isUserTurn(user.getUsername())) {
+        if(getMemoryTable().isUserTurn(user.getUsername()) && getMemoryTable().isGameHasStarted()) {
             memoryApi.clickOnCard(getMemoryTable(), x, y, user.getUsername());
             updateGame();
         }
