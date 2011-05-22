@@ -33,19 +33,11 @@ public class MemoryCtrl {
     }
 
     public void cardClicked(int x, int y) {
-//        Map<String, String> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//        int x = Integer.parseInt(requestMap.get(MemoryTableParams.X));
-//        int y = Integer.parseInt(requestMap.get(MemoryTableParams.Y));
-
         log.info("(MemoryCtrl) cardClicked at (x,y): (" + x + "," + y + ")");
         if(getMemoryTable().isUserTurn(user.getUsername())) {
             memoryApi.clickOnCard(getMemoryTable(), x, y, user.getUsername());
-            PushRenderer.render("users");
+            updateGame();
         }
-        
-
-
-        //return "memoryTable.xhtml";
     }
 
 
@@ -54,44 +46,29 @@ public class MemoryCtrl {
         log.info("starting new game. width:" + user.getMemoryWidth() + ", height: " + user.getMemoryHeight());
 
         memoryTable = memoryApi.getGame(user, this);
-
-
-//       TODO do we need this (insert table in session ? )
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        session.setAttribute("memory", memoryTable);
-
+        updateGame();
 
         return "memoryTable.xhtml";
     }
 
     public int getOwnPoints() {
-        log.info("getOwnPoints: user is:"+getUser().getUsername());
-        if(getOpponentUsername() != null)
-            log.info("-  opponent is :" + getOpponentUsername());
+        log.info("getOwnPoints: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
         return getMemoryTable().getPoints(getUser().getUsername());
     }
 
     public int getOwnAttempts() {
-         log.info("getOwnAttempts: user is:"+getUser().getUsername());
-        if(getOpponentUsername() != null)
-            log.info("-  opponent is :" + getOpponentUsername());
+         log.info("getOwnAttempts: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
         return getMemoryTable().getAttempts(getUser().getUsername());
     }
 
     public int getOpponentPoints() {
-        log.info("getOpponentPoints: user is:"+getUser().getUsername());
-        if(getOpponentUsername() == null)
-            return 0;
-         log.info("-  opponent is :" + getOpponentUsername());
+        log.info("getOpponentPoints: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
         return getMemoryTable().getPoints(getOpponentUsername());
     }
 
     public int getOpponentAttempts() {
-        log.info("getOpponentAttempts: user is:"+getUser().getUsername());
-        if(getOpponentUsername() == null)
-            return 0;
-        log.info("-  opponent is :" + getOpponentUsername());
-        return getMemoryTable().getPoints(getOpponentUsername());
+        log.info("getOpponentAttempts: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        return getMemoryTable().getAttempts(getOpponentUsername());
     }
 
     public MemoryAPI getMemoryApi() {
@@ -122,7 +99,28 @@ public class MemoryCtrl {
      * @return the opponent
      */
     public String getOpponentUsername() {
-        return memoryTable.getOpponentUsername(user.getUsername());
+        String[] usernames = memoryTable.getUsernames();
+        for(String uname : usernames) {
+            if(!uname.equals(user.getUsername()))
+                return uname;
+        }
+        return "no opponent";
+    }
+
+    private void updateGame() {
+        PushRenderer.render("users");
+    }
+
+    public boolean isGameWon() {
+        log.info("isGameWon: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        return user.getUsername().equals(memoryTable.getWinner());
+    }
+
+    public boolean isGameLost() {
+        log.info("isGameLost: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        boolean lost = memoryTable.getLoosers().contains(user.getUsername());
+        log.info("isGameLost: "+lost);
+        return lost;
     }
 
 //    /**

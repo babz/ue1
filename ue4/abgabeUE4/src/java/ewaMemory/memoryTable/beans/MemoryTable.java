@@ -1,146 +1,193 @@
 package ewaMemory.memoryTable.beans;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class MemoryTable {
 
-	private List<List<MemoryCard>> cards;
-	private MemoryCard lastRevealedCard;
+     private static final Logger log = Logger.getLogger(MemoryTable.class.getSimpleName());
 
-        private final static int MAXUSERS = 2;
-
-	private int[] points = new int[MAXUSERS];
-        private int[] attempts = new int[MAXUSERS];
-	private int remainingPairs;
-	private List<MemoryCard> cardsToUnreveal = new LinkedList<MemoryCard>();
-	private long timeStart = (long) 0;
-	private long timeEnd = (long) 0;
-
-        private Map<String,Integer> usernameToId = new HashMap<String, Integer>();
-        private Map<Integer, String> idToUsername = new HashMap<Integer, String>();
-
-        private int turnId = 0;
+    private List<List<MemoryCard>> cards;
+    private MemoryCard lastRevealedCard;
+    private final static int MAXUSERS = 2;
+//	private int[]  = new int[MAXUSERS];
+//        private int[]  = new int[MAXUSERS];
+    private int remainingPairs;
+    private List<MemoryCard> cardsToUnreveal = new LinkedList<MemoryCard>();
+    private long timeStart = (long) 0;
+    private long timeEnd = (long) 0;
+    private Map<String, Integer> points = new HashMap<String, Integer>();
+    private Map<String, Integer> attempts = new HashMap<String, Integer>();
+//        private Map<Integer, String> idToUsername = new HashMap<Integer, String>();
+    private int turnId = 0;
+    private String[] users = new String[MAXUSERS];
+    private boolean gameHasStarted = false;
+    private boolean gameOver;
+    private String winner;
+    private List<String> loosers = new ArrayList<String>();
 
     public MemoryTable(List<String> usernames) {
-        for(int id=0; id<usernames.size(); id++) {
-            usernameToId.put(usernames.get(id),id);
-            idToUsername.put(id, usernames.get(id));
+        int id = 0;
+        for (String username : usernames) {
+            points.put(username, 0);
+            attempts.put(username, 0);
+            users[id++] = username;
         }
     }
 
-	public List<List<MemoryCard>> getRows() {
-		return cards;
-	}
+    public List<List<MemoryCard>> getRows() {
+        return cards;
+    }
 
-	public void setCards(List<List<MemoryCard>> memoryCards) {
-		cards = memoryCards;
-	}
+    public void setCards(List<List<MemoryCard>> memoryCards) {
+        cards = memoryCards;
+    }
 
-	public MemoryCard getLastRevealedCard() {
-		return lastRevealedCard;
-	}
+    public MemoryCard getLastRevealedCard() {
+        return lastRevealedCard;
+    }
 
-	public void setLastRevealedCard(MemoryCard card) {
-		lastRevealedCard = card;
-	}
+    public void setLastRevealedCard(MemoryCard card) {
+        lastRevealedCard = card;
+    }
 
-	public void incrementPoints(String username) {
-            points[map(username)]++;
-	}
+    public void incrementPoints(String username) {
+        points.put(username, points.get(username) + 1);
+    }
 
-	public int getPoints(String username) {
-		return points[map(username)];
-	}
+    public Integer getPoints(String username) {
+        return points.get(username);
+    }
 
-	public void incrementAttempts(String username) {
-		attempts[map(username)]++;
-	}
+    public void incrementAttempts(String username) {
+        attempts.put(username, attempts.get(username) + 1);
+    }
 
-	public int getAttempts(String username) {
-		return attempts[map(username)];
-	}
+    public Integer getAttempts(String username) {
+        return attempts.get(username);
+    }
 
-	public void decrementRemainingPairs() {
-		remainingPairs--;
-	}
+    public void decrementRemainingPairs() {
+        remainingPairs--;
+        if (remainingPairs == 0) {
+            gameOver = true;
+            String loosers = "";
+            
+            int heighestPoints = 0;
+            for (String user : users) {
+                if (points.get(user) > heighestPoints) {
+                    winner = user;
+                } else {
+                    this.loosers.add(user);
+                    loosers += user+",";
+                }
+            }
+            log.info("Game over: winner :"+winner+", loosers:"+loosers);
+        }
+    }
 
-	public int getRemainingPairs() {
-		//number of all pairs; set only once
-		if(sum(points) == 0) {
-                    if(cards.isEmpty())
-                        remainingPairs = 0;
-                    else
-                        remainingPairs = cards.size() * cards.get(0).size() / 2;
-		}
-		return remainingPairs;
-	}
+    public int getRemainingPairs() {
+        //number of all pairs; set only once
+        if (sum(points.values()) == 0) {
+            if (cards.isEmpty()) {
+                remainingPairs = 0;
+            } else {
+                remainingPairs = cards.size() * cards.get(0).size() / 2;
+            }
+        }
+        return remainingPairs;
+    }
 
-	public void addToCardsToUnreveal(MemoryCard card) {
-		cardsToUnreveal.add(card);
-	}
+    public void addToCardsToUnreveal(MemoryCard card) {
+        cardsToUnreveal.add(card);
+    }
 
-	public void unrevealCardsToUnreveal() {
-		for(MemoryCard c : cardsToUnreveal) {
-			c.setVisible(false);
-		}
-		cardsToUnreveal.clear();
-	}
+    public void unrevealCardsToUnreveal() {
+        for (MemoryCard c : cardsToUnreveal) {
+            c.setVisible(false);
+        }
+        cardsToUnreveal.clear();
+    }
 
-	public void setStartTime(long startTime) {
-		timeStart = startTime;
-	}
+    public void setStartTime(long startTime) {
+        timeStart = startTime;
+    }
 
-	public void setEndTime(long endTime) {
-		timeEnd = endTime;
-	}
+    public void setEndTime(long endTime) {
+        timeEnd = endTime;
+    }
 
-	public String getPlayTime(){
-		if(timeEnd == (long) 0){
-			return "0:00";
-		}
-		long playTimeInSeconds = (timeEnd - timeStart) / 1000;
-		long minutes = (long) ((int)playTimeInSeconds / 60);
-		long seconds = playTimeInSeconds % 60;
-		if(seconds < 10) {
-			return minutes + ":0" + seconds;
-		}
-		return minutes + ":" + seconds;
-	}
+    public String getPlayTime() {
+        if (timeEnd == (long) 0) {
+            return "0:00";
+        }
+        long playTimeInSeconds = (timeEnd - timeStart) / 1000;
+        long minutes = (long) ((int) playTimeInSeconds / 60);
+        long seconds = playTimeInSeconds % 60;
+        if (seconds < 10) {
+            return minutes + ":0" + seconds;
+        }
+        return minutes + ":" + seconds;
+    }
 
-    private int sum(int[] values) {
+    private int sum(Collection<Integer> values) {
         int sum = 0;
-        for(int i = 0; i<values.length; i++) {
-            sum+=values[i];
+        for (Integer n : values) {
+            sum += n;
         }
         return sum;
     }
 
-    private int map(String username) {
-        return usernameToId.get(username);
-    }
-
-    private String unmap(Integer id) {
-        return idToUsername.get(id);
-    }
-
     public boolean isUserTurn(String username) {
-        return unmap(turnId).equals(username);
+        return users[turnId].equals(username);
     }
 
-    public String getOpponentUsername(String username) {
-        for(String name : usernameToId.keySet()) {
-            if(!name.equals(username))
-                return name;
-        }
-        return null;
+    public String[] getUsernames() {
+        return users;
     }
 
     public void nextTurn() {
-        turnId = (turnId+1) % 2;
+        turnId = (turnId + 1) % MAXUSERS;
+    }
+
+    public String getUsernameTurn() {
+        return users[turnId];
+    }
+
+    public void startGame() {
+        gameHasStarted = true;
+    }
+
+    /**
+     * @return the gameHasStarted
+     */
+    public boolean isGameHasStarted() {
+        return gameHasStarted;
+    }
+
+    /**
+     * @return the gameOver
+     */
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    /**
+     * @return the winner
+     */
+    public String getWinner() {
+        return winner;
+    }
+
+    /**
+     * @return the loosers
+     */
+    public List<String> getLoosers() {
+        return new ArrayList<String>(loosers);
     }
 }

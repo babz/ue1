@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import ewaMemory.memoryTable.beans.MemoryCard;
 import ewaMemory.memoryTable.beans.MemoryTable;
-import ewaMemory.memoryTable.beans.PushManager;
 import ewaMemory.memoryTable.beans.User;
 import ewaMemory.memoryTable.controller.MemoryCtrl;
 import java.util.HashMap;
@@ -92,7 +91,7 @@ public class MemoryAPI {
         return user;
     }
 
-    public MemoryTable createMemoryTable(int memoryWidth, int memoryHeight, String creatorName, String opponentName) {
+    private MemoryTable createMemoryTable(int memoryWidth, int memoryHeight, String creatorName, String opponentName) {
         if (memoryHeight % 2 != 0 && memoryWidth % 2 != 0) {
             throw new IllegalArgumentException("both params odd!");
         }
@@ -170,9 +169,8 @@ public class MemoryAPI {
             memory.addToCardsToUnreveal(predecessor);
             memory.addToCardsToUnreveal(card);
             memory.incrementAttempts(username);
+            memory.nextTurn();
         }
-
-        memory.nextTurn();
     }
 
     /**
@@ -211,7 +209,7 @@ public class MemoryAPI {
         Game game;
         MemoryTable table;
         if(waitingGames.isEmpty()) {
-             table = createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight(), user.getUsername(), "dummyOpponent");
+             table = createMemoryTable(user.getMemoryWidth(), user.getMemoryHeight(), user.getUsername(), "dummyOpponentUsername");
              game = new Game(user, table, control);
             waitingGames.add(game);
         } else {
@@ -222,7 +220,10 @@ public class MemoryAPI {
 
             table = createMemoryTable(creator.getMemoryWidth(), creator.getMemoryHeight(), creator.getUsername(), user.getUsername());
             game.getCreatorControl().setMemoryTable(table);
+            table.startGame();
         }
         return table;
     }
+
+
 }
