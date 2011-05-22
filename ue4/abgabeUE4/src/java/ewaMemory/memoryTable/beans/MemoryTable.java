@@ -98,6 +98,7 @@ public class MemoryTable {
                 if (points.get(user) > heighestPoints) {
                     winner = user;
                 } else {
+                    //TODO bug here
                     this.loosers.add(user);
                     loosers += user+",";
                 }
