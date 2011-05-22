@@ -92,17 +92,28 @@ public class MemoryTable {
         if (remainingPairs == 0) {
             gameOver = true;
             String loosers = "";
-            
+
+            //TODO what happens if points equal
+
+            //evaluate winner
             int heighestPoints = 0;
             for (String user : users) {
                 if (points.get(user) > heighestPoints) {
+                    log.info("user "+user+" has won. points: "+points.get(user));
                     winner = user;
-                } else {
-                    //TODO bug here
+                    heighestPoints = points.get(user);
+                }
+            }
+            
+            //evaluate looser
+            for(String user : users) {
+                if(!user.equals(winner)) {
+                    log.info("user "+user+" has lost. points: "+points.get(user));
                     this.loosers.add(user);
                     loosers += user+",";
                 }
             }
+            
             log.info("Game over: winner :"+winner+", loosers:"+loosers);
         }
     }
