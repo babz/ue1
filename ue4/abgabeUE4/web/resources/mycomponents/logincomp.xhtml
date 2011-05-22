@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <composite:interface>
+        <composite:attribute name="username" required="false"/>
+        <composite:attribute name="stacksize" required="false"/>
+    </composite:interface>
+
+    <!-- IMPLEMENTATION -->
+    <composite:implementation>
+        <h:panelGroup id="persData" layout="block" styleClass="formblock">
+            <h3>#{msg.loginDataAndStackSize}</h3>
+            <fieldset>
+                <h:outputLabel for="username" value="#{msg.username} "/>
+                <h:inputText
+                    id="username"
+                    required="true"
+                    value="#{userCtrl.user.username}"
+                    requiredMessage="#{msg.usernameIsRequired}"
+                    validatorMessage="#{msg.usernameValidation}">
+                    <f:validateRegex
+                        pattern="[a-zA-Z]+"/>
+                </h:inputText>
+                <h:message styleClass="errormessage" for="username"/>
+
+                <h:outputLabel for="password" value="#{msg.password} "/>
+                <h:inputSecret
+                    id="password"
+                    required="true"
+                    value="#{userCtrl.user.password}"
+                    requiredMessage="#{msg.passwordIsRequired}"
+                    validatorMessage="#{msg.passwordValidation}"
+                    >
+                    <f:validateLength minimum="8"/>
+                    <f:validateRegex
+                        pattern="((?=.*\d)(?=.*[a-zA-Z]).*)"/>
+                </h:inputSecret>
+                <h:message styleClass="errormessage" for="password"/>
+
+                <h:outputLabel for="stacksize" value="#{msg.stacksize} "/>
+                <h:inputText id="stacksize" value="#{userCtrl.user.stacksize}"
+                             validatorMessage="#{msg.stacksizeValidation}" validator="#{userCtrl.validateStacksize}"/>
+                <h:message styleClass="errormessage" for="stacksize"/>
+            </fieldset>
+        </h:panelGroup>
+    </composite:implementation>
+
+
+    <!-- USAGE
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+  +      xmlns:mc="http://java.sun.com/jsf/composite/components">
+
+  +   <mc:logincomp username="Franz" stacksize="2x2"/>
+    -->
+
+</html>

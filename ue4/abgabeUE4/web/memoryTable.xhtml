@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <h:body>
+
+        <ui:composition template="./layoutTemplate.xhtml">
+            <ui:define name="title">EWA Memory :: #{msg.memoryTablePageTitle}</ui:define>
+
+            <ui:define name="navigation">
+                <ul>
+                    <li><a href="#"><h:outputText value="#{msg.editPersData}" /></a></li>
+                    <li><a href="#"><h:outputText value="#{msg.backToLounge}" /></a></li>
+                    <li><a href="#"><h:outputText value="#{msg.logout}" /></a></li>
+                </ul>
+            </ui:define>
+
+            <ui:define name="content">
+                <div id="info_area">
+                    <h2>#{msg.score}</h2>
+                    <table id="score" summary="#{msg.scoreSummary}">
+                        <tbody>
+                            <tr>
+                                <th class="accessibility">Label</th>
+                                <th>#{msg.you}</th>
+                                <th>#{msg.opponent}</th>
+                            </tr>
+                            <tr>
+                                <th class="label">#{msg.pairs}</th>
+                                <td><h:outputText id="ownPoints" value="#{memoryCtrl.ownPoints}" /></td>
+                                <td><h:outputText id="opponentPoints" value="#{memoryCtrl.opponentPoints}" /></td>
+                            </tr>
+                            <tr>
+                                <th class="label">#{msg.tries}</th>
+                                <td><h:outputText id="ownTries" value="#{memoryCtrl.ownAttempts}" /></td>
+                                <td><h:outputText id="opponentTries" value="#{memoryCtrl.opponentAttempts}" /></td>
+                            </tr>
+                            <tr>
+                                <th class="label">#{msg.time}</th>
+                                <td><h:outputText id="timer" value="#{memoryCtrl.memoryTable.playTime}" /></td>
+                                <td>0:50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>#{msg.gameInfo}</h2>
+                    <table id="game_info" summary="#{msg.gameInfoSummary}">
+                        <tbody>
+                            <tr class="accessibility">
+                                <th>#{msg.information}</th>
+                                <th>#{msg.value}</th>
+                            </tr>
+                            <tr>
+                                <th>#{msg.remainingPairs}</th>
+                                <td><h:outputText id="remainingPairs" value="#{memoryCtrl.memoryTable.remainingPairs}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>#{msg.highscore}</h2>
+                    <ul id="highscore">
+                        <li>Petra: 165 #{msg.points}</li>
+                        <li>Manuel: 128 #{msg.points}</li>
+                        <li>Lena: 115 #{msg.points}</li>
+                        <li>Andi: 99 #{msg.points}</li>
+                    </ul>
+                    <h:form id="gameFinished" >
+                        <h:panelGroup layout="block"  rendered="#{memoryCtrl.memoryTable.remainingPairs == 0}">
+                            <p>
+                                <h2><h:outputText value="#{msg.gameWonMsg}" /></h2>
+                                <h:commandButton value="#{msg.newGame}" action="#{memoryCtrl.newGame}" />
+                            </p>
+                        </h:panelGroup>
+                    </h:form>
+                </div>
+                <div id="play_area">
+                    <hr class="accessibility" />
+                    <div id="board">
+                        <h2 class="accessibility">#{msg.board}</h2>
+                        <h:form>
+                            <ui:repeat value="#{memoryCtrl.memoryTable.rows}" var="row" varStatus="rowIdx">
+                                <ol>
+                                    <ui:repeat value="#{row}" var="card" varStatus="columnIdx">
+                                        <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card #{card.visible ? 'visible' : ''}" >
+                                            <h:commandLink >
+                                                <h:graphicImage name="#{card.imagePath}" alt="#{msg[card.altTextI18nKey]}" />
+                                                <f:ajax event="click" listener="#{memoryCtrl.cardClicked((rowIdx.index), (columnIdx.index))}" render="@form :ownTries :opponentTries :ownPoints :opponentPoints :timer :remainingPairs :gameFinished" />
+                                            </h:commandLink>
+                                        </li>
+                                    </ui:repeat>
+                                </ol>
+                            </ui:repeat>
+                        </h:form>
+                        <div class="clearer"></div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
