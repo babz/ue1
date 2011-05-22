@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import ewaMemory.memoryTable.beans.MemoryCard;
 import ewaMemory.memoryTable.beans.MemoryTable;
+import ewaMemory.memoryTable.beans.PushManager;
 import ewaMemory.memoryTable.beans.User;
 import ewaMemory.memoryTable.controller.MemoryCtrl;
 import java.util.HashMap;
@@ -154,7 +155,7 @@ public class MemoryAPI {
         MemoryCard predecessor = memory.getLastRevealedCard();
 
         if (predecessor == null) {
-            card.setVisible(true);
+            card.setVisible(true);     
             memory.setLastRevealedCard(card);
             return;
         }

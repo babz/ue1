@@ -1,16 +1,15 @@
 package ewaMemory.memoryTable.controller;
 
-import ewaMemory.memoryTable.api.Game;
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.User;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.icefaces.application.PushRenderer;
 
 @ManagedBean
 @SessionScoped
@@ -21,11 +20,16 @@ public class MemoryCtrl {
     private MemoryAPI memoryApi;
     @ManagedProperty("#{user}")
     private User user;
+
+//    @ManagedProperty("#{pushManager}")
+//    private PushManager pushManager;
     
     private MemoryTable memoryTable;
+//    private final PortableRenderer renderer;
 
     public MemoryCtrl() {
         log.info("MemoryCtrl created!");
+        PushRenderer.addCurrentSession("users");
     }
 
     public void cardClicked(int x, int y) {
@@ -34,12 +38,17 @@ public class MemoryCtrl {
 //        int y = Integer.parseInt(requestMap.get(MemoryTableParams.Y));
 
         log.info("(MemoryCtrl) cardClicked at (x,y): (" + x + "," + y + ")");
-        if(getMemoryTable().isUserTurn(user.getUsername()))
+        if(getMemoryTable().isUserTurn(user.getUsername())) {
             memoryApi.clickOnCard(getMemoryTable(), x, y, user.getUsername());
+            PushRenderer.render("users");
+        }
         
+
 
         //return "memoryTable.xhtml";
     }
+
+
 
     public String newGame() {
         log.info("starting new game. width:" + user.getMemoryWidth() + ", height: " + user.getMemoryHeight());
@@ -115,4 +124,18 @@ public class MemoryCtrl {
     public String getOpponentUsername() {
         return memoryTable.getOpponentUsername(user.getUsername());
     }
+
+//    /**
+//     * @return the pushManager
+//     */
+//    public PushManager getPushManager() {
+//        return pushManager;
+//    }
+//
+//    /**
+//     * @param pushManager the pushManager to set
+//     */
+//    public void setPushManager(PushManager pushManager) {
+//        this.pushManager = pushManager;
+//    }
 }

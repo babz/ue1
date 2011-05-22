@@ -2,22 +2,17 @@ package ewaMemory.memoryTable.controller;
 
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.api.UsernameAlreadyRegisteredException;
-import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.User;
 import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.util.Date;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.validator.ValidatorException;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.HttpSession;
 
 /**
  *
