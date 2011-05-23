@@ -67,14 +67,15 @@
                         <li>Andi: 99 #{msg.points}</li>
                     </ul>
                         <h:panelGroup rendered="#{!memoryCtrl.memoryTable.gameOver}">
-                            <h:outputText id="usernameTurn" value="#{msg.turn}: #{memoryCtrl.memoryTable.usernameTurn}" rendered="#{memoryCtrl.memoryTable.gameHasStarted}"/>
-                            <h:outputText id="gameHasNotStarted" value="#{msg.gameHasNotStarted}" rendered="#{!memoryCtrl.memoryTable.gameHasStarted}"/>
+                            <h2><h:outputText id="usernameTurn" value="#{msg.turn}: #{memoryCtrl.memoryTable.usernameTurn}" rendered="#{memoryCtrl.memoryTable.gameHasStarted}"/></h2>
+                            <h2><h:outputText id="gameHasNotStarted" value="#{msg.gameHasNotStarted}" rendered="#{!memoryCtrl.memoryTable.gameHasStarted}"/></h2>
                         </h:panelGroup>
                     <h:form id="gameFinished" >
                         <h:panelGroup layout="block"  rendered="#{memoryCtrl.memoryTable.gameOver}">
                             <p>
-                                <h2><h:outputText value="#{msg.gameWonMsg}" rendered="#{memoryCtrl.gameWon}"/></h2>
-                                <h2><h:outputText value="#{msg.gameLostMsg}" rendered="#{memoryCtrl.gameLost}"/></h2>
+                                <h2><h:outputText value="#{msg.gameWon}" rendered="#{memoryCtrl.gameWon}"/></h2>
+                                <h2><h:outputText value="#{msg.gameLost}" rendered="#{memoryCtrl.gameLost}"/></h2>
+                                <h2><h:outputText value="#{msg.gameDraw}" rendered="#{memoryCtrl.gameDraw}"/></h2>
                                 <h:commandButton value="#{msg.newGame}" action="#{memoryCtrl.newGame}" />
                             </p>
                         </h:panelGroup>

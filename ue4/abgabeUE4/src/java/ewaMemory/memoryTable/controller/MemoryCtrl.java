@@ -2,6 +2,7 @@ package ewaMemory.memoryTable.controller;
 
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
+import ewaMemory.memoryTable.beans.Outcome;
 import ewaMemory.memoryTable.beans.User;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -39,8 +40,6 @@ public class MemoryCtrl {
             updateGame();
         }
     }
-
-
 
     public String newGame() {
         log.info("starting new game. width:" + user.getMemoryWidth() + ", height: " + user.getMemoryHeight());
@@ -122,15 +121,24 @@ public class MemoryCtrl {
     }
 
     public boolean isGameWon() {
-        log.info("isGameWon: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
-        return user.getUsername().equals(memoryTable.getWinner());
+        return compareOutcome(Outcome.WIN);
     }
 
     public boolean isGameLost() {
-        log.info("isGameLost: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
-        boolean lost = memoryTable.getLoosers().contains(user.getUsername());
-        log.info("isGameLost: "+lost);
-        return lost;
+        return compareOutcome(Outcome.LOOSE);
+    }
+
+    public boolean isGameDraw() {
+        return compareOutcome(Outcome.DRAW);
+    }
+
+    private boolean compareOutcome(Outcome testedOutCome) {
+        Outcome outcome = memoryTable.getOutcome(getUser().getUsername());
+        if (outcome == testedOutCome) {
+            return true;
+        }
+
+        return false;
     }
 
 //    /**

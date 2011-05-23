@@ -2,8 +2,12 @@ package ewaMemory.memoryTable.beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +32,7 @@ public class MemoryTable {
     
     private boolean gameHasStarted = false;
     private boolean gameOver;
-    private String winner;
-    private List<String> loosers = new ArrayList<String>();
+    private Map<String, Outcome> outcome;
 
     
 
@@ -91,30 +94,25 @@ public class MemoryTable {
         remainingPairs--;
         if (remainingPairs == 0) {
             gameOver = true;
-            String loosers = "";
+            String strLoosers = "";
+            String strWinners = "";
 
-            //TODO what happens if points equal
+            //TODO this is the only part in this class which makes us of the game having only two players
 
-            //evaluate winner
-            int heighestPoints = 0;
-            for (String user : users) {
-                if (points.get(user) > heighestPoints) {
-                    log.info("user "+user+" has won. points: "+points.get(user));
-                    winner = user;
-                    heighestPoints = points.get(user);
-                }
+            outcome = new HashMap<String,Outcome>();
+
+            if(points.get(users[0]) > points.get(users[1])) {
+                outcome.put(users[0], Outcome.WIN);
+                outcome.put(users[1], Outcome.LOOSE);
+            } else if(points.get(users[0]) == points.get(users[1])) {
+                outcome.put(users[0], Outcome.DRAW);
+                outcome.put(users[1], Outcome.DRAW);
+            } else {
+                outcome.put(users[0], Outcome.LOOSE);
+                outcome.put(users[1], Outcome.WIN);
             }
-            
-            //evaluate looser
-            for(String user : users) {
-                if(!user.equals(winner)) {
-                    log.info("user "+user+" has lost. points: "+points.get(user));
-                    this.loosers.add(user);
-                    loosers += user+",";
-                }
-            }
-            
-            log.info("Game over: winner :"+winner+", loosers:"+loosers);
+
+            log.info("Game over - outcome: "+users[0]+":"+outcome.get(users[0])+"; "+users[1]+":"+outcome.get(users[1]));
         }
     }
 
@@ -198,17 +196,7 @@ public class MemoryTable {
         return gameOver;
     }
 
-    /**
-     * @return the winner
-     */
-    public String getWinner() {
-        return winner;
-    }
-
-    /**
-     * @return the loosers
-     */
-    public List<String> getLoosers() {
-        return new ArrayList<String>(loosers);
+    public Outcome getOutcome(String username) {
+        return outcome.get(username);
     }
 }
