@@ -4,3 +4,4 @@ build/
 .directory
 nbproject/
 dist/
+nbbuild.xml
