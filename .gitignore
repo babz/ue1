@@ -5,3 +5,5 @@ build/
 nbproject/
 dist/
 nbbuild.xml
+
+ext/
