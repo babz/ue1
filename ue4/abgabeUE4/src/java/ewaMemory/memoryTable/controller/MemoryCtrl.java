@@ -1,5 +1,6 @@
 package ewaMemory.memoryTable.controller;
 
+import FacebookConnector.Score;
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.Outcome;
@@ -78,6 +79,16 @@ public class MemoryCtrl {
     public String getOpponentPlayTime() {
         log.info("getOpponentPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
         return getMemoryTable().getPlayTime(getOpponentUsername());
+    }
+
+    public int getOwnHighscore() {
+       log.info("getOwnPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+       return getMemoryTable().getHighscore(getUser().getUsername());
+    }
+
+    public int getOpponentHighscore() {
+        log.info("getOwnPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+       return getMemoryTable().getHighscore(getOpponentUsername());
     }
 
     public MemoryAPI getMemoryApi() {

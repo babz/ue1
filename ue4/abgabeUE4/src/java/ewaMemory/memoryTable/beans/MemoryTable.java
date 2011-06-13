@@ -153,6 +153,10 @@ public class MemoryTable {
         return minutes + ":" + seconds;
     }
 
+    public int getPlayTimeInSeconds(String username) {
+        return usersPlayTimeInSeconds.get(username).intValue();
+    }
+
     private int sum(Collection<Integer> values) {
         int sum = 0;
         for (Integer n : values) {
@@ -198,5 +202,13 @@ public class MemoryTable {
 
     public Outcome getOutcome(String username) {
         return outcome.get(username);
+    }
+
+    public int getHighscore(String username) {
+         // x = 300 - (sec / pairs)
+        if(getPoints(username) < 1) {
+            return 0;
+        }
+        return 300 - (getPlayTimeInSeconds(username) / getPoints(username));
     }
 }
