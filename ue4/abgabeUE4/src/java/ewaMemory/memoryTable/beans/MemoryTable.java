@@ -207,6 +207,7 @@ public class MemoryTable {
             return 0;
         }
         return 300 - (getPlayTimeInSeconds(username) / getPoints(username));
+    }
 
     public int getDisplayWidth() {
         return CARD_WIDTH * cards.size() + 2 * TABLE_PADDING;
