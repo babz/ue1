@@ -83,7 +83,7 @@
                 </div>
                 <div id="play_area">
                     <hr class="accessibility" />
-                    <div id="board">
+                    <div id="board" style="width: #{memoryCtrl.memoryTable.displayWidth}px">
                         <h2 class="accessibility">#{msg.board}</h2>
                         <h:form>
                             <ui:repeat value="#{memoryCtrl.memoryTable.rows}" var="row" varStatus="rowIdx">
@@ -92,7 +92,7 @@
                                         <li title="Zeile #{rowIdx.index}, Spalte #{columnIdx.index}" class="card #{card.visible ? 'visible' : ''}" >
                                             <h:commandLink actionListener="#{memoryCtrl.cardClicked((rowIdx.index), (columnIdx.index))}"
                                                            immediate="true">
-                                                <h:graphicImage name="#{card.imagePath}" alt="#{msg[card.altTextI18nKey]}" />
+                                                <h:graphicImage value="#{card.imagePath}" alt="#{card.countryName}" />
 <!--                                                <f:ajax event="click" listener="" render="@form :ownTries :opponentTries :ownPoints :opponentPoints :timer :remainingPairs :gameFinished" />-->
                                             </h:commandLink>
                                         </li>

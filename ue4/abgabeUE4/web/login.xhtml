@@ -23,7 +23,7 @@ and open the template in the editor.
             <ui:define name="content">
                 <div id="main">
                     <h:form>
-                        <mc:logincomp stacksize="2x2"/>
+                        <mc:logincomp displayContinent="true" displayDefaultStacksize="true"/>
                         <h:outputText value="#{msg.wrongUsernameOrPasswordOrUserDoesNotExist}" rendered="#{userCtrl.loginfailed}" styleClass="errormessage" />
 
                         <div id="buttons">

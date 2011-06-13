@@ -5,10 +5,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-
 @ManagedBean
 @SessionScoped
 public class User {
+
     private String username;
     private String firstname;
     private String lastname;
@@ -17,6 +17,7 @@ public class User {
     private int memoryWidth = 4;
     private int memoryHeight = 4;
     private String gender; //f od m
+    private String continent;
 
     public User(User user) {
         username = user.getUsername();
@@ -26,9 +27,11 @@ public class User {
         password = user.getPassword();
         memoryWidth = user.getMemoryWidth();
         memoryHeight = user.getMemoryHeight();
+        continent = user.getContinent();
     }
 
-    public User() {}
+    public User() {
+    }
 
     public String getFullname() {
         return firstname + " " + lastname;
@@ -58,7 +61,7 @@ public class User {
         birthdate = bdate;
     }
 
-    public String getGender(){
+    public String getGender() {
         return gender;
     }
 
@@ -90,7 +93,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "username: "+getUsername()+", full name: "+getFullname() +", birthdate: "+birthdate;
+        return "username: " + getUsername() + ", full name: " + getFullname() + ", birthdate: " + birthdate;
     }
 
     /**
@@ -99,13 +102,14 @@ public class User {
     public int getMemoryWidth() {
         return memoryWidth;
     }
-
-    /**
-     * @param memoryWidth the memoryWidth to set
-     */
-    public void setMemoryWidth(int memoryWidth) {
-        this.memoryWidth = memoryWidth;
-    }
+//
+//    /**
+//     * @param memoryWidth the memoryWidth to set
+//     */
+//    public void setMemoryWidth(int memoryWidth) {
+//        this.memoryWidth = memoryWidth;
+//    }
+//
 
     /**
      * @return the memoryHeight
@@ -113,22 +117,33 @@ public class User {
     public int getMemoryHeight() {
         return memoryHeight;
     }
-
-    /**
-     * @param memoryHeight the memoryHeight to set
-     */
-    public void setMemoryHeight(int memoryHeight) {
-        this.memoryHeight = memoryHeight;
-    }
+//
+//    /**
+//     * @param memoryHeight the memoryHeight to set
+//     */
+//    public void setMemoryHeight(int memoryHeight) {
+//        this.memoryHeight = memoryHeight;
+//    }
 
     public String getStacksize() {
-        return memoryWidth+"x"+memoryHeight;
+        return memoryWidth + "x" + memoryHeight;
     }
 
     public void setStacksize(String stacksize) {
-        String[] parts = stacksize.split("x");
-        memoryWidth = Integer.parseInt(parts[0]);
-        memoryHeight = Integer.parseInt(parts[1]);
+        if (!stacksize.equals("__default")) {
+            String[] parts = stacksize.split("x");
+            memoryWidth = Integer.parseInt(parts[0]);
+            memoryHeight = Integer.parseInt(parts[1]);
+        }
     }
 
+    public String getContinent() {
+        return continent;
+    }
+
+    public void setContinent(String continent) {
+        if (!continent.equals("__default")) {
+            this.continent = continent;
+        }
+    }
 }
