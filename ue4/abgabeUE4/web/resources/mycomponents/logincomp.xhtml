@@ -8,7 +8,8 @@
     <!-- INTERFACE -->
     <composite:interface>
         <composite:attribute name="username" required="false"/>
-        <composite:attribute name="stacksize" required="false"/>
+        <composite:attribute name="displayContinent" required="true"/>
+        <composite:attribute name="displayDefaultStacksize" required="true"/>
     </composite:interface>
 
     <!-- IMPLEMENTATION -->
@@ -42,10 +43,21 @@
                 </h:inputSecret>
                 <h:message styleClass="errormessage" for="password"/>
 
-                <h:outputLabel for="stacksize" value="#{msg.stacksize} "/>
-                <h:inputText id="stacksize" value="#{userCtrl.user.stacksize}"
-                             validatorMessage="#{msg.stacksizeValidation}" validator="#{userCtrl.validateStacksize}"/>
-                <h:message styleClass="errormessage" for="stacksize"/>
+                <h:outputLabel for="stacksizeWithDefault" value="#{msg.stacksize}" rendered="#{cc.attrs.displayDefaultStacksize}" />
+                <h:selectOneMenu id="stacksizeWithDefault" value="#{userCtrl.user.stacksize}" rendered="#{cc.attrs.displayDefaultStacksize}" >
+                    <f:selectItem itemValue="__default" itemLabel="#{msg.defaultStacksize}" />
+                    <f:selectItems value="#{api.supportedGameSizes}" />
+                </h:selectOneMenu>
+                <h:outputLabel for="stacksize" value="#{msg.stacksize}" rendered="#{!cc.attrs.displayDefaultStacksize}" />
+                <h:selectOneMenu id="stacksize" value="#{userCtrl.user.stacksize}" rendered="#{!cc.attrs.displayDefaultStacksize}" >
+                    <f:selectItems value="#{api.supportedGameSizes}" />
+                </h:selectOneMenu>
+
+                <h:outputLabel for="continent" value="#{msg.continent}" rendered="#{cc.attrs.displayContinent}"/>
+                <h:selectOneMenu id="continent" value="#{userCtrl.user.continent}" rendered="#{cc.attrs.displayContinent}">
+                    <f:selectItem itemValue="__default" itemLabel="#{msg.defaultContinent}" />
+                    <f:selectItems value="#{api.supportedContinents}" />
+                </h:selectOneMenu>
             </fieldset>
         </h:panelGroup>
     </composite:implementation>

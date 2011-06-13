@@ -1,13 +1,8 @@
 package ewaMemory.memoryTable.beans;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +28,8 @@ public class MemoryTable {
     private boolean gameHasStarted = false;
     private boolean gameOver;
     private Map<String, Outcome> outcome;
+    private final int CARD_WIDTH = 110;
+    private final int TABLE_PADDING = 25;
 
     
 
@@ -198,5 +195,9 @@ public class MemoryTable {
 
     public Outcome getOutcome(String username) {
         return outcome.get(username);
+    }
+
+    public int getDisplayWidth() {
+        return CARD_WIDTH * cards.size() + 2 * TABLE_PADDING;
     }
 }

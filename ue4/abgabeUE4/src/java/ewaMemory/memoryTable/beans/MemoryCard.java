@@ -2,7 +2,7 @@ package ewaMemory.memoryTable.beans;
 
 public class MemoryCard {
 
-    private static final String CARD_BACKGROUND_PATH = "img/card_background.png";
+    private static final String CARD_BACKGROUND_PATH = "resources/img/card_background.png";
     private final String imagePath;
     private final String countryName;
 
@@ -27,10 +27,10 @@ public class MemoryCard {
         return CARD_BACKGROUND_PATH;
     }
 
-    public String getAltTextI18nKey() {
+    public String getCountryName() {
         if (visible) {
             return countryName;
         }
-        return "i18nUNKNOWN_COUNTRY";
+        return "unknown country";
     }
 }

@@ -52,9 +52,13 @@
                                     <f:selectItem itemValue="f" itemLabel="#{msg.female}"/>
                                     <f:selectItem itemValue="m" itemLabel="#{msg.male}"/>
                                 </h:selectOneMenu>
+                                <h:outputLabel for="continent" value="#{msg.continent}" />
+                                <h:selectOneMenu id="continent" value="#{userCtrl.user.continent}">
+                                    <f:selectItems value="#{api.supportedContinents}" />
+                                </h:selectOneMenu>
                             </fieldset>
                         </h:panelGroup>
-                        <mc:logincomp stacksize="2x2"/>
+                        <mc:logincomp displayContinent="false" displayDefaultStacksize="false"/>
                         <h:outputText value="#{msg.usernameAlreadyRegistered}" rendered="#{userCtrl.usernameAlreadyRegistered}" styleClass="errormessage" />
                         <div id="buttons">
                             <h:commandButton id="login" value="#{msg.register}" action="#{userCtrl.register}"/>
