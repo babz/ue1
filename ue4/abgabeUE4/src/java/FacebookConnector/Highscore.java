@@ -65,6 +65,10 @@ public class Highscore implements FacebookConnector {
         return sList;
     }
 
+    /**
+     *
+     * @return list of all highscores, TODO sorted by score
+     */
     @Override
     public List<Score> getHighScoreList() throws Exception {
         Connection<Post> feed = facebookClient.fetchConnection(pageID + "/feed", Post.class);
@@ -73,7 +77,7 @@ public class Highscore implements FacebookConnector {
         sList = mapPosts(feed.getData());
         while(feed.hasNext()){
             feed = facebookClient.fetchConnectionPage(feed.getNextPageUrl(), Post.class);
-            for(Score s : mapPosts(feed.getData())){
+            for(Score s : mapPosts(feed.getData())) {
                 sList.add(s);
             }
         }
@@ -81,6 +85,7 @@ public class Highscore implements FacebookConnector {
         return sList;
     }
 
+    // TODO publish only, if score > 0
     @Override
     public Integer publishHighScoreResult(Score score) {
         facebookClient.publish(pageID + "/feed", FacebookType.class, Parameter.with("message", score.getFacebookPublicationString()));

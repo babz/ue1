@@ -87,6 +87,9 @@ public class MemoryAPI {
 
     public void publishHighscores(MemoryTable memory) {
         Highscore highscore = new Highscore();
+
+        //TODO cleanup this method
+
         System.out.println(memory.getAllHighscores());
         try {
             System.out.println(highscore.getHighScoreList());
