@@ -81,16 +81,6 @@ public class MemoryCtrl {
         return getMemoryTable().getPlayTime(getOpponentUsername());
     }
 
-    public int getOwnHighscore() {
-       log.info("getOwnPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
-       return getMemoryTable().getHighscore(getUser().getUsername());
-    }
-
-    public int getOpponentHighscore() {
-        log.info("getOwnPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
-       return getMemoryTable().getHighscore(getOpponentUsername());
-    }
-
     public MemoryAPI getMemoryApi() {
         return memoryApi;
     }

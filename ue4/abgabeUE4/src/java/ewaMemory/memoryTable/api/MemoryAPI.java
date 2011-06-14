@@ -1,5 +1,7 @@
 package ewaMemory.memoryTable.api;
 
+import FacebookConnector.Highscore;
+import FacebookConnector.Score;
 import ewaMemory.flagService.Flag;
 import ewaMemory.flagService.FlagRequest;
 import ewaMemory.flagService.FlagResponse;
@@ -17,10 +19,12 @@ import java.util.logging.Logger;
 
 import ewaMemory.memoryTable.beans.MemoryCard;
 import ewaMemory.memoryTable.beans.MemoryTable;
+import ewaMemory.memoryTable.beans.Outcome;
 import ewaMemory.memoryTable.beans.User;
 import ewaMemory.memoryTable.controller.MemoryCtrl;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -81,6 +85,14 @@ public class MemoryAPI {
 //        onlineUsers.put(user.getUsername(), user);
 
         return user;
+    }
+
+    public void publishHighscores(MemoryTable memory) {
+        Highscore highscore = new Highscore();
+        System.out.println(memory.getAllHighscores());
+        for(Entry<String, Integer> scoreEntry : memory.getAllHighscores().entrySet()) {
+            highscore.publishHighScoreResult(new Score(scoreEntry.getValue(), scoreEntry.getKey()));
+        }
     }
 
     private MemoryTable createMemoryTable(int memoryWidth, int memoryHeight, String creatorName, String opponentName, String continent, String stacksize) {
@@ -148,6 +160,14 @@ public class MemoryAPI {
             memory.incrementPoints(username);
             memory.incrementAttempts(username);
             memory.decrementRemainingPairs();
+
+            if (memory.getRemainingPairs() == 0) {
+                // game is over
+                memory.setGameOver(true);
+                memory.calulateOutcome();
+                publishHighscores(memory);
+            }
+
         } else {
             memory.addToCardsToUnreveal(predecessor);
             memory.addToCardsToUnreveal(card);
@@ -251,8 +271,9 @@ public class MemoryAPI {
     }
 
     private String defaultContinentIfNotSet(String continent) {
-        if(continent == null)
+        if (continent == null) {
             return getSupportedContinents().get(0);
+        }
         return continent;
     }
 }

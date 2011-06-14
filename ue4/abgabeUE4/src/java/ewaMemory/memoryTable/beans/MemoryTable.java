@@ -9,29 +9,26 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class MemoryTable {
+
     private static final Logger log = Logger.getLogger(MemoryTable.class.getSimpleName());
     private final static int MAXUSERS = 2;
-
     private List<List<MemoryCard>> cards;
     private MemoryCard lastRevealedCard;
     private int remainingPairs;
     private List<MemoryCard> cardsToUnreveal = new LinkedList<MemoryCard>();
-
     private String[] users = new String[MAXUSERS];
     private Map<String, Integer> points = new HashMap<String, Integer>();
     private Map<String, Integer> attempts = new HashMap<String, Integer>();
     private long timeStart = (long) 0;
-    private Map<String, Long> usersPlayTimeInSeconds = new HashMap<String, Long>();;
+    private Map<String, Long> usersPlayTimeInSeconds = new HashMap<String, Long>();
 
+    ;
     private int turnId = 0;
-    
     private boolean gameHasStarted = false;
     private boolean gameOver;
     private Map<String, Outcome> outcome;
     private final int CARD_WIDTH = 110;
     private final int TABLE_PADDING = 25;
-
-    
 
     public MemoryTable(List<String> usernames) {
         int id = 0;
@@ -89,28 +86,28 @@ public class MemoryTable {
 
     public void decrementRemainingPairs() {
         remainingPairs--;
-        if (remainingPairs == 0) {
-            gameOver = true;
-            String strLoosers = "";
-            String strWinners = "";
-
-            //TODO this is the only part in this class which makes us of the game having only two players
-
-            outcome = new HashMap<String,Outcome>();
-
-            if(points.get(users[0]) > points.get(users[1])) {
-                outcome.put(users[0], Outcome.WIN);
-                outcome.put(users[1], Outcome.LOOSE);
-            } else if(points.get(users[0]) == points.get(users[1])) {
-                outcome.put(users[0], Outcome.DRAW);
-                outcome.put(users[1], Outcome.DRAW);
-            } else {
-                outcome.put(users[0], Outcome.LOOSE);
-                outcome.put(users[1], Outcome.WIN);
-            }
-
-            log.info("Game over - outcome: "+users[0]+":"+outcome.get(users[0])+"; "+users[1]+":"+outcome.get(users[1]));
-        }
+//        if (remainingPairs == 0) {
+//            gameOver = true;
+//            String strLoosers = "";
+//            String strWinners = "";
+//
+//            //TODO this is the only part in this class which makes us of the game having only two players
+//
+//            outcome = new HashMap<String,Outcome>();
+//
+//            if(points.get(users[0]) > points.get(users[1])) {
+//                outcome.put(users[0], Outcome.WIN);
+//                outcome.put(users[1], Outcome.LOOSE);
+//            } else if(points.get(users[0]) == points.get(users[1])) {
+//                outcome.put(users[0], Outcome.DRAW);
+//                outcome.put(users[1], Outcome.DRAW);
+//            } else {
+//                outcome.put(users[0], Outcome.LOOSE);
+//                outcome.put(users[1], Outcome.WIN);
+//            }
+//
+//            log.info("Game over - outcome: "+users[0]+":"+outcome.get(users[0])+"; "+users[1]+":"+outcome.get(users[1]));
+//        }
     }
 
     public int getRemainingPairs() {
@@ -141,7 +138,7 @@ public class MemoryTable {
         if (playTimeInSeconds == 0L) {
             return "0:00";
         }
-    
+
         long minutes = (long) ((int) playTimeInSeconds / 60);
         long seconds = playTimeInSeconds % 60;
         if (seconds < 10) {
@@ -201,15 +198,48 @@ public class MemoryTable {
         return outcome.get(username);
     }
 
-    public int getHighscore(String username) {
-         // x = 300 - (sec / pairs)
-        if(getPoints(username) < 1) {
+    private int getHighscore(String username) {
+        // x = 300 - (sec / pairs)
+        if (getPoints(username) < 1) {
             return 0;
         }
         return 300 - (getPlayTimeInSeconds(username) / getPoints(username));
     }
 
+    public Map<String, Integer> getAllHighscores() {
+        Map<String, Integer> scores = new HashMap<String, Integer>();
+
+        for(String username : users) {
+            scores.put(username, getHighscore(username));
+        }
+
+        return scores;
+    }
+
     public int getDisplayWidth() {
         return CARD_WIDTH * cards.size() + 2 * TABLE_PADDING;
+    }
+
+    public void calulateOutcome() {
+        //TODO this is the only part in this class which makes us of the game having only two players
+
+        outcome = new HashMap<String, Outcome>();
+
+        if (points.get(users[0]) > points.get(users[1])) {
+            outcome.put(users[0], Outcome.WIN);
+            outcome.put(users[1], Outcome.LOOSE);
+        } else if (points.get(users[0]) == points.get(users[1])) {
+            outcome.put(users[0], Outcome.DRAW);
+            outcome.put(users[1], Outcome.DRAW);
+        } else {
+            outcome.put(users[0], Outcome.LOOSE);
+            outcome.put(users[1], Outcome.WIN);
+        }
+
+        log.info("Game over - outcome: " + users[0] + ":" + outcome.get(users[0]) + "; " + users[1] + ":" + outcome.get(users[1]));
+    }
+
+    public void setGameOver(boolean gameOverStatus) {
+        gameOver = gameOverStatus;
     }
 }
