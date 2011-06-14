@@ -217,7 +217,7 @@ public class MemoryTable {
     }
 
     public int getDisplayWidth() {
-        return CARD_WIDTH * cards.size() + 2 * TABLE_PADDING;
+        return CARD_WIDTH * cards.get(0).size() + 2 * TABLE_PADDING;
     }
 
     public void calulateOutcome() {
