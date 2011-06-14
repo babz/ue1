@@ -1,6 +1,5 @@
 package ewaMemory.memoryTable.controller;
 
-import FacebookConnector.Score;
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.Outcome;
@@ -9,8 +8,6 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import org.icefaces.application.PushRenderer;
 
 @ManagedBean

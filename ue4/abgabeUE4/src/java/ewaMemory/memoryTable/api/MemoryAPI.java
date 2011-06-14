@@ -33,13 +33,11 @@ import javax.faces.bean.ManagedBean;
 public class MemoryAPI {
 
     private static final Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-    private static String CARD_DIR_REL_TO_WEB_CONTENT = "img/cards";
-    private List<FlagInfo> allFlags = new LinkedList<FlagInfo>();
+
     private Map<String, User> registeredUsers = new HashMap<String, User>();
 //    private Map<String, User> onlineUsers = new HashMap<String, User>();
     private List<Game> waitingGames = new ArrayList<Game>();
     private FlagService flagService;
-    private Logger logger = Logger.getLogger(MemoryAPI.class.getName());
 
     public MemoryAPI() {
         FlagServiceImplService serviceImpl = new FlagServiceImplService();
@@ -241,7 +239,7 @@ public class MemoryAPI {
                 alist.add(s);
             }
         } catch (FlagServiceException ex) {
-            logger.log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, null, ex);
         }
         return alist;
     }
@@ -253,7 +251,7 @@ public class MemoryAPI {
                 alist.add(s);
             }
         } catch (FlagServiceException ex) {
-            logger.log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, null, ex);
         }
         return alist;
     }
@@ -272,7 +270,7 @@ public class MemoryAPI {
                 alist.add(new FlagInfo(f.getUrl(), f.getCountry()));
             }
         } catch (FlagServiceException ex) {
-            logger.log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, null, ex);
         }
         return alist;
     }
