@@ -90,6 +90,13 @@ public class MemoryAPI {
     public void publishHighscores(MemoryTable memory) {
         Highscore highscore = new Highscore();
         System.out.println(memory.getAllHighscores());
+        try {
+            System.out.println(highscore.getHighScoreList());
+        } catch (Exception ex) {
+            // TODO handle exc
+            Logger.getLogger(MemoryAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         for(Entry<String, Integer> scoreEntry : memory.getAllHighscores().entrySet()) {
             highscore.publishHighScoreResult(new Score(scoreEntry.getValue(), scoreEntry.getKey()));
         }
