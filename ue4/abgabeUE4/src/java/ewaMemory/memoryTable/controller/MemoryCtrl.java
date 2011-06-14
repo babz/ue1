@@ -43,7 +43,7 @@ public class MemoryCtrl {
     }
 
     public String newGame() {
-        log.info("starting new game. stacksize: " + user.getStacksize());
+        log.info("starting new game. stacksize: " + user.getStacksize() + " continent: " + user.getContinent());
 
         memoryTable = memoryApi.getGame(user, this);
         updateGame();

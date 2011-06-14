@@ -66,16 +66,29 @@
                         <li>Lena: 115 #{msg.points}</li>
                         <li>Andi: 99 #{msg.points}</li>
                     </ul>
-                        <h:panelGroup rendered="#{!memoryCtrl.memoryTable.gameOver}">
-                            <h2><h:outputText id="usernameTurn" value="#{msg.turn}: #{memoryCtrl.memoryTable.usernameTurn}" rendered="#{memoryCtrl.memoryTable.gameHasStarted}"/></h2>
-                            <h2><h:outputText id="gameHasNotStarted" value="#{msg.gameHasNotStarted}" rendered="#{!memoryCtrl.memoryTable.gameHasStarted}"/></h2>
-                        </h:panelGroup>
+                    <h:panelGroup rendered="#{!memoryCtrl.memoryTable.gameOver}">
+                        <h2><h:outputText id="usernameTurn" value="#{msg.turn}: #{memoryCtrl.memoryTable.usernameTurn}" rendered="#{memoryCtrl.memoryTable.gameHasStarted}"/></h2>
+                        <h2><h:outputText id="gameHasNotStarted" value="#{msg.gameHasNotStarted}" rendered="#{!memoryCtrl.memoryTable.gameHasStarted}"/></h2>
+                    </h:panelGroup>
                     <h:form id="gameFinished" >
                         <h:panelGroup layout="block"  rendered="#{memoryCtrl.memoryTable.gameOver}">
                             <p>
                                 <h2><h:outputText value="#{msg.gameWon}" rendered="#{memoryCtrl.gameWon}"/></h2>
                                 <h2><h:outputText value="#{msg.gameLost}" rendered="#{memoryCtrl.gameLost}"/></h2>
                                 <h2><h:outputText value="#{msg.gameDraw}" rendered="#{memoryCtrl.gameDraw}"/></h2>
+
+                                <h:outputLabel for="stacksize" value="#{msg.stacksize}" styleClass="accessibility" />
+                                <h:selectOneMenu id="stacksize" value="#{memoryCtrl.user.stacksize}" >
+                                    <f:selectItem itemValue="__default" itemLabel="#{msg.defaultStacksize}" />
+                                    <f:selectItems value="#{api.supportedGameSizes}" />
+                                </h:selectOneMenu>
+
+                                <h:outputLabel for="continent" value="#{msg.continent}" styleClass="accessibility" />
+                                <h:selectOneMenu id="continent" value="#{memoryCtrl.user.continent}" >
+                                    <f:selectItem itemValue="__default" itemLabel="#{msg.defaultContinent}" />
+                                    <f:selectItems value="#{api.supportedContinents}" />
+                                </h:selectOneMenu>
+
                                 <h:commandButton value="#{msg.newGame}" action="#{memoryCtrl.newGame}" />
                             </p>
                         </h:panelGroup>
@@ -93,7 +106,7 @@
                                             <h:commandLink actionListener="#{memoryCtrl.cardClicked((rowIdx.index), (columnIdx.index))}"
                                                            immediate="true">
                                                 <h:graphicImage value="#{card.imagePath}" alt="#{card.countryName}" />
-<!--                                                <f:ajax event="click" listener="" render="@form :ownTries :opponentTries :ownPoints :opponentPoints :timer :remainingPairs :gameFinished" />-->
+                                                <!--                                                <f:ajax event="click" listener="" render="@form :ownTries :opponentTries :ownPoints :opponentPoints :timer :remainingPairs :gameFinished" />-->
                                             </h:commandLink>
                                         </li>
                                     </ui:repeat>
