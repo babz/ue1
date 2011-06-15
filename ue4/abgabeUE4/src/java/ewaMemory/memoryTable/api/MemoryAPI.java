@@ -1,6 +1,6 @@
 package ewaMemory.memoryTable.api;
 
-import FacebookConnector.Highscore;
+import FacebookConnector.MyFacebookConnector;
 import FacebookConnector.Score;
 import ewaMemory.flagService.Flag;
 import ewaMemory.flagService.FlagRequest;
@@ -86,20 +86,37 @@ public class MemoryAPI {
     }
 
     public void publishHighscores(MemoryTable memory) {
-        Highscore highscore = new Highscore();
-
-        //TODO cleanup this method
-
-        System.out.println(memory.getAllHighscores());
-        try {
-            System.out.println(highscore.getHighScoreList());
-        } catch (Exception ex) {
-            // TODO handle exc
-            Logger.getLogger(MemoryAPI.class.getName()).log(Level.SEVERE, null, ex);
+        MyFacebookConnector facebook = new MyFacebookConnector();
+        Map<String, Integer> newHighscores = memory.getAllHighscores();
+        List<Score> updatedHighscores = new ArrayList<Score>();
+        
+        //publish highscores on facebook
+        for(Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
+            facebook.publishHighScoreResult(new Score(scoreEntry.getValue(), scoreEntry.getKey()));
         }
 
-        for(Entry<String, Integer> scoreEntry : memory.getAllHighscores().entrySet()) {
-            highscore.publishHighScoreResult(new Score(scoreEntry.getValue(), scoreEntry.getKey()));
+        try {
+            //calculate ranking
+            updatedHighscores = facebook.getHighScoreList();
+        } catch (Exception ex) {
+            Logger.getLogger(MemoryAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
+            Integer score = scoreEntry.getValue(); //highscore
+            String user = scoreEntry.getKey(); //name
+            int rank = 0;
+            Integer currScore = 0;
+            for(Score s: updatedHighscores) {
+                if(s.getScoreResult() != currScore){
+                    currScore = s.getScoreResult();
+                    rank++;
+                }
+                if(score >= currScore) {
+                    memory.setRanking(user, rank);
+                    break;
+                }
+            }
         }
     }
 

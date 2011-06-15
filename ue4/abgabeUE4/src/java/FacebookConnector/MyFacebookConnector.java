@@ -7,30 +7,27 @@ package FacebookConnector;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
-import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
-import java.io.InputStream;
-import java.util.AbstractList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
  *
  * @author babz
  */
-public class Highscore implements FacebookConnector {
+public class MyFacebookConnector implements FacebookConnector {
 
     FacebookClient facebookClient;
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String pageID = "182396081803634";
 
 
-    public Highscore() {
+    public MyFacebookConnector() {
         facebookClient = new DefaultFacebookClient(getAccessToken());
     }
 
@@ -55,6 +52,7 @@ public class Highscore implements FacebookConnector {
                             if (sc.hasNext()) {
                                 String name = sc.nextLine();
                                 sList.add(new Score(points, name));
+                                //TODO remove
                                 System.out.println(points + name);
                             }
                         }
@@ -67,7 +65,7 @@ public class Highscore implements FacebookConnector {
 
     /**
      *
-     * @return list of all highscores, TODO sorted by score
+     * @return descending sorted list of all highscores
      */
     @Override
     public List<Score> getHighScoreList() throws Exception {
@@ -81,14 +79,16 @@ public class Highscore implements FacebookConnector {
                 sList.add(s);
             }
         }
-
+        Collections.sort(sList);
         return sList;
     }
 
-    // TODO publish only, if score > 0
+    //publish only, if score > 0
     @Override
     public Integer publishHighScoreResult(Score score) {
-        facebookClient.publish(pageID + "/feed", FacebookType.class, Parameter.with("message", score.getFacebookPublicationString()));
+        if(score.getScoreResult() > 0) {
+            return Integer.valueOf(facebookClient.publish(pageID + "/feed", FacebookType.class, Parameter.with("message", score.getFacebookPublicationString())).getId());
+        }
         return null;
     }
 }

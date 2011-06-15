@@ -1,11 +1,16 @@
 package ewaMemory.memoryTable.beans;
 
+import FacebookConnector.Score;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 public class MemoryTable {
@@ -21,8 +26,9 @@ public class MemoryTable {
     private Map<String, Integer> attempts = new HashMap<String, Integer>();
     private long timeStart = (long) 0;
     private Map<String, Long> usersPlayTimeInSeconds = new HashMap<String, Long>();
+    private Map<String, Integer> ranking = new HashMap<String, Integer>();
+    private SortedSet<Score> allRankings = new TreeSet<Score>();
 
-    ;
     private int turnId = 0;
     private boolean gameHasStarted = false;
     private boolean gameOver;
@@ -206,6 +212,7 @@ public class MemoryTable {
         return 300 - (getPlayTimeInSeconds(username) / getPoints(username));
     }
 
+    //gets highscores from users
     public Map<String, Integer> getAllHighscores() {
         Map<String, Integer> scores = new HashMap<String, Integer>();
 
@@ -214,6 +221,33 @@ public class MemoryTable {
         }
 
         return scores;
+    }
+
+    public void setRanking(String username, int rank) {
+        ranking.put(username, rank);
+    }
+
+    public Integer getRanking(String username) {
+        return ranking.get(username);
+    }
+
+    /**
+     * requires descending sorted list
+     * @return list with top ten ranking
+     */
+    public List<Score> getTopTenRanking() {
+        List<Score> topScores = new ArrayList<Score>();
+        Iterator<Score> iter = allRankings.iterator();
+        int pos = 0;
+        while(iter.hasNext() && pos < 10) {
+            topScores.add(iter.next());
+            pos++;
+        }
+        return topScores;
+    }
+
+    public void setAllRankings(SortedSet<Score> ranking){
+        allRankings = ranking;
     }
 
     public int getDisplayWidth() {

@@ -61,6 +61,10 @@
                     </table>
                     <h2>#{msg.highscore}</h2>
                     <ul id="highscore">
+
+                        <ui:repeat value="#{memoryCtrl.memoryTable.topTenRanking}" var="score">
+                            
+                        </ui:repeat>
                         <li>Petra: 165 #{msg.points}</li>
                         <li>Manuel: 128 #{msg.points}</li>
                         <li>Lena: 115 #{msg.points}</li>

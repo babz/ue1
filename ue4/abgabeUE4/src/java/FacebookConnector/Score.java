@@ -1,6 +1,6 @@
 package FacebookConnector;
 
-public class Score {
+public class Score implements Comparable<Score> {
 
 	
 	private Integer scoreResult;
@@ -38,5 +38,10 @@ public class Score {
 	public String toString() {
 		return "Score [scoreResult=" + scoreResult + ", playerName=" + playerName + "]";
 	}
+
+    @Override
+    public int compareTo(Score s) {
+        return s.getScoreResult().compareTo(scoreResult);
+    }
 	
 }

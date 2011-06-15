@@ -77,7 +77,17 @@ public class MemoryCtrl {
         log.info("getOpponentPlayTime: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
         return getMemoryTable().getPlayTime(getOpponentUsername());
     }
+/*
+    public int getOwnHighscore() {
+        log.info("getOwnHighscore: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        return getMemoryTable().getHighscore(getUser().getUsername());
+    }
 
+    public int getOpponentHighscore() {
+        log.info("getOpponentHighscore: user is:"+getUser().getUsername()+"-  opponent is :" + getOpponentUsername());
+        return getMemoryTable().getHighscore(getOpponentUsername());
+    }
+*/
     public MemoryAPI getMemoryApi() {
         return memoryApi;
     }
