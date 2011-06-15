@@ -76,7 +76,7 @@
                                 <h2><h:outputText value="#{msg.gameLost}" rendered="#{memoryCtrl.gameLost}"/></h2>
                                 <h2><h:outputText value="#{msg.gameDraw}" rendered="#{memoryCtrl.gameDraw}"/></h2>
 
-                                <h2><h:outputText value="#{msg.yourScore} #{memoryCtrl.memoryTable.getHighscore(user.username)} #{msg.points}" /></h2>
+                                <h2><h:outputText value="#{msg.yourScore} #{memoryCtrl.memoryTable.getHighscore(user.username)}" /></h2>
                                 <h2><h:outputText value="#{msg.yourRank} #{memoryCtrl.memoryTable.getRanking(user.username)}" /></h2>
 
                                 <h:outputLabel for="stacksize" value="#{msg.stacksize}" styleClass="accessibility" />
