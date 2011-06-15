@@ -61,14 +61,9 @@
                     </table>
                     <h2>#{msg.highscore}</h2>
                     <ul id="highscore">
-
                         <ui:repeat value="#{memoryCtrl.memoryTable.topTenRanking}" var="score">
-                            
+                            <li>#{score.playerName}: #{score.scoreResult} #{msg.points}</li>
                         </ui:repeat>
-                        <li>Petra: 165 #{msg.points}</li>
-                        <li>Manuel: 128 #{msg.points}</li>
-                        <li>Lena: 115 #{msg.points}</li>
-                        <li>Andi: 99 #{msg.points}</li>
                     </ul>
                     <h:panelGroup rendered="#{!memoryCtrl.memoryTable.gameOver}">
                         <h2><h:outputText id="usernameTurn" value="#{msg.turn}: #{memoryCtrl.memoryTable.usernameTurn}" rendered="#{memoryCtrl.memoryTable.gameHasStarted}"/></h2>
@@ -80,6 +75,9 @@
                                 <h2><h:outputText value="#{msg.gameWon}" rendered="#{memoryCtrl.gameWon}"/></h2>
                                 <h2><h:outputText value="#{msg.gameLost}" rendered="#{memoryCtrl.gameLost}"/></h2>
                                 <h2><h:outputText value="#{msg.gameDraw}" rendered="#{memoryCtrl.gameDraw}"/></h2>
+
+                                <h2><h:outputText value="#{msg.yourScore} #{memoryCtrl.memoryTable.getHighscore(user.username)} #{msg.points}" /></h2>
+                                <h2><h:outputText value="#{msg.yourRank} #{memoryCtrl.memoryTable.getRanking(user.username)}" /></h2>
 
                                 <h:outputLabel for="stacksize" value="#{msg.stacksize}" styleClass="accessibility" />
                                 <h:selectOneMenu id="stacksize" value="#{memoryCtrl.user.stacksize}" >

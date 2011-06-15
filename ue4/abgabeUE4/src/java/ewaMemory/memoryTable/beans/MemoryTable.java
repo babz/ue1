@@ -27,7 +27,7 @@ public class MemoryTable {
     private long timeStart = (long) 0;
     private Map<String, Long> usersPlayTimeInSeconds = new HashMap<String, Long>();
     private Map<String, Integer> ranking = new HashMap<String, Integer>();
-    private SortedSet<Score> allRankings = new TreeSet<Score>();
+    private List<Score> allRankings = new ArrayList<Score>();
 
     private int turnId = 0;
     private boolean gameHasStarted = false;
@@ -204,7 +204,7 @@ public class MemoryTable {
         return outcome.get(username);
     }
 
-    private int getHighscore(String username) {
+    public int getHighscore(String username) {
         // x = 300 - (sec / pairs)
         if (getPoints(username) < 1) {
             return 0;
@@ -237,16 +237,13 @@ public class MemoryTable {
      */
     public List<Score> getTopTenRanking() {
         List<Score> topScores = new ArrayList<Score>();
-        Iterator<Score> iter = allRankings.iterator();
-        int pos = 0;
-        while(iter.hasNext() && pos < 10) {
-            topScores.add(iter.next());
-            pos++;
+        for (int i = 0; i < 10 && i < allRankings.size(); i++) {
+            topScores.add(allRankings.get(i));
         }
         return topScores;
     }
 
-    public void setAllRankings(SortedSet<Score> ranking){
+    public void setAllRankings(List<Score> ranking) {
         allRankings = ranking;
     }
 

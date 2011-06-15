@@ -33,11 +33,11 @@ import javax.faces.bean.ManagedBean;
 public class MemoryAPI {
 
     private static final Logger log = Logger.getLogger(MemoryAPI.class.getSimpleName());
-
     private Map<String, User> registeredUsers = new HashMap<String, User>();
 //    private Map<String, User> onlineUsers = new HashMap<String, User>();
     private List<Game> waitingGames = new ArrayList<Game>();
     private FlagService flagService;
+    private MyFacebookConnector facebook = new MyFacebookConnector();
 
     public MemoryAPI() {
         FlagServiceImplService serviceImpl = new FlagServiceImplService();
@@ -86,12 +86,11 @@ public class MemoryAPI {
     }
 
     public void publishHighscores(MemoryTable memory) {
-        MyFacebookConnector facebook = new MyFacebookConnector();
         Map<String, Integer> newHighscores = memory.getAllHighscores();
-        List<Score> updatedHighscores = new ArrayList<Score>();
-        
+        List<Score> updatedHighscores = null;
+
         //publish highscores on facebook
-        for(Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
+        for (Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
             facebook.publishHighScoreResult(new Score(scoreEntry.getValue(), scoreEntry.getKey()));
         }
 
@@ -101,18 +100,18 @@ public class MemoryAPI {
         } catch (Exception ex) {
             Logger.getLogger(MemoryAPI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        for(Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
+
+        for (Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
             Integer score = scoreEntry.getValue(); //highscore
             String user = scoreEntry.getKey(); //name
             int rank = 0;
             Integer currScore = 0;
-            for(Score s: updatedHighscores) {
-                if(s.getScoreResult() != currScore){
+            for (Score s : updatedHighscores) {
+                if (s.getScoreResult() != currScore) {
                     currScore = s.getScoreResult();
                     rank++;
                 }
-                if(score >= currScore) {
+                if (score >= currScore) {
                     memory.setRanking(user, rank);
                     break;
                 }
@@ -248,6 +247,11 @@ public class MemoryAPI {
             table = createMemoryTable(creator.getMemoryWidth(), creator.getMemoryHeight(), creator.getUsername(), user.getUsername(), defaultContinentIfNotSet(creator.getContinent()), creator.getStacksize());
             game.getCreatorControl().setMemoryTable(table);
             table.startGame();
+        }
+        try {
+            table.setAllRankings(facebook.getHighScoreList());
+        } catch (Exception ex) {
+            log.log(Level.SEVERE, null, ex);
         }
         return table;
     }
