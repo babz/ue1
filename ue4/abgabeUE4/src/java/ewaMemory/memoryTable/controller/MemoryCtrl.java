@@ -1,13 +1,18 @@
 package ewaMemory.memoryTable.controller;
 
+import ewaMemory.flagService.FlagServiceException;
+import ewaMemory.memoryTable.api.FacebookException;
 import ewaMemory.memoryTable.api.MemoryAPI;
 import ewaMemory.memoryTable.beans.MemoryTable;
 import ewaMemory.memoryTable.beans.Outcome;
 import ewaMemory.memoryTable.beans.User;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.icefaces.application.PushRenderer;
 
 @ManagedBean
@@ -34,15 +39,24 @@ public class MemoryCtrl {
     public void cardClicked(int x, int y) {
         log.info("(MemoryCtrl) cardClicked at (x,y): (" + x + "," + y + ")");
         if(getMemoryTable().isUserTurn(user.getUsername()) && getMemoryTable().isGameHasStarted()) {
-            memoryApi.clickOnCard(getMemoryTable(), x, y, user.getUsername());
+            try {
+                memoryApi.clickOnCard(getMemoryTable(), x, y, user.getUsername());
+            } catch (FacebookException ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection to Facebook failed", ex.getMessage()));
+            }
             updateGame();
         }
     }
 
     public String newGame() {
         log.info("starting new game. stacksize: " + user.getStacksize() + " continent: " + user.getContinent());
-
-        memoryTable = memoryApi.getGame(user, this);
+        try {
+            memoryTable = memoryApi.getGame(user, this);
+        } catch (FacebookException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection to Facebook failed", ex.getMessage()));
+        } catch (FlagServiceException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection to Flagservice failed", ex.getMessage()));
+        }
         updateGame();
 
         return "memoryTable.xhtml";

@@ -1,9 +1,7 @@
 package ewaMemory.memoryTable.beans;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 
 @ManagedBean
 @SessionScoped
@@ -102,14 +100,6 @@ public class User {
     public int getMemoryWidth() {
         return memoryWidth;
     }
-//
-//    /**
-//     * @param memoryWidth the memoryWidth to set
-//     */
-//    public void setMemoryWidth(int memoryWidth) {
-//        this.memoryWidth = memoryWidth;
-//    }
-//
 
     /**
      * @return the memoryHeight
@@ -117,13 +107,7 @@ public class User {
     public int getMemoryHeight() {
         return memoryHeight;
     }
-//
-//    /**
-//     * @param memoryHeight the memoryHeight to set
-//     */
-//    public void setMemoryHeight(int memoryHeight) {
-//        this.memoryHeight = memoryHeight;
-//    }
+
 
     public String getStacksize() {
         return memoryWidth + "x" + memoryHeight;

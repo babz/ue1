@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 
 import ewaMemory.memoryTable.beans.MemoryCard;
 import ewaMemory.memoryTable.beans.MemoryTable;
-import ewaMemory.memoryTable.beans.Outcome;
 import ewaMemory.memoryTable.beans.User;
 import ewaMemory.memoryTable.controller.MemoryCtrl;
 import java.util.HashMap;
@@ -43,10 +42,6 @@ public class MemoryAPI {
         FlagServiceImplService serviceImpl = new FlagServiceImplService();
         flagService = serviceImpl.getFlagServiceImplPort();
 
-        createAndAddUser("Franz", "12345abc");
-        createAndAddUser("Helga", "12345abc");
-        createAndAddUser("Hubsi", "12345abc");
-        createAndAddUser("Ylgal", "12345abc");
         log.info("MemoryAPI created!");
     }
 
@@ -85,7 +80,7 @@ public class MemoryAPI {
         return user;
     }
 
-    public void publishHighscores(MemoryTable memory) {
+    private void publishHighscores(MemoryTable memory) throws Exception {
         Map<String, Integer> newHighscores = memory.getAllHighscores();
         List<Score> updatedHighscores = null;
 
@@ -94,12 +89,8 @@ public class MemoryAPI {
             facebook.publishHighScoreResult(new Score(scoreEntry.getValue(), scoreEntry.getKey()));
         }
 
-        try {
-            //calculate ranking
-            updatedHighscores = facebook.getHighScoreList();
-        } catch (Exception ex) {
-            Logger.getLogger(MemoryAPI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //calculate ranking
+        updatedHighscores = facebook.getHighScoreList();
 
         for (Entry<String, Integer> scoreEntry : newHighscores.entrySet()) {
             Integer score = scoreEntry.getValue(); //highscore
@@ -119,7 +110,7 @@ public class MemoryAPI {
         }
     }
 
-    private MemoryTable createMemoryTable(int memoryWidth, int memoryHeight, String creatorName, String opponentName, String continent, String stacksize) {
+    private MemoryTable createMemoryTable(int memoryWidth, int memoryHeight, String creatorName, String opponentName, String continent, String stacksize) throws FlagServiceException {
         if (memoryHeight % 2 != 0 && memoryWidth % 2 != 0) {
             throw new IllegalArgumentException("both params odd!");
         }
@@ -153,7 +144,7 @@ public class MemoryAPI {
         return memory;
     }
 
-    public void clickOnCard(MemoryTable memory, int click_x, int click_y, String username) {
+    public void clickOnCard(MemoryTable memory, int click_x, int click_y, String username) throws FacebookException {
         log.info("clickOnCard at (x, y): (" + click_x + ", " + click_y + ")");
         MemoryCard card = memory.getRows().get(click_x).get(click_y);
 
@@ -189,7 +180,12 @@ public class MemoryAPI {
                 // game is over
                 memory.setGameOver(true);
                 memory.calulateOutcome();
-                publishHighscores(memory);
+                try {
+                    publishHighscores(memory);
+                } catch (Exception ex) {
+                    log.log(Level.SEVERE, null, ex);
+                    throw new FacebookException(ex);
+                }
             }
 
         } else {
@@ -207,11 +203,6 @@ public class MemoryAPI {
 //        return new ArrayList<User>(onlineUsers.values());
 //    }
 
-    /*
-     *
-     * Private Methods
-     *
-     */
     private void createAndAddUser(String name, String password) {
         log.info("Adding user " + name + ", password:" + password);
         User user = createUser(name, password);
@@ -231,7 +222,7 @@ public class MemoryAPI {
      * @param user
      * @return
      */
-    public MemoryTable getGame(User user, MemoryCtrl control) {
+    public MemoryTable getGame(User user, MemoryCtrl control) throws FacebookException, FlagServiceException {
         Game game;
         MemoryTable table;
         if (waitingGames.isEmpty()) {
@@ -252,11 +243,12 @@ public class MemoryAPI {
             table.setAllRankings(facebook.getHighScoreList());
         } catch (Exception ex) {
             log.log(Level.SEVERE, null, ex);
+            throw new FacebookException(ex);
         }
         return table;
     }
 
-    public List<String> getSupportedContinents() {
+    public List<String> getSupportedContinents() throws FlagServiceException {
         ArrayList<String> alist = new ArrayList<String>();
         try {
             for (String s : flagService.getSupportedContinents().getItem()) {
@@ -264,11 +256,12 @@ public class MemoryAPI {
             }
         } catch (FlagServiceException ex) {
             log.log(Level.SEVERE, null, ex);
+            throw ex;
         }
         return alist;
     }
 
-    public List<String> getSupportedGameSizes() {
+    public List<String> getSupportedGameSizes() throws FlagServiceException {
         ArrayList<String> alist = new ArrayList<String>();
         try {
             for (String s : flagService.getSupportedGameSize().getItem()) {
@@ -276,11 +269,12 @@ public class MemoryAPI {
             }
         } catch (FlagServiceException ex) {
             log.log(Level.SEVERE, null, ex);
+            throw ex;
         }
         return alist;
     }
 
-    private List<FlagInfo> getFlags(String continent, String currentGameSize) {
+    private List<FlagInfo> getFlags(String continent, String currentGameSize) throws FlagServiceException {
         ArrayList<FlagInfo> alist = new ArrayList<FlagInfo>();
 
         FlagRequest freq = new FlagRequest();
@@ -289,17 +283,17 @@ public class MemoryAPI {
         FlagResponse fres = null;
         try {
             fres = flagService.getFlags(freq);
-
             for (Flag f : fres.getFlags()) {
                 alist.add(new FlagInfo(f.getUrl(), f.getCountry()));
             }
         } catch (FlagServiceException ex) {
             log.log(Level.SEVERE, null, ex);
+            throw ex;
         }
         return alist;
     }
 
-    private String defaultContinentIfNotSet(String continent) {
+    private String defaultContinentIfNotSet(String continent) throws FlagServiceException {
         if (continent == null) {
             return getSupportedContinents().get(0);
         }

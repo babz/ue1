@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.logging.Logger;
 
 public class MemoryTable {
@@ -28,7 +25,6 @@ public class MemoryTable {
     private Map<String, Long> usersPlayTimeInSeconds = new HashMap<String, Long>();
     private Map<String, Integer> ranking = new HashMap<String, Integer>();
     private List<Score> allRankings = new ArrayList<Score>();
-
     private int turnId = 0;
     private boolean gameHasStarted = false;
     private boolean gameOver;
@@ -216,7 +212,7 @@ public class MemoryTable {
     public Map<String, Integer> getAllHighscores() {
         Map<String, Integer> scores = new HashMap<String, Integer>();
 
-        for(String username : users) {
+        for (String username : users) {
             scores.put(username, getHighscore(username));
         }
 

@@ -14,15 +14,11 @@ import com.restfb.types.Post;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author babz
- */
+
 public class MyFacebookConnector implements FacebookConnector {
 
     private static final Logger log = Logger.getLogger(MyFacebookConnector.class.getSimpleName());
@@ -36,9 +32,6 @@ public class MyFacebookConnector implements FacebookConnector {
 
     @Override
     public String getAccessToken() {
-//        FacebookClient.AccessToken token = new FacebookClient.AccessToken();
-        //"https://graph.facebook.com/oauth/access_token?client_id=182396081803634&client_secret=b78130a706117c79d717dd0baa936e0a&grant_type=client_credentials";
-        //return "182396081803634|3h5qK2yRAsDfm5m_IB2qLSwONiA";
         return "182396081803634|3h5qK2yRAsDfm5m_IB2qLSwONiA";
     }
 
@@ -110,21 +103,14 @@ public class MyFacebookConnector implements FacebookConnector {
 //        }
         Collections.sort(sList);
 
-
-
-
         return sList;
     }
-    //publish only, if score > 0
 
     @Override
-    public Integer publishHighScoreResult(Score score) {
+    public Integer publishHighScoreResult(Score score) throws Exception {
         if (score.getScoreResult() > 0) {
             facebookClient.publish(pageID + "/feed", FacebookType.class, Parameter.with("message", score.getFacebookPublicationString()));
         }
-
-
         return null;
-
     }
 }
